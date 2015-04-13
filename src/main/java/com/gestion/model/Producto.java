@@ -64,7 +64,8 @@ public class Producto extends BaseObject implements Serializable {
     }
 
 
-    @Column(length = 20)
+    @Column(nullable = false, length = 20, unique = true)
+    @Field
     public String getCodigo() {
         return this.codigo;
     }
@@ -77,6 +78,7 @@ public class Producto extends BaseObject implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;

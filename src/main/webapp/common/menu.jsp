@@ -12,7 +12,9 @@
     <menu:displayMenu name="UserMenu"/>
     <menu:displayMenu name="AdminMenu"/>
     <menu:displayMenu name="Nuevo"/>
+    <menu:displayMenu name="Importar"/>
     <menu:displayMenu name="Planificar"/>
+    <menu:displayMenu name="Historial"/>
     <menu:displayMenu name="Logout"/>
 </ul>
 </div>

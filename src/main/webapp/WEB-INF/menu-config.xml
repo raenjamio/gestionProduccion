@@ -6,8 +6,15 @@
     <Menus>
         <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="Nuevo" title="nuevo.user" description="Nuevo" page="/admin/productos" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="Nuevo" title="nuevo.user" description="Nuevo" page="/admin/productos" roles="ROLE_ADMIN,ROLE_USER">
+        	<Item name="Producto" title="menu.user.producto" page="/admin/productos"/>
+            <Item name="Necesidad" title="menu.user.necesidad" page="/admin/necesidad"/>
+        </Menu>
+        <Menu name="Importar" title="Importar.user" description="Importar" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER">
+            <Item name="Necesidad" title="menu.user.impNecesidad" page="/admin/necesidad"/>
+        </Menu>
         <Menu name="Planificar" title="planificar.user" description="Planificar" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="Historial" title="historial.user" description="Historial" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
