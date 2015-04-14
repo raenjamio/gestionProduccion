@@ -34,6 +34,11 @@ public class ProductoForm extends BasePage implements Serializable {
     private String id;
     private Producto producto = new Producto();
     private ProductoManager productoManager;
+    private String query;
+    
+    public ProductoForm() {
+        setSortColumn("codigo");
+    }
   
     public void setId(String id) {
         this.id = id;
@@ -108,7 +113,7 @@ public class ProductoForm extends BasePage implements Serializable {
             addMessage("producto.saved");
 
             // return to main Menu
-            return "home";
+            return "nuevoProducto";
         } else {
             // add success messages
             if ("".equals(getParameter("productoForm:version"))) {
@@ -141,8 +146,6 @@ public class ProductoForm extends BasePage implements Serializable {
 
         return "";
     }
-    
-    private String query;
 
     public void setQuery(String query) {
         this.query = query;

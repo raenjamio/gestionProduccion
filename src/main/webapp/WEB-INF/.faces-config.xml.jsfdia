@@ -100,5 +100,13 @@
  <PROCESS-ITEM NAME="rules:#nuevo#productoForm.xhtml"
   PATH="/nuevo/productoForm.xhtml" SHAPE="240,513,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#admin#producto.xhtml"
-  PATH="/admin/producto.xhtml" SHAPE="256,625,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/admin/producto.xhtml" SHAPE="256,625,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#admin#producto.xhtml:0" NAME="item"
+   PATH="/admin/producto.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::producto.xhtml" NAME="output"
+    PATH="producto.xhtml" TARGET="rules:producto.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:producto.xhtml" PATH="producto.xhtml"
+  SHAPE="464,609,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

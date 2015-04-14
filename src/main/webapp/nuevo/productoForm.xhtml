@@ -15,7 +15,7 @@
         <div class="col-sm-2">
             <h2>#{text['productoProfile.heading']}</h2>
             <c:choose>
-                <c:when test="${param.from == 'list' or empty productoForm.user.id}">
+                <c:when test="${param.from == 'list' or empty productoForm.producto.id}">
                     <h:outputText value="#{text['productoProfile.admin.message']}"/>
                 </c:when>
                 <c:otherwise><h:outputText value="#{text['productoProfile.message']}"/></c:otherwise>
@@ -24,13 +24,13 @@
         <div class="col-sm-7">
 
             <h:form id="productoForm" styleClass="well" autocomplete="off">
-                <h:inputHidden value="#{productoForm.user.id}" id="id"/>
+                <h:inputHidden value="#{productoForm.producto.id}" id="id"/>
 
                 <c:set var="addText" value="#{text['button.add']}"/>
 
                 <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="codigo" value="#{text['producto.codigo']}"/>
-                    <h:inputText styleClass="form-control" value="#{productoForm.user.codigo}" id="codigo" required="true"/>
+                    <h:inputText styleClass="form-control" value="#{productoForm.producto.codigo}" id="codigo" required="true"/>
                     <p:message for="codigo"/>
                 </div>
 
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <h:outputLabel styleClass="control-label" for="descripcion" value="#{text['producto.descripcion']}"/>
-                        <h:inputText styleClass="form-control" id="descripcion" value="#{productoForm.user.descripcion}" maxlength="50" required="true"/>
+                        <h:inputText styleClass="form-control" id="descripcion" value="#{productoForm.producto.descripcion}" maxlength="50" required="true"/>
                         <p:message for="descripcion"/>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import com.gestion.model.Producto;
+import com.gestion.model.Necesidad;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface NecesidadService {
      * @return List
      */
     @GET
-    List<Producto> getNecesidades();
+    List<Necesidad> getNecesidades();
 
     /**
      * Saves a user's information

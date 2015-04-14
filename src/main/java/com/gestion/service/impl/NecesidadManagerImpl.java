@@ -24,18 +24,18 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 
     @Autowired
     public NecesidadManagerImpl(NecesidadDAO dao) {
-        super(prodDao);
-        this.NecesidadDao = dao;
+        super(dao);
+        this.necesidadDao = dao;
     }
 
     @Autowired
     public void setNecesidadDao(final NecesidadDAO dao) {
     	this.dao = dao;
-        this.NecesidadDao = dao;
+        this.necesidadDao = dao;
     }
 
 	@Override
-	public Producto getNecesidad(String id) {
+	public Necesidad getNecesidad(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -48,7 +48,7 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 	}
 
 	@Override
-	public Necesidad saveProducto(Necesidad necesidad) {
+	public Necesidad saveNecesidad(Necesidad necesidad) {
 		return dao.save(necesidad);
 	}
 
