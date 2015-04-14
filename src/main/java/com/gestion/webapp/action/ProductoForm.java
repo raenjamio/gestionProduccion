@@ -76,7 +76,7 @@ public class ProductoForm extends BasePage implements Serializable {
 
     public String edit() {
         HttpServletRequest request = getRequest();
-
+        id = request.getParameter("id");
         // if a user's id is passed in
         if (id != null) {
             log.debug("Editing user, id is: " + id);

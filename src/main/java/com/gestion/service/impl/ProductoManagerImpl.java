@@ -39,7 +39,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 	@Override
 	public Producto getProducto(String prodId) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.get(new Long(prodId));
 	}
 
 	@Override
@@ -70,8 +70,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 	@Override
 	public void removeProducto(String prodId) {
 		// TODO Auto-generated method stub
-		Long i = null;
-		prodDao.remove(i);
+		prodDao.remove(new Long(prodId));
 	}
 
 	@Override
