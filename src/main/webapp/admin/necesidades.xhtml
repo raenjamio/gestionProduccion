@@ -56,26 +56,7 @@
                 </p:dataTable>
             </h:form>
             
-        </div>
-        
-        
-          
-<script type="text/javascript">  
-    function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
-            dialog = jQuery('#'+dialogName);
-        if(args.validationFailed) {  
-            dialog.effect("shake", { times:3 }, 100);  
-        } else {
-            clearForm(formName);
-            newProdDialog.hide(); 
-        }  
-    }
-    function clearForm(formName){
-        jQuery('#'+formName).each(function(){
-	        this.reset();
-	});
-    }
-</script>           
+        </div>          
           
     </ui:define>
 </ui:composition>

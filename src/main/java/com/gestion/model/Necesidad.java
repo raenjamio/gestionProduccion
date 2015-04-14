@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.search.annotations.Indexed;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "necesidades")
@@ -24,7 +25,9 @@ public class Necesidad extends BaseObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private Long prioridad;
+	private Integer cantidad;
 	private boolean finalizado;
+	private Date fechaCreacion;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,6 +79,21 @@ public class Necesidad extends BaseObject implements Serializable {
 		return 0;
 	}
 	
-	
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
 
 }
