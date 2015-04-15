@@ -60,6 +60,14 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>nuevoaNecesidad</from-outcome>
+            <to-view-id>/nuevo/necesidadForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 
     <navigation-rule>
         <from-view-id>/home.xhtml</from-view-id>
@@ -162,6 +170,16 @@
         <managed-property>
             <property-name>productoManager</property-name>
             <value>#{productoManager}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>necesidadForm</managed-bean-name>
+        <managed-bean-class>com.gestion.webapp.action.NecesidadForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>necesidadManager</property-name>
+            <value>#{necesidadManager}</value>
         </managed-property>
     </managed-bean>
 

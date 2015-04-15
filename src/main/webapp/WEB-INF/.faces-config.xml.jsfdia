@@ -17,8 +17,9 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#*:1" PATH="/*" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#*:1" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="home::#home.xhtml" NAME="output"
-    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="nuevoaNecesidad::#nuevo#necesidadForm.xhtml"
+    NAME="output" PATH="/nuevo/necesidadForm.xhtml"
+    TARGET="rules:#nuevo#necesidadForm.xhtml" TITLE="nuevoaNecesidad" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#userForm.xhtml" PATH="/userForm.xhtml"
@@ -92,9 +93,8 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#*:2" PATH="/*" SHAPE="32,609,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#*:2" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="editProfile::#userForm.xhtml" NAME="output"
-    PATH="/userForm.xhtml" TARGET="rules:#userForm.xhtml"
-    TITLE="editProfile" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="home::#home.xhtml" NAME="output"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#nuevo#productoForm.xhtml"
@@ -109,4 +109,13 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:producto.xhtml" PATH="producto.xhtml"
   SHAPE="464,609,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#*:3" PATH="/*" SHAPE="32,865,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:3" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editProfile::#userForm.xhtml" NAME="output"
+    PATH="/userForm.xhtml" TARGET="rules:#userForm.xhtml"
+    TITLE="editProfile" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nuevo#necesidadForm.xhtml"
+  PATH="/nuevo/necesidadForm.xhtml" SHAPE="240,769,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

@@ -151,7 +151,7 @@ public class NecesidadForm extends BasePage implements Serializable {
         return query;
     }
     
-    public List getProductos() {
+    public List getNecesidades() {
         try {
             return sort(necesidadManager.search(query));
         } catch (SearchException se) {

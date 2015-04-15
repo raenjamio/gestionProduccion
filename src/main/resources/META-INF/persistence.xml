@@ -6,6 +6,7 @@
         <class>com.gestion.model.User</class>
         <class>com.gestion.model.Role</class>
         <class>com.gestion.model.Producto</class>
+        <class>com.gestion.model.Necesidad</class>
     </persistence-unit>
 
     <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The

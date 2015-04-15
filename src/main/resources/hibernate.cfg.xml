@@ -9,5 +9,6 @@
         <mapping class="com.gestion.model.User"/>
         <mapping class="com.gestion.model.Role"/>
         <mapping class="com.gestion.model.Producto"/>
+        <mapping class="com.gestion.model.Necesidad"/>
     </session-factory>
 </hibernate-configuration>

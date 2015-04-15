@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.search.annotations.Indexed;
 
 import java.io.Serializable;
@@ -61,24 +63,6 @@ public class Necesidad extends BaseObject implements Serializable {
 	public Necesidad(){
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 	public Integer getCantidad() {
 		return cantidad;
 	}
@@ -94,6 +78,37 @@ public class Necesidad extends BaseObject implements Serializable {
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		  if (this == o) {
+	            return true;
+	        }
+	        if (!(o instanceof Necesidad)) {
+	            return false;
+	        }
+
+	        final Necesidad necesidad = (Necesidad) o;
+
+	        return !(id != null ? !id.equals(necesidad.id) : necesidad.id != null);
+	}
+
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        return (id != null ? id.hashCode() : 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+                .append(this.id)
+                .toString();
+    }
 
 
 }
