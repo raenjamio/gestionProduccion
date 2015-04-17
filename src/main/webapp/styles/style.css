@@ -32,21 +32,19 @@ body#login {
 /* Fix for dropdowns not working in IE: APF-1448 */
 .navbar { 
     filter:none !important; 
-    background-image: linear-gradient(#FFF, #E1E1E1 50%, #B3AFAF)
-	font-weight: bold;
 }
 
 .navbar-nav > li > a, .navbar-nav > li > a:hover {
     padding-top: 24px;
-
 }
 
-.navbar-header .collapse .navbar-collapse{
-
+div#menu{
+	background-image: linear-gradient(#FFF, #E1E1E1 50%, #B3AFAF);
+	font-weight: bold;
 }
 
 div#logo {
-	background-image: linear-gradient(#FFF, #E1E1E1 50%, #B3AFAF)
+	background-image: linear-gradient(#FFF, #E1E1E1 50%, #B3AFAF);
 }
 #switchLocale {
     position: absolute;

@@ -37,7 +37,7 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 	@Override
 	public Necesidad getNecesidad(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.get(new Long(id));
 	}
 
 	@Override

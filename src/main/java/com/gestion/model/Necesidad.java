@@ -2,9 +2,14 @@ package com.gestion.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,6 +35,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Integer cantidad;
 	private boolean finalizado;
 	private Date fechaCreacion;
+	private Producto producto;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +54,17 @@ public class Necesidad extends BaseObject implements Serializable {
 	public void setPrioridad(Long prioridad) {
 		this.prioridad = prioridad;
 	}
-	
+  
+	@OneToOne
+	@JoinColumn(name="id")
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
 	@Column(name = "finalizado")
 	public boolean getFinalizado() {
 		return finalizado;

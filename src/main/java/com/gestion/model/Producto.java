@@ -60,6 +60,7 @@ public class Producto extends BaseObject implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
     public Long getId() {
         return id;
     }
