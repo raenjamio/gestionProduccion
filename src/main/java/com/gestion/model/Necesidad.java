@@ -35,7 +35,6 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Integer cantidad;
 	private boolean finalizado;
 	private Date fechaCreacion;
-	private Producto producto;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,15 +54,6 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.prioridad = prioridad;
 	}
   
-	@OneToOne
-	@JoinColumn(name="id")
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
 
 	@Column(name = "finalizado")
 	public boolean getFinalizado() {

@@ -35,6 +35,7 @@ public class ProductoForm extends BasePage implements Serializable {
     private Producto producto = new Producto();
     private ProductoManager productoManager;
     private String query;
+    private NecesidadForm necesidadFrom;
     
     public ProductoForm() {
         setSortColumn("codigo");
@@ -61,6 +62,7 @@ public class ProductoForm extends BasePage implements Serializable {
         
         return "nuevoProducto";
     }
+	
 
     public String cancel() {
         if (log.isDebugEnabled()) {

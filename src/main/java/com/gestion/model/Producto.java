@@ -33,7 +33,8 @@ public class Producto extends BaseObject implements Serializable {
     private String codigo;
 	private String descripcion;
     private Long prioridad;
-
+	private Necesidad necesidad;
+	
     /**
      * Default constructor - creates a new instance with no values set.
      */
@@ -56,9 +57,19 @@ public class Producto extends BaseObject implements Serializable {
 	public void setPrioridad(Long prioridad) {
 		this.prioridad = prioridad;
 	}
+	
+	
+	@OneToOne
+	@JoinColumn(name="id", cascade={CascadeType.PERSIST, CascadeType.REMOVE}) 
+    public Necesidad getNecesidad() {
+		return necesidad;
+	}
 
+	public void setNecesidad(Necesidad necesidad) {
+		this.necesidad = necesidad;
+	}
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
     public Long getId() {

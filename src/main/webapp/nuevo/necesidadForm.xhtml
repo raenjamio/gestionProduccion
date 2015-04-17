@@ -22,7 +22,7 @@
             </c:choose>
         </div>
         
-         <div class="col-sm-10">
+ 		<div class="col-sm-7">
             <h2>#{text['prodList.heading']}</h2>
 
             <h:form id="searchForm" styleClass="form-inline">
@@ -33,12 +33,10 @@
                     <h:commandButton styleClass="btn btn-default btn-sm" action="#{productoForm.search}" value="#{text['button.search']}"/>
                 </div>
             </h:form>
-          </div>
-        
-        <div class="col-sm-7">
+       
                 
               <h:form id="productoForm" styleClass="well" autocomplete="off">
-        	    <p:dataTable id="productos" var="prod" value="#{productoForm.productos}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{productosForm.selectedProducto}" rowKey="#{prod.id}">
+        	    <p:dataTable id="productos" var="prod" value="#{productoForm.productos}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{necesidadForm.selectedProducto}" rowKey="#{prod.id}">
                              paginator="true" rows="25"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">

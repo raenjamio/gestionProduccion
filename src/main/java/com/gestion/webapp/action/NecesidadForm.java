@@ -103,7 +103,7 @@ public class NecesidadForm extends BasePage implements Serializable {
     public String save() throws IOException {
         // workaround for plain ol' HTML input tags that don't seem to set
         // properties on the managed bean
-
+    	//productoManager.getProducto(selectedProducto);
         // Check for Integers set to 0: happens in Tomcat, not in Jetty
         if (necesidad.getId() != null && necesidad.getId() == 0 ) {
         	necesidad.setId(null);
