@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['prodList.title']}</ui:define>
+    <ui:param name="menu" value="AdminMenu"/>
+
+    <ui:define name="body">
+        <div class="col-sm-10">
+            <h2>#{text['necesidadList.heading']}</h2>
+
+            <h:form id="searchForm" styleClass="form-inline">
+                <div id="search" class="text-right">
+                    <span class="col-sm-9">
+                        <h:inputText id="q" size="20" value="#{necesidadForm.query}" styleClass="form-control input-sm"/>
+                    </span>
+                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{necesidadForm.search}" value="#{text['button.search']}"/>
+                </div>
+            </h:form>
+
+            <h:form id="editUser">
+
+                <div id="actions" class="btn-group">
+                    <!-- <script> shows up here and causes square corners on the Add button below -->
+                    <h:commandButton action="#{necesidadForm.add}"  value="#{text['button.add']}" id="add"  styleClass="btn btn-primary">
+                        <f:param name="from" value="list"/>
+                    </h:commandButton>
+                    <h:commandButton value="#{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn btn-default">
+                    </h:commandButton>
+                </div>
+
+                <p:dataTable id="necesidades" var="necesidad" value="#{necesidadForm.necesidades}" sortBy="#{necesidadForm.sortColumn}"
+                             paginator="true" rows="25"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                             
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="codigo">
+                                <h:outputText value="#{text['producto.codigo']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:commandLink action="#{productoForm.edit}" value="#{prod.codigo}">
+                            <f:param name="id" value="#{prod.id}"/>
+                            <f:param name="from" value="list"/>
+                        </h:commandLink>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="descripcion">
+                                <h:outputText value="#{text['producto.descripcion']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{prod.descripcion}"/>
+                    </p:column>  
+                      
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="prioridad">
+                                <h:outputText value="#{text['necesidad.prioridad']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:commandLink action="#{necesidadForm.edit}" value="#{necesidad.id}">
+                            <f:param name="id" value="#{necesidad.id}"/>
+                            <f:param name="from" value="list"/>
+                        </h:commandLink>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="cantidad">
+                                <h:outputText value="#{text['necesidad.cantidad']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{necesidad.cantidad}"/>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="fechaCreacion">
+                                <h:outputText value="#{text['necesidad.fechaCreacion']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{necesidad.fechaCreacion}"/>
+                    </p:column>
+                   
+                </p:dataTable>
+            </h:form>
+            
+        </div>          
+          
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['productoProfile.title']}</ui:define>
+    <ui:param name="menu" value="UserMenu"/>
+
+    <ui:define name="body">
+        <c:set var="delObject" value="#{text['producto.user']}"/>
+        <script type="text/javascript">var msgDelConfirm =
+           "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+        </script>
+
+        <div class="col-sm-2">
+            <h2>#{text['impoArchivo.heading']}</h2>
+        </div>
+        <div class="col-sm-7">
+
+            <h:form id="impoArchivo" styleClass="well" autocomplete="off">
+            
+                <c:set var="addText" value="#{text['importar.add']}"/>
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        	<h:outputLabel styleClass="control-label" for="archivo" value="#{text['impoArchivo.seleccioneArchivo']}"/>
+                         	<p:growl id="messages" showDetail="true" />
+							<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                    </div>
+                </div>
+
+            </h:form>
+        </div>
+</ui:define>
+</ui:composition>
+</html>
