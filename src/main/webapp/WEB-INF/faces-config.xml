@@ -63,8 +63,25 @@
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>nuevoaNecesidad</from-outcome>
+            <from-outcome>nuevaNecesidad</from-outcome>
             <to-view-id>/nuevo/necesidadForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/necesidadForm.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>necesidades.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/necesidadForm.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/admin/necesidades.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     

@@ -3,6 +3,7 @@ package com.gestion.webapp.action;
 import com.gestion.Constants;
 import com.gestion.dao.SearchException;
 import com.gestion.model.Necesidad;
+import com.gestion.model.Producto;
 import com.gestion.service.NecesidadManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,12 +36,24 @@ public class NecesidadForm extends BasePage implements Serializable {
     private Necesidad necesidad = new Necesidad();
     private NecesidadManager necesidadManager;
     private String query;
+    private Producto selectedProducto;
     
     public NecesidadForm() {
         setSortColumn("prioridad");
     }
-  
-    public void setId(String id) {
+
+
+	public Producto getSelectedProducto() {
+		return selectedProducto;
+	}
+
+
+	public void setSelectedProducto(Producto selectedProducto) {
+		this.selectedProducto = selectedProducto;
+	}
+
+
+	public void setId(String id) {
         this.id = id;
     }
   
@@ -96,6 +110,7 @@ public class NecesidadForm extends BasePage implements Serializable {
         }
 
         try {
+        	necesidad.setFechaCreacion(new Date());
         	necesidad = necesidadManager.save(necesidad);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
@@ -109,7 +124,7 @@ public class NecesidadForm extends BasePage implements Serializable {
             addMessage("necesidad.saved");
 
             // return to main Menu
-            return "nuevaNecesidad";
+            return "necesidad";
         } else {
             // add success messages
             if ("".equals(getParameter("necesidadForm:version"))) {

@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['necesidadProfile.title']}</ui:define>
+    <ui:param name="menu" value="UserMenu"/>
+
+    <ui:define name="body">
+        <c:set var="delObject" value="#{text['necesidad.user']}"/>
+        <script type="text/javascript">var msgDelConfirm =
+           "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+        </script>
+
+        <div class="col-sm-2">
+            <h2>#{text['necesidadProfile.heading']}</h2>
+            <c:choose>
+                <c:when test="${param.from == 'list' or empty necesidadForm.necesidad.id}">
+                    <h:outputText value="#{text['necesidadProfile.admin.message']}"/>
+                </c:when>
+                <c:otherwise><h:outputText value="#{text['necesidadProfile.message']}"/></c:otherwise>
+            </c:choose>
+        </div>
+        
+         <div class="col-sm-10">
+            <h2>#{text['prodList.heading']}</h2>
+
+            <h:form id="searchForm" styleClass="form-inline">
+                <div id="search" class="text-right">
+                    <span class="col-sm-9">
+                        <h:inputText id="q" size="20" value="#{productoForm.query}" styleClass="form-control input-sm"/>
+                    </span>
+                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{productoForm.search}" value="#{text['button.search']}"/>
+                </div>
+            </h:form>
+          </div>
+        
+        <div class="col-sm-7">
+                
+              <h:form id="productoForm" styleClass="well" autocomplete="off">
+        	    <p:dataTable id="productos" var="prod" value="#{productoForm.productos}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{productosForm.selectedProducto}" rowKey="#{prod.id}">
+                             paginator="true" rows="25"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="codigo">
+                                <h:outputText value="#{text['producto.codigo']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{prod.codigo}"/>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="descripcion">
+                                <h:outputText value="#{text['producto.descripcion']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{prod.descripcion}"/>
+                    </p:column>
+                   
+                </p:dataTable>
+        	 </h:form>
+        
+
+            <h:form id="necesidadForm" styleClass="well" autocomplete="off">
+                <h:inputHidden value="#{necesidadForm.necesidad.id}" id="id"/>
+
+                <c:set var="addText" value="#{text['button.add']}"/>
+
+                <div class="form-group">
+                    <h:outputLabel styleClass="control-label" for="cantidad" value="#{text['necesidad.cantidad']}"/>
+                    <h:inputText styleClass="form-control" value="#{necesidadForm.necesidad.cantidad}" id="cantidad" required="true"/>
+                    <p:message for="cantidad"/>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <h:outputLabel styleClass="control-label" for="prioridad" value="#{text['necesidad.prioridad']}"/>
+                        <h:inputText styleClass="form-control" id="prioridad" value="#{necesidadForm.necesidad.prioridad}" required="true"/>
+                        <p:message for="prioridad"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group form-actions">
+                    <h:commandButton value="#{text['button.save']}" action="#{necesidadForm.save}" styleClass="btn btn-primary"/>
+
+                    <!-- Todo: hide this button when the user's id is not assigned. Wrapping it with <c:if test="${not empty userForm.user.id}"> or
+                         rendered="${not empty userForm.user.id}" causes this button to not call the delete() method in UserForm.  -->
+                    <h:commandButton value="#{text['button.delete']}" action="#{necesidadForm.delete}"
+                        styleClass="btn btn-default" onclick="return confirmMessage(msgDelConfirm)"/>
+
+                    <h:commandButton value="#{text['button.cancel']}" action="#{necesidadForm.cancel}" immediate="true"
+                        styleClass="btn btn-default"/>
+                </div>
+            </h:form>
+        </div>
+</ui:define>
+</ui:composition>
+</html>
