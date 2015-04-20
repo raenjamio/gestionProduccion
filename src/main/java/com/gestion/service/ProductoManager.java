@@ -74,6 +74,10 @@ public interface ProductoManager extends GenericManager<Producto, Long> {
      * @return a list of matches, or all if no searchTerm.
      */
     List<Producto> search(String searchTerm);
+    
+    List<Producto> getProductosByCodigo (String prodId);
+    
+    List<Producto> getProductosByCodigoSinNecesidad (String prodId);
 
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.

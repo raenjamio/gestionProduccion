@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import com.gestion.model.FileUpload;
 import com.gestion.model.Necesidad;
 
 import java.util.List;

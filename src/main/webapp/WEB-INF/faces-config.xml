@@ -39,26 +39,21 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/productoForm.xhtml</from-view-id>
+        <from-view-id>/nuevo/productoForm.xhtml</from-view-id>
         <navigation-case>
+        	<from-action>#{productoForm.save}</from-action>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/admin/producto.xhtml</to-view-id>
+            <to-view-id>/nuevo/productos.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
+        	<from-action>#{productoForm.save}</from-action>
             <from-outcome>list</from-outcome>
-            <to-view-id>/admin/producto.xhtml</to-view-id>
+            <to-view-id>/nuevo/productos.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
-     <navigation-rule>
-        <from-view-id>/admin/producto.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>producto.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
+
     
     <navigation-rule>
         <from-view-id>/*</from-view-id>
@@ -69,22 +64,20 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/necesidadForm.xhtml</from-view-id>
+        <from-view-id>/nuevo/necesidadForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>necesidades.xhtml</to-view-id>
+            <to-view-id>/nuevo/necesidades.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+        	<from-action>#{necesidadForm.save}</from-action>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/nuevo/necesidades.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
-     <navigation-rule>
-        <from-view-id>/necesidadForm.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/admin/necesidades.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    
+
 
     <navigation-rule>
         <from-view-id>/home.xhtml</from-view-id>
@@ -197,6 +190,16 @@
         <managed-property>
             <property-name>necesidadManager</property-name>
             <value>#{necesidadManager}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>fileNecesidadesForm</managed-bean-name>
+        <managed-bean-class>com.gestion.webapp.action.FileNecesidadesForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>fileNecesidadesManager</property-name>
+            <value>#{fileNecesidadesManager}</value>
         </managed-property>
     </managed-bean>
 

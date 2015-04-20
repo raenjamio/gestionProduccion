@@ -25,7 +25,8 @@
                     <div class="col-sm-6 form-group">
                         	<h:outputLabel styleClass="control-label" for="archivo" value="#{text['impoArchivo.seleccioneArchivo']}"/>
                          	<p:growl id="messages" showDetail="true" />
-							<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+							<p:fileUpload value="#{fileNecesidadesForm.file}" mode="simple" skinSimple="true"/>
+							 <h:commandButton   styleClass="btn btn-default" action="#{fileNecesidadesForm.importar}" value="Importar" />
                     </div>
                 </div>
 

@@ -45,7 +45,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 	@Override
 	public Producto getProductoByCodigo(String codigo)			throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		return prodDao.getProductoByCodigo(codigo);
 	}
 
 	@Override
@@ -76,7 +76,28 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 	@Override
 	public List<Producto> search(String searchTerm) {
 		// TODO Auto-generated method stub
-		return super.search(searchTerm, Producto.class);
+		//return super.search(searchTerm, Producto.class);
+		if  (searchTerm == null || "".equals(searchTerm.trim())) {
+			return super.search(searchTerm, Producto.class);
+        } else {
+        	List<Producto> productos = getProductosByCodigo(searchTerm);
+        	 if (productos == null) {
+        		 return super.search(searchTerm, Producto.class);
+        	 }
+        	return productos;
+        }
 	}
+
+	@Override
+	public List<Producto> getProductosByCodigo(String prodCod) {
+		// TODO Auto-generated method stub
+		return prodDao.getProductosByCodigo(prodCod);
+	}
+	
+	public List<Producto> getProductosByCodigoSinNecesidad(String prodCod) {
+		// TODO Auto-generated method stub
+		return prodDao.getProductosByCodigoSNecesidad(prodCod);
+	}
+	
 
 }

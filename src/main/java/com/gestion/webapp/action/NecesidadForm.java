@@ -37,6 +37,7 @@ public class NecesidadForm extends BasePage implements Serializable {
     private NecesidadManager necesidadManager;
     private String query;
     private Producto selectedProducto;
+    private ProductoForm productoForm = new ProductoForm();
     
     public NecesidadForm() {
         setSortColumn("prioridad");
@@ -71,7 +72,7 @@ public class NecesidadForm extends BasePage implements Serializable {
 	 
 	public String add() {
         necesidad = new Necesidad();
-        
+              
         return "nuevaNecesidad";
     }
 
@@ -105,6 +106,13 @@ public class NecesidadForm extends BasePage implements Serializable {
         // properties on the managed bean
     	//productoManager.getProducto(selectedProducto);
         // Check for Integers set to 0: happens in Tomcat, not in Jetty
+		if (selectedProducto != null) {
+			getNecesidad().setFechaCreacion(new Date());
+			selectedProducto.setNecesidad(getNecesidad());
+	        getNecesidad().setProducto(selectedProducto);
+		} else {
+			return "recargarNecesidades";  
+		}
         if (necesidad.getId() != null && necesidad.getId() == 0 ) {
         	necesidad.setId(null);
         }
@@ -124,7 +132,7 @@ public class NecesidadForm extends BasePage implements Serializable {
             addMessage("necesidad.saved");
 
             // return to main Menu
-            return "necesidad";
+            return "list";
         } else {
             // add success messages
             if ("".equals(getParameter("necesidadForm:version"))) {
@@ -138,7 +146,17 @@ public class NecesidadForm extends BasePage implements Serializable {
         }
     }
 
-    public String delete() {
+    public ProductoForm getProductoForm() {
+		return productoForm;
+	}
+
+
+	public void setProductoForm(ProductoForm productoForm) {
+		this.productoForm = productoForm;
+	}
+
+
+	public String delete() {
     	necesidadManager.remove(necesidad.getId());
         addMessage("necesidad.deleted", necesidad.getPrioridad());
 

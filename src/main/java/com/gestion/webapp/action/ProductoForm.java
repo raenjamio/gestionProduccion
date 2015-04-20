@@ -2,6 +2,7 @@ package com.gestion.webapp.action;
 
 import com.gestion.Constants;
 import com.gestion.dao.SearchException;
+import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 import com.gestion.service.ProductoManager;
 import com.gestion.service.RoleManager;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +37,8 @@ public class ProductoForm extends BasePage implements Serializable {
     private Producto producto = new Producto();
     private ProductoManager productoManager;
     private String query;
-    private NecesidadForm necesidadFrom;
+    //private NecesidadForm necesidadForm = new NecesidadForm();
+    private Producto selectedProducto;
     
     public ProductoForm() {
         setSortColumn("codigo");
@@ -62,6 +65,38 @@ public class ProductoForm extends BasePage implements Serializable {
         
         return "nuevoProducto";
     }
+	
+	public Producto getSelectedProducto() {
+		return selectedProducto;
+	}
+
+
+	public void setSelectedProducto(Producto selectedProducto) {
+		this.selectedProducto = selectedProducto;
+	}
+	
+/*	public String addNecesidad() throws IOException {
+		if (selectedProducto != null) {
+	        producto = selectedProducto;
+			necesidadForm.getNecesidad().setFechaCreacion(new Date());
+			producto.setNecesidad(necesidadForm.getNecesidad());
+	        necesidadForm.getNecesidad().setProducto(producto);
+			return this.save();
+		} else
+			return "";
+    }
+	
+	public NecesidadForm getNecesidadForm() {
+		return necesidadForm;
+	}
+
+	public void setNecesidadForm(NecesidadForm necesidadForm) {
+		this.necesidadForm = necesidadForm;
+	}
+*/
+	public ProductoManager getProductoManager() {
+		return productoManager;
+	}
 	
 
     public String cancel() {
@@ -115,7 +150,7 @@ public class ProductoForm extends BasePage implements Serializable {
             addMessage("producto.saved");
 
             // return to main Menu
-            return "nuevoProducto";
+            return "list";
         } else {
             // add success messages
             if ("".equals(getParameter("productoForm:version"))) {
@@ -165,6 +200,21 @@ public class ProductoForm extends BasePage implements Serializable {
             return sort(productoManager.search(query));
         }
     }
+    
+    public List getProductosSinNecesidad() {
+        try {
+        	List<Producto> productos = productoManager.getProductosByCodigoSinNecesidad(query);
+            	if (productos == null) {
+            		return null;
+            	} else {
+            		return sort(productos);
+            	}
+        } catch (SearchException se) {
+            addError(se.getMessage());
+            return sort(productoManager.search(query));
+        }
+    }
+    
 
     public String search() {
         return "success";

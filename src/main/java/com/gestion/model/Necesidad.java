@@ -1,5 +1,6 @@
 package com.gestion.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,12 +22,15 @@ import org.hibernate.search.annotations.Indexed;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.GenericGenerator;  
+import org.hibernate.annotations.Parameter;  
+
 @Entity
 @Table(name = "necesidades")
 @Indexed
 @XmlRootElement
 public class Necesidad extends BaseObject implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -35,9 +40,15 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Integer cantidad;
 	private boolean finalizado;
 	private Date fechaCreacion;
+	private Producto producto;
+	
 
-    @Id
+    @Id  
+    @Column(name="id") 
     @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(generator="gen")  
+    //@GenericGenerator(name="gen", strategy="foreign",   
+    //parameters=@Parameter(name="property", value="producto"))  
 	public Long getId() {
 		return id;
 	}
@@ -45,6 +56,18 @@ public class Necesidad extends BaseObject implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	//@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(mappedBy="necesidad", cascade=CascadeType.ALL)
+	//@PrimaryKeyJoinColumn
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
 
 	public Long getPrioridad() {
 		return prioridad;

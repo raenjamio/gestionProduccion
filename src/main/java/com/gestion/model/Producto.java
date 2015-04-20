@@ -5,11 +5,15 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -57,10 +61,18 @@ public class Producto extends BaseObject implements Serializable {
 	public void setPrioridad(Long prioridad) {
 		this.prioridad = prioridad;
 	}
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+    public Long getId() {
+        return id;
+    }
 	
-	
-	@OneToOne
-	@JoinColumn(name="id", cascade={CascadeType.PERSIST, CascadeType.REMOVE}) 
+	//@OneToOne (mappedBy="producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn //(name="producto_id", unique= true, nullable=true, insertable=true, updatable=true)
+	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name="id")
     public Necesidad getNecesidad() {
 		return necesidad;
 	}
@@ -69,15 +81,8 @@ public class Producto extends BaseObject implements Serializable {
 		this.necesidad = necesidad;
 	}
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-    public Long getId() {
-        return id;
-    }
 
-
-    @Column(nullable = false, length = 20, unique = true)
+    @Column (nullable = false, length = 20, unique = true)
     @Field
     public String getCodigo() {
         return this.codigo;

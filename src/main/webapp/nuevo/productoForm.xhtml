@@ -24,6 +24,11 @@
         <div class="col-sm-7">
 
             <h:form id="productoForm" styleClass="well" autocomplete="off">
+            <script type="text/javascript">
+				function limpiarForm()
+				{                        document.getElementById("productoForm").reset();
+				}
+				</script>
                 <h:inputHidden value="#{productoForm.producto.id}" id="id"/>
 
                 <c:set var="addText" value="#{text['button.add']}"/>
@@ -45,7 +50,7 @@
 
 
                 <div class="form-group form-actions">
-                    <h:commandButton value="#{text['button.save']}" action="#{productoForm.save}" styleClass="btn btn-primary"/>
+                    <h:commandButton value="#{text['button.save']}" oncomplete="limpiarForm()" action="#{productoForm.save}" styleClass="btn btn-primary"/>
 
                     <!-- Todo: hide this button when the user's id is not assigned. Wrapping it with <c:if test="${not empty userForm.user.id}"> or
                          rendered="${not empty userForm.user.id}" causes this button to not call the delete() method in UserForm.  -->

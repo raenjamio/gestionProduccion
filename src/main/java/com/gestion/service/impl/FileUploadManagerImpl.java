@@ -59,6 +59,12 @@ public class FileUploadManagerImpl extends GenericManagerImpl<FileUpload, Long> 
 		
 	}
 
+	@Override
+	public FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

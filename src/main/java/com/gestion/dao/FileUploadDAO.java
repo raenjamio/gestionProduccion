@@ -6,10 +6,10 @@ import com.gestion.model.FileUpload;
 
 public interface FileUploadDAO  extends GenericDao<FileUpload, Long>{
 	
-	FileUpload saveFileUpload(FileUpload necesidad);
+	FileUpload saveFileUpload(FileUpload file);
 	 
-	FileUpload deleteFileUpload(FileUpload necesidad);
+	FileUpload deleteFileUpload(FileUpload file);
 	 
-	FileUpload updateFileUpload(FileUpload necesidad);
+	FileUpload updateFileUpload(FileUpload file);
 
 }

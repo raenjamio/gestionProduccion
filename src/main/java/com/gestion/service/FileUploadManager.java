@@ -4,6 +4,9 @@ package com.gestion.service;
 
 import java.util.List;
 
+import com.gestion.dao.FileUploadDAO;
+import com.gestion.model.FileUpload;
+
 
 /**
  * Business Service Interface to handle communication between web and
@@ -20,16 +23,16 @@ public interface FileUploadManager extends GenericManager<FileUpload, Long> {
     void setFileUploadDao(FileUploadDAO uploadDAO);
 
     
-    Necesidad getFileUpload(String id);
+    FileUpload getFileUpload(String id);
 
     /**
      * Retrieves a list of all users.
      * @return List
      */
-    List<Necesidad> getFilesUploads();
+    List<FileUpload> getFilesUploads();
 
 
-    Necesidad saveFileUpload(FileUpload fupload);
+    FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file);
 
     /**
      * Removes a user from the database
@@ -37,6 +40,9 @@ public interface FileUploadManager extends GenericManager<FileUpload, Long> {
      * @param user the user to remove
      */
     void removeFileUpload(FileUpload fupload);
+
+
+	FileUpload saveFileUpload(FileUpload fileUpload);
 
 
 

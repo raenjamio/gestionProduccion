@@ -36,8 +36,8 @@
        
                 
               <h:form id="productoForm" styleClass="well" autocomplete="off">
-        	    <p:dataTable id="productos" var="prod" value="#{productoForm.productos}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{necesidadForm.selectedProducto}" rowKey="#{prod.id}">
-                             paginator="true" rows="25"
+        	    <p:dataTable id="productos" var="prod" value="#{productoForm.productosSinNecesidad}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{necesidadForm.selectedProducto}" rowKey="#{prod.id}"
+                             paginator="true" rows="15"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
                     <p:column style="width: 25%">
@@ -58,10 +58,7 @@
                     </p:column>
                    
                 </p:dataTable>
-        	 </h:form>
         
-
-            <h:form id="necesidadForm" styleClass="well" autocomplete="off">
                 <h:inputHidden value="#{necesidadForm.necesidad.id}" id="id"/>
 
                 <c:set var="addText" value="#{text['button.add']}"/>

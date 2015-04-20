@@ -54,6 +54,15 @@ public class ProductoDaoHibernate extends GenericDaoHibernate<Producto, Long> im
             return (Producto) productos.get(0);
         }
 	 }
+	 
+	 public List<Producto> getProductosByCodigo(String prodCod) { 
+	        List<Producto> productos = getSession().createCriteria(Producto.class).add(Restrictions.like("codigo","%"+prodCod+"%")).list();
+	        if (productos.isEmpty()) {
+	            return null;
+	        } else {
+	            return productos;
+	        }
+		 }
 
 	@Override
 	public Producto deleteProduto(Producto prod) {
@@ -68,6 +77,23 @@ public class ProductoDaoHibernate extends GenericDaoHibernate<Producto, Long> im
 	public Producto updateProduto(Producto prod) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Producto> getProductosByCodigoSNecesidad(String prodCod) {
+		// TODO Auto-generated method stub
+		List<Producto> productos;
+		if (prodCod == null) {
+			productos = getSession().createCriteria(Producto.class).add(Restrictions.isNull("necesidad")).list();
+		} else {
+			productos = getSession().createCriteria(Producto.class).add(Restrictions.like("codigo","%"+prodCod+"%")).add(Restrictions.eq("necesidad", null)).list();
+		}
+		if (productos.isEmpty()) {
+            return null;
+        } else {
+            return productos;
+        }
+		
 	}
 
    
