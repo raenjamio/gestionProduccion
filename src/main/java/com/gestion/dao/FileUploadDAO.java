@@ -11,5 +11,6 @@ public interface FileUploadDAO  extends GenericDao<FileUpload, Long>{
 	FileUpload deleteFileUpload(FileUpload file);
 	 
 	FileUpload updateFileUpload(FileUpload file);
-
+	
+	FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file);
 }

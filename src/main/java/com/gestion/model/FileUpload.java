@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
+import org.primefaces.model.UploadedFile;
 
 @Entity
 @Table(name = "head_file_upload")
@@ -22,6 +23,8 @@ public class FileUpload extends BaseObject implements Serializable {
     private Date fechaImpo;
     private String usuario;
     private List<Necesidad> necesidades;
+    private List<Producto> productos;
+    private UploadedFile file;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,6 +49,12 @@ public class FileUpload extends BaseObject implements Serializable {
 	public String getUsuario() {
 		return usuario;
 	}
+	public List<Producto> getProductos() {
+		return productos;
+	}
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
@@ -63,6 +72,18 @@ public class FileUpload extends BaseObject implements Serializable {
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public List<Necesidad> getNecesidades() {
+		return necesidades;
+	}
+	public void setNecesidades(List<Necesidad> necesidades) {
+		this.necesidades = necesidades;
+	}
+	public UploadedFile getFile() {
+		return file;
+	}
+	public void setFile(UploadedFile file) {
+		this.file = file;
 	}
     
     

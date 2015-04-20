@@ -7,7 +7,19 @@ import org.springframework.stereotype.Service;
 import com.gestion.dao.FileUploadDAO;
 import com.gestion.model.FileUpload;
 import com.gestion.service.FileUploadManager;
+import com.gestion.webapp.action.Calendar;
+import com.gestion.webapp.action.Cell;
+import com.gestion.webapp.action.FacesMessage;
+import com.gestion.webapp.action.GregorianCalendar;
+import com.gestion.webapp.action.HSSFSheet;
+import com.gestion.webapp.action.HSSFWorkbook;
+import com.gestion.webapp.action.Iterator;
+import com.gestion.webapp.action.Job;
+import com.gestion.webapp.action.Row;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -62,6 +74,8 @@ public class FileUploadManagerImpl extends GenericManagerImpl<FileUpload, Long> 
 	@Override
 	public FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file) {
 		// TODO Auto-generated method stub
+		return dao.save(file);
+		
 		return null;
 	}
 
