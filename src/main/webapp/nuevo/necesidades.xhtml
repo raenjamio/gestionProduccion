@@ -30,21 +30,22 @@
                 </div>
 
                 <p:dataTable id="necesidades" var="necesidad" value="#{necesidadForm.necesidades}" sortBy="#{necesidadForm.sortColumn}"
-                             paginator="true" rows="25"
+                             paginator="true" rows="15"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
-                    <p:column style="width: 25%">
+
+                    <p:column style="width: 15%">
                         <f:facet name="header">
                             <p:column sortBy="prioridad">
                                 <h:outputText value="#{text['necesidad.prioridad']}"/>
                             </p:column>
                         </f:facet>
-                        <h:commandLink action="#{necesidadForm.edit}" value="#{necesidad.id}">
-                            <f:param name="id" value="#{necesidad.id}"/>
+                        <h:commandLink action="#{necesidadForm.edit}" value="#{necesidad.prioridad}">
+                            <f:param name="id" value="#{necesidad.prioridad}"/>
                             <f:param name="from" value="list"/>
                         </h:commandLink>
                     </p:column>
-                    <p:column style="width: 34%">
+                    <p:column style="width: 24%">
                         <f:facet name="header">
                             <p:column sortBy="cantidad">
                                 <h:outputText value="#{text['necesidad.cantidad']}"/>

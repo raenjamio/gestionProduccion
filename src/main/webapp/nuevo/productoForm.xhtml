@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="codigo" value="#{text['producto.codigo']}"/>
-                    <h:inputText styleClass="form-control" value="#{productoForm.producto.codigo}" id="codigo" required="true"/>
+                    <h:inputText styleClass="form-control" value="#{productoForm.producto.codigo}" id="codigo" required="true" disabled="#{not(empty productoForm.producto.codigo)}"/>
                     <p:message for="codigo"/>
                 </div>
 
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <h:outputLabel styleClass="control-label" for="descripcion" value="#{text['producto.descripcion']}"/>
-                        <h:inputText styleClass="form-control" id="descripcion" value="#{productoForm.producto.descripcion}" maxlength="50" required="true"/>
+                        <h:inputText styleClass="form-control" id="descripcion" value="#{productoForm.producto.descripcion}" maxlength="50" required="true" disabled="#{not(empty productoForm.producto.descripcion)}"/>
                         <p:message for="descripcion"/>
                     </div>
                 </div>

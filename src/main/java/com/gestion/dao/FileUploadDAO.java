@@ -1,6 +1,8 @@
 package com.gestion.dao;
 
 
+import org.primefaces.model.UploadedFile;
+
 import com.gestion.model.FileUpload;
 
 
@@ -12,5 +14,5 @@ public interface FileUploadDAO  extends GenericDao<FileUpload, Long>{
 	 
 	FileUpload updateFileUpload(FileUpload file);
 	
-	FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file);
+	UploadedFile saveFileUpload(UploadedFile file);
 }

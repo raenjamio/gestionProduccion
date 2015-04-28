@@ -2,6 +2,7 @@ package com.gestion.webapp.action;
 
 import com.gestion.Constants;
 import com.gestion.dao.SearchException;
+import com.gestion.model.Estado;
 import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 import com.gestion.service.NecesidadManager;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,10 +40,24 @@ public class NecesidadForm extends BasePage implements Serializable {
     private String query;
     private Producto selectedProducto;
     private ProductoForm productoForm = new ProductoForm();
+    private Necesidad selectedNecesidad = new Necesidad();
+    private EstadoForm estadoForm = new EstadoForm();
     
     public NecesidadForm() {
         setSortColumn("prioridad");
     }
+    
+
+	public Necesidad getSelectedNecesidad() {
+		return selectedNecesidad;
+	}
+
+
+
+	public void setSelectedNecesidad(Necesidad selectedNecesidad) {
+		this.selectedNecesidad = selectedNecesidad;
+	}
+
 
 
 	public Producto getSelectedProducto() {
@@ -118,7 +134,10 @@ public class NecesidadForm extends BasePage implements Serializable {
         }
 
         try {
-        	necesidad.setFechaCreacion(new Date());
+        	if (necesidad.getId() != null && necesidad.getId() > 0) {
+        		necesidad.setFechaCreacion(new Date());
+        		necesidad.setEstados(null);
+        	}
         	necesidad = necesidadManager.save(necesidad);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
@@ -196,6 +215,42 @@ public class NecesidadForm extends BasePage implements Serializable {
     public String search() {
         return "success";
     }
+    
+	public String getEstadoSoldado() {
+		Iterator<Estado> estadosI = necesidad.getEstados().iterator();
+		
+		while(estadosI.hasNext()) {
+	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("MAT_FIN")){
+	        	 return "Finalizado";
+	         }
+	    }
+		return "";
+	}
+	
+	public String getEstadoPintado() {
+		Iterator<Estado> estadosI = necesidad.getEstados().iterator();
+		
+		while(estadosI.hasNext()) {
+	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("PIN_FIN")){
+	        	 return "Finalizado";
+	         }
+	    }
+		return "";
+	}
+	
+	public String getEstadoSoldadura() {
+		Iterator<Estado> estadosI = necesidad.getEstados().iterator();
+		
+		while(estadosI.hasNext()) {
+	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("SOL_FIN")){
+	        	 return "Finalizado";
+	         }
+	    }
+		return "";
+	}
 
 
 }

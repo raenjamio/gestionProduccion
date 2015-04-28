@@ -3,6 +3,7 @@ package com.gestion.webapp.action;
 import com.gestion.Constants;
 import com.gestion.dao.SearchException;
 import com.gestion.model.Estado;
+import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 import com.gestion.service.EstadoManager;
 import com.gestion.util.ConvertUtil;
@@ -41,14 +42,31 @@ public class EstadoForm extends BasePage implements Serializable {
     public EstadoForm() {
         setSortColumn("id");
     }
+    
+    public String add() {
+        estado = new Estado();
+              
+        return "nuevoEstado";
+    }
 
 	public void setId(String id) {
         this.id = id;
     }
   
-  
 
-    public String cancel() {
+    public String getId() {
+		return id;
+	}
+
+	public EstadoManager getEstadoManager() {
+		return estadoManager;
+	}
+
+	public void setEstadoManager(EstadoManager estadoManager) {
+		this.estadoManager = estadoManager;
+	}
+
+	public String cancel() {
         if (log.isDebugEnabled()) {
             log.debug("Entering 'cancel' method");
         }
@@ -110,8 +128,16 @@ public class EstadoForm extends BasePage implements Serializable {
             }
         }
     }
-
+    
   
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	public String delete() {
     	estadoManager.remove(estado.getId());
         addMessage("Estado.deleted", estado.getDescripcion());
@@ -138,6 +164,10 @@ public class EstadoForm extends BasePage implements Serializable {
 
     public String getQuery() {
         return query;
+    }
+    
+    public Estado getEstadoInicial() {
+    	return estadoManager.getEstado("1");
     }
     
     public List getEstados() {

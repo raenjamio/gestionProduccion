@@ -15,7 +15,7 @@
         <div class="col-sm-2">
             <h2>#{text['necesidadProfile.heading']}</h2>
             <c:choose>
-                <c:when test="${param.from == 'list' or empty necesidadForm.necesidad.id}">
+                <c:when test="${param.from == 'list' or empty necesidadForm.selectedNecesidad.id}">
                     <h:outputText value="#{text['necesidadProfile.admin.message']}"/>
                 </c:when>
                 <c:otherwise><h:outputText value="#{text['necesidadProfile.message']}"/></c:otherwise>
@@ -65,7 +65,7 @@
 
                 <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="cantidad" value="#{text['necesidad.cantidad']}"/>
-                    <h:inputText styleClass="form-control" value="#{necesidadForm.necesidad.cantidad}" id="cantidad" required="true"/>
+                    <h:inputText styleClass="form-control" value="#{necesidadForm.necesidad.cantidad}" id="cantidad" required="true" disabled="#{not(empty necesidadForm.necesidad.cantidad)}"/>
                     <p:message for="cantidad"/>
                 </div>
 
@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <h:outputLabel styleClass="control-label" for="prioridad" value="#{text['necesidad.prioridad']}"/>
-                        <h:inputText styleClass="form-control" id="prioridad" value="#{necesidadForm.necesidad.prioridad}" required="true"/>
+                        <h:inputText styleClass="form-control" id="prioridad" value="#{necesidadForm.necesidad.prioridad}" required="false" disabled="#{not(empty necesidadForm.necesidad.cantidad)}"/>
                         <p:message for="prioridad"/>
                     </div>
                 </div>

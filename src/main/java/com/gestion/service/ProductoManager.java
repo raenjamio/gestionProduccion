@@ -2,6 +2,8 @@ package com.gestion.service;
 
 import com.gestion.dao.ProductoDAO;
 import com.gestion.model.Producto;
+
+import org.primefaces.model.UploadedFile;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
@@ -78,16 +80,11 @@ public interface ProductoManager extends GenericManager<Producto, Long> {
     List<Producto> getProductosByCodigo (String prodId);
     
     List<Producto> getProductosByCodigoSinNecesidad (String prodId);
-
-    /**
-     * Builds a recovery password url by replacing placeholders with username and generated recovery token.
-     * 
-     * UrlTemplate should include two placeholders '{username}' for username and '{token}' for the recovery token.
-     * 
-     * @param user
-     * @param urlTemplateurl
-     *            template including two placeholders '{username}' and '{token}'
-     * @return
-     */
+    
+    List<Producto> getProductosExcel(UploadedFile file);
+    
+    Long getCantInsertados() ;
+    Long getCantActualizados();
+    Long getCantBorrados();
 
  }

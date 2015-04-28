@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-@Service("EstadoManager")
+@Service("estadoManager")
 public class EstadoManagerImpl extends GenericManagerImpl<Estado, Long> implements EstadoManager {
 	
     private EstadoDAO EstadoDao;

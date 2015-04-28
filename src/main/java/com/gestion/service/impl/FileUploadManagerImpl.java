@@ -1,21 +1,14 @@
 package com.gestion.service.impl;
 
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gestion.dao.FileUploadDAO;
 import com.gestion.model.FileUpload;
+import com.gestion.model.Necesidad;
 import com.gestion.service.FileUploadManager;
-import com.gestion.webapp.action.Calendar;
-import com.gestion.webapp.action.Cell;
-import com.gestion.webapp.action.FacesMessage;
-import com.gestion.webapp.action.GregorianCalendar;
-import com.gestion.webapp.action.HSSFSheet;
-import com.gestion.webapp.action.HSSFWorkbook;
-import com.gestion.webapp.action.Iterator;
-import com.gestion.webapp.action.Job;
-import com.gestion.webapp.action.Row;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,22 +21,22 @@ import java.util.List;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-@Service("FileUploadManager")
+@Service("fileUploadManager")
 public class FileUploadManagerImpl extends GenericManagerImpl<FileUpload, Long> implements FileUploadManager {
 	
-    private FileUploadDAO FileUploadDao;
+    private FileUploadDAO fileUploadDao;
     
 
     @Autowired
     public FileUploadManagerImpl(FileUploadDAO dao) {
         super(dao);
-        this.FileUploadDao = dao;
+        this.fileUploadDao = dao;
     }
 
     @Autowired
     public void setFileUploadDao(final FileUploadDAO dao) {
     	this.dao = dao;
-        this.FileUploadDao = dao;
+        this.fileUploadDao = dao;
     }
 
 	@Override
@@ -59,10 +52,10 @@ public class FileUploadManagerImpl extends GenericManagerImpl<FileUpload, Long> 
 		return null;
 	}
 
-	@Override
-	public FileUpload saveFileUpload (FileUpload fileUpload) {
-		return dao.save(fileUpload);
-	}
+	//@Override
+	//public FileUpload saveFileUpload (FileUpload fileUpload) {
+	//	return dao.save(fileUpload);
+	//}
 
 	@Override
 	public void removeFileUpload (FileUpload fileUpload) {
@@ -71,12 +64,24 @@ public class FileUploadManagerImpl extends GenericManagerImpl<FileUpload, Long> 
 		
 	}
 
+
+
 	@Override
-	public FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file) {
+	public UploadedFile saveFileUpload(UploadedFile fileUpload) {
+		// TODO Auto-generated method stub
+		return fileUploadDao.saveFileUpload(fileUpload);
+	}
+
+	@Override
+	public FileUpload saveFileUpload(FileUpload file) {
 		// TODO Auto-generated method stub
 		return dao.save(file);
-		
-		return null;
+	}
+
+	@Override
+	public List<FileUpload> search(String searchTerm) {
+		// TODO Auto-generated method stub
+		return super.search(searchTerm, FileUpload.class);
 	}
 
 

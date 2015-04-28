@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
@@ -22,9 +26,13 @@ public class FileUpload extends BaseObject implements Serializable {
     private String nombreArchivo;
     private Date fechaImpo;
     private String usuario;
-    private List<Necesidad> necesidades;
     private List<Producto> productos;
-    private UploadedFile file;
+    private Long cantInsertados;
+    private Long cantActualizados;
+    private Long cantBorrados;
+   
+    public FileUpload() {
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,44 +57,67 @@ public class FileUpload extends BaseObject implements Serializable {
 	public String getUsuario() {
 		return usuario;
 	}
-	public List<Producto> getProductos() {
-		return productos;
-	}
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
+
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.nombreArchivo;
 	}
 	@Override
 	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		 if (this == o) {
+	            return true;
+	        }
+	        if (!(o instanceof FileUpload)) {
+	            return false;
+	        }
+
+	        final FileUpload file = (FileUpload) o;
+
+	        return !(id != null ? !id.equals(file.id) : file.id != null);
 	}
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return 0;
+		 return (id != null ? id.hashCode() : 0);
 	}
-	public List<Necesidad> getNecesidades() {
-		return necesidades;
+	
+	@OneToMany (fetch=FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="fileUploadHeader")
+	public List<Producto> getProductos() {
+		return productos;
 	}
-	public void setNecesidades(List<Necesidad> necesidades) {
-		this.necesidades = necesidades;
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
 	}
-	public UploadedFile getFile() {
-		return file;
+
+	public Long getCantInsertados() {
+		return cantInsertados;
 	}
-	public void setFile(UploadedFile file) {
-		this.file = file;
+
+	public void setCantInsertados(Long cantInsertados) {
+		this.cantInsertados = cantInsertados;
 	}
-    
-    
+
+	public Long getCantActualizados() {
+		return cantActualizados;
+	}
+
+	public void setCantActualizados(Long cantActualizados) {
+		this.cantActualizados = cantActualizados;
+	}
+
+	public Long getCantBorrados() {
+		return cantBorrados;
+	}
+
+	public void setCantBorrados(Long cantBorrados) {
+		this.cantBorrados = cantBorrados;
+	}
+	
+	
     
 
 }

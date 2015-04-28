@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,7 +29,7 @@ import java.io.Serializable;
  *         by David Carter david@carter.net
  */
 @Entity
-@Table(name = "producto")
+@Table(name = "productos")
 @Indexed
 @XmlRootElement
 public class Producto extends BaseObject implements Serializable {
@@ -38,6 +39,7 @@ public class Producto extends BaseObject implements Serializable {
 	private String descripcion;
     private Long prioridad;
 	private Necesidad necesidad;
+	private FileUpload fileUploadHeader;
 	
     /**
      * Default constructor - creates a new instance with no values set.
@@ -105,8 +107,19 @@ public class Producto extends BaseObject implements Serializable {
     public void setDescripcion(String description) {
         this.descripcion = description;
     }
+    
+    
+	@ManyToOne//(cascade=CascadeType.ALL)
+	@JoinColumn(nullable = true)
+    public FileUpload getFileUploadHeader() {
+		return fileUploadHeader;
+	}
 
-    /**
+	public void setFileUploadHeader(FileUpload fileUploadHeader) {
+		this.fileUploadHeader = fileUploadHeader;
+	}
+
+	/**
      * {@inheritDoc}
      */
     public boolean equals(Object o) {

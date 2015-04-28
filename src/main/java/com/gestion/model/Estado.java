@@ -20,8 +20,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.search.annotations.Indexed;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;  
 import org.hibernate.annotations.Parameter;  
 
@@ -37,10 +43,11 @@ public class Estado extends BaseObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String descripcion;
-	private Long proxEstadoId;
+	private String proxEstado;
 	private Necesidad necesidad;
 	private String rolUser;
 	private String codigo;
+	
 	
 
     @Id  
@@ -64,12 +71,12 @@ public class Estado extends BaseObject implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Long getProxEstadoId() {
-		return proxEstadoId;
+	public String getProxEstado() {
+		return proxEstado;
 	}
 
-	public void setProxEstadoId(Long proxEstadoId) {
-		this.proxEstadoId = proxEstadoId;
+	public void setProxEstado(String proxEstado) {
+		this.proxEstado = proxEstado;
 	}
 
 	public Necesidad getNecesidad() {
@@ -125,7 +132,6 @@ public class Estado extends BaseObject implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-    
-    
+	
 
 }

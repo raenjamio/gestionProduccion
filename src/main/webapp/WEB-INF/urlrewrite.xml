@@ -73,6 +73,28 @@
         <from>^([^?]*)/([^?/\.]+)(\?.*)?$</from>
         <to last="true">$1/$2.xhtml</to>
     </rule>
+    
+    <rule>
+	    <note>uploadServlet</note>
+	    <condition type="method">POST</condition>
+	    <from>^/importar/(\w+?)/(\w+?)/([a-zA-Z_0-9/\.\-]*)$</from>
+	    <set type="parameter" name="photo">$1</set>
+	    <to>/importar/uploadServlet</to>
+	</rule>
+<rule>
+    <name>Proxy URL with jsession ID's</name>
+    <note></note>
+    <condition type="cookie" name="photo"/>
+    <from>^/([^?]*)\.htm(.*)$</from>
+    <to type="proxy">%{request-url};jsessionid=%{cookie:JSESSIONID}$2</to>
+</rule>
+<rule>
+    <name>Proxy URL with jsession ID's</name>
+    <note></note>
+    <condition type="cookie" name="name"/>
+    <from>^/([^?]*)\.htm(.*)$</from>
+    <to type="proxy">%{request-url};jsessionid=%{cookie:JSESSIONID}$2</to>
+</rule>
     <outbound-rule match-type="regex">
         <!-- TODO: Figure out how to make file upload work w/o using *.xhtml -->
         <condition type="path-info">selectFile</condition>

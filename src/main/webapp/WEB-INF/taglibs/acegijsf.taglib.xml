@@ -15,4 +15,10 @@
             <component-type>net.sf.jsfcomp.acegijsf.Authentication</component-type>
         </component>
     </tag>
+   	 <tag>
+        <tag-name>inputFile</tag-name>
+        <component>
+            <component-type>HtmlInputFile</component-type>
+        </component>
+    </tag>
 </facelet-taglib>

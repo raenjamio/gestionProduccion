@@ -20,10 +20,15 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.search.annotations.Indexed;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.annotations.GenericGenerator;  
 import org.hibernate.annotations.Parameter;  
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table(name = "necesidades")
@@ -41,6 +46,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	private boolean finalizado;
 	private Date fechaCreacion;
 	private Producto producto;
+	private List<Estado> estados = new ArrayList<Estado>();
 	
 
     @Id  
@@ -138,6 +144,22 @@ public class Necesidad extends BaseObject implements Serializable {
                 .append(this.id)
                 .toString();
     }
+    
+	@ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(
+            name = "estado_necesidad",
+            joinColumns = { @JoinColumn(name = "necesidad_id") },
+            inverseJoinColumns = @JoinColumn(name = "estado_id")
+    )
+	public List<Estado> getEstados() {
+		return estados;
+	}
 
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
+	}
+	
 
+    
 }

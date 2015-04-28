@@ -9,11 +9,12 @@
         <Menu name="Nuevo" title="nuevo.user" description="Nuevo" page="/nuevo/productos" roles="ROLE_ADMIN,ROLE_USER">
         	<Item name="Producto" title="menu.user.producto" page="/nuevo/productos"/>
             <Item name="Necesidad" title="menu.user.necesidad" page="/nuevo/necesidades"/>
+            <Item name="Estado" title="menu.user.estado" page="/nuevo/estados"/>
         </Menu>
         <Menu name="Importar" title="menu.importar.user" description="Importar" page="/importar/archivoNecesidades" roles="ROLE_ADMIN,ROLE_USER">
             <Item name="Necesidad" title="menu.user.impNecesidad" page="/importar/archivoNecesidades"/>
         </Menu>
-        <Menu name="Planificar" title="planificar.user" description="Planificar" page="/editProfile" roles="ROLE_ADMIN,ROLE_SOLDADURA"/>
+        <Menu name="Planificar" title="planificar.user" description="Planificar" page="/planificar/necesidadesPlanificacion" roles="ROLE_ADMIN,ROLE_SOLDADURA"/>
         <Menu name="Historial" title="historial.user" description="Historial" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>

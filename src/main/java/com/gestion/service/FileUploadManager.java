@@ -4,8 +4,11 @@ package com.gestion.service;
 
 import java.util.List;
 
+import org.primefaces.model.UploadedFile;
+
 import com.gestion.dao.FileUploadDAO;
 import com.gestion.model.FileUpload;
+import com.gestion.model.Producto;
 
 
 /**
@@ -32,7 +35,7 @@ public interface FileUploadManager extends GenericManager<FileUpload, Long> {
     List<FileUpload> getFilesUploads();
 
 
-    FileUpload saveFileUpload(com.gestion.webapp.action.FileUpload file);
+    FileUpload saveFileUpload(FileUpload file);
 
     /**
      * Removes a user from the database
@@ -42,8 +45,9 @@ public interface FileUploadManager extends GenericManager<FileUpload, Long> {
     void removeFileUpload(FileUpload fupload);
 
 
-	FileUpload saveFileUpload(FileUpload fileUpload);
+    UploadedFile saveFileUpload(UploadedFile fileUpload);
+    
 
-
+    List<FileUpload> search(String searchTerm);
 
  }

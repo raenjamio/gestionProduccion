@@ -52,6 +52,12 @@
             <to-view-id>/nuevo/productos.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+         <navigation-case>
+        	<from-action>#{productoForm.delete}</from-action>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/nuevo/productos.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 
     
@@ -74,6 +80,47 @@
         	<from-action>#{necesidadForm.save}</from-action>
             <from-outcome>list</from-outcome>
             <to-view-id>/nuevo/necesidades.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/importar/archivoNecesidades.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/importar/archivoNecesidades.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/importar/archivoNecesidades.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    	<navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>nuevoEstado</from-outcome>
+            <to-view-id>/nuevo/estadoForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/nuevo/estadoForm.xhtml</from-view-id>
+        <navigation-case>
+        	<from-action>#{estadoForm.save}</from-action>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/nuevo/estados.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+        	<from-action>#{esadoForm.save}</from-action>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/nuevo/estados.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+        	<from-action>#{estadoForm.delete}</from-action>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/nuevo/estados.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -193,13 +240,27 @@
         </managed-property>
     </managed-bean>
     
+     <managed-bean>
+        <managed-bean-name>estadoForm</managed-bean-name>
+        <managed-bean-class>com.gestion.webapp.action.EstadoForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>estadoManager</property-name>
+            <value>#{estadoManager}</value>
+        </managed-property>
+    </managed-bean>
+    
     <managed-bean>
         <managed-bean-name>fileNecesidadesForm</managed-bean-name>
         <managed-bean-class>com.gestion.webapp.action.FileNecesidadesForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>fileNecesidadesManager</property-name>
-            <value>#{fileNecesidadesManager}</value>
+            <value>#{fileUploadManager}</value>
+         </managed-property>
+         <managed-property>
+            <property-name>productoManager</property-name>
+            <value>#{productoManager}</value>
         </managed-property>
     </managed-bean>
 

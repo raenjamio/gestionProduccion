@@ -1,9 +1,15 @@
 package com.gestion.webapp.action;
 
 import com.gestion.Constants;
+
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+
 import java.io.*;
 
 public class FileUpload extends BasePage implements Serializable {
@@ -45,6 +51,7 @@ public class FileUpload extends BasePage implements Serializable {
         if (!dirPath.exists()) {
             dirPath.mkdirs();
         }
+        
 
         //retrieve the file data
         InputStream stream = file.getInputstream();
@@ -99,4 +106,9 @@ public class FileUpload extends BasePage implements Serializable {
 
         return "success";
     }
+    
+	 public void handleFileUpload(FileUploadEvent event) {
+	        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+	    }
 }

@@ -2,7 +2,7 @@
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/layouts/default.xhtml">
-    <ui:define name="title">#{text['prodList.title']}</ui:define>
+    <ui:define name="title">#{text['estadoList.title']}</ui:define>
     <ui:param name="menu" value="AdminMenu"/>
 
     <ui:define name="body">
@@ -29,18 +29,18 @@
                     </h:commandButton>
                 </div>
 
-                <p:dataTable id="estadoes" var="estado" value="#{estadoForm.estados}" sortBy="#{estadoForm.sortColumn}"
-                             paginator="true" rows="25"
+                <p:dataTable id="estados" var="estado" value="#{estadoForm.estados}" sortBy="#{estadoForm.sortColumn}"
+                             paginator="true" rows="15"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
                     <p:column style="width: 25%">
                         <f:facet name="header">
-                            <p:column sortBy="prioridad">
-                                <h:outputText value="#{text['estado.prioridad']}"/>
+                            <p:column sortBy="codigo">
+                                <h:outputText value="#{text['estado.codigo']}"/>
                             </p:column>
                         </f:facet>
-                        <h:commandLink action="#{estadoForm.edit}" value="#{estado.id}">
-                            <f:param name="id" value="#{estado.id}"/>
+                        <h:commandLink action="#{estadoForm.edit}" value="#{estado.codigo}">
+                            <f:param name="id" value="#{estado.codigo}"/>
                             <f:param name="from" value="list"/>
                         </h:commandLink>
                     </p:column>
@@ -54,11 +54,11 @@
                     </p:column>
                     <p:column style="width: 34%">
                         <f:facet name="header">
-                            <p:column sortBy="proxEstadoId">
-                                <h:outputText value="#{text['estado.proxEstadoId']}"/>
+                            <p:column sortBy="proxEstado">
+                                <h:outputText value="#{text['estado.proxEstado']}"/>
                             </p:column>
                         </f:facet>
-                        <h:outputText value="#{estado.proxEstadoId}"/>
+                        <h:outputText value="#{estado.proxEstado}"/>
                     </p:column>
                     <p:column style="width: 34%">
                         <f:facet name="header">

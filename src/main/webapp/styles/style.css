@@ -16,8 +16,14 @@ body {
     font-size: 18px;
 }
 
+
 body#login {
     padding-bottom: 40px;
+}
+
+div[id="uploadForm:growlImport_container"] {
+    position:absolute;
+    top:80px;
 }
 
 .navbar .brand:hover {
