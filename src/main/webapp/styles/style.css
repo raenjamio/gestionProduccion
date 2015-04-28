@@ -17,6 +17,19 @@ body {
 }
 
 
+.VERDE{
+	background-color: green !important;
+}
+
+.AZUL{
+	background-color: blue !important; 
+}
+
+
+.DEFAULT{
+	background-color: white !important; 
+}
+
 body#login {
     padding-bottom: 40px;
 }

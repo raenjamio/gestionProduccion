@@ -41,7 +41,6 @@ public class NecesidadForm extends BasePage implements Serializable {
     private Producto selectedProducto;
     private ProductoForm productoForm = new ProductoForm();
     private Necesidad selectedNecesidad = new Necesidad();
-    private EstadoForm estadoForm = new EstadoForm();
     
     public NecesidadForm() {
         setSortColumn("prioridad");
@@ -216,41 +215,5 @@ public class NecesidadForm extends BasePage implements Serializable {
         return "success";
     }
     
-	public String getEstadoSoldado() {
-		Iterator<Estado> estadosI = necesidad.getEstados().iterator();
-		
-		while(estadosI.hasNext()) {
-	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("MAT_FIN")){
-	        	 return "Finalizado";
-	         }
-	    }
-		return "";
-	}
-	
-	public String getEstadoPintado() {
-		Iterator<Estado> estadosI = necesidad.getEstados().iterator();
-		
-		while(estadosI.hasNext()) {
-	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("PIN_FIN")){
-	        	 return "Finalizado";
-	         }
-	    }
-		return "";
-	}
-	
-	public String getEstadoSoldadura() {
-		Iterator<Estado> estadosI = necesidad.getEstados().iterator();
-		
-		while(estadosI.hasNext()) {
-	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("SOL_FIN")){
-	        	 return "Finalizado";
-	         }
-	    }
-		return "";
-	}
-
 
 }

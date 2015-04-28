@@ -9,6 +9,8 @@ import com.gestion.service.EstadoManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
 
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -17,11 +19,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -182,6 +187,79 @@ public class EstadoForm extends BasePage implements Serializable {
     public String search() {
         return "success";
     }
+    
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Necesidad Editada", ((Necesidad) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Necesidad) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
+    public List<String> getEstadosDisponibles() {
+    	List<String> estados = new ArrayList<String>();
+    	HttpServletRequest request = getRequest();
 
+    	
+    	if (request.isUserInRole("ROL_CALIDAD")) {
+    		estados.add("Controlado");
+    	} else if (request.isUserInRole("ROL_PINTADO") || request.isUserInRole("ROL_MATRIZADO") || request.isUserInRole("ROL_BALANCINADO") || request.isUserInRole("ROL_ADMIN")) {
+    		estados.add("Finalizado");	
+    	}
+    	return estados;
+    }
+    
+    public List<String> getEstadosDisponiblesSoldadura () {
+    	List<String> estados = new ArrayList<String>();
+    	HttpServletRequest request = getRequest();
 
+    	
+    	if (request.isUserInRole("ROL_CALIDAD")) {
+    		estados.add("Controlado");
+    	} else if (request.isUserInRole("ROL_SOLDADURA")) {
+    		estados.add("Finalizado");	
+    	}
+    	return estados;
+    }
+    
+    public List<String> getEstadosDisponiblesPintura () {
+    	List<String> estados = new ArrayList<String>();
+    	//Map<String,String> estados = new HashMap<String, String>();
+    	HttpServletRequest request = getRequest();
+    	
+    	
+    	if (request.isUserInRole("ROL_CALIDAD")) {
+    		estados.add("Controlado");
+    		//estados.put("Controlado","PINTURA_QA");
+    	} else if (request.isUserInRole("ROL_PINTURA")) {
+    		estados.add("Finalizado");
+    		//estados.put("Finalizado","PINTURA_FINALIZADO");
+    	}
+    	return estados;
+    }
+    
+    public List<String> getEstadosDisponiblesBalancinado () {
+    	List<String> estados = new ArrayList<String>();
+    	HttpServletRequest request = getRequest();
+
+    	
+    	if (request.isUserInRole("ROL_CALIDAD")) {
+    		estados.add("Controlado");
+    	} else if (request.isUserInRole("ROL_BALANCINADO")) {
+    		estados.add("Finalizado");	
+    	}
+    	return estados;
+    }
 }

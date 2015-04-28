@@ -19,19 +19,19 @@ import java.util.List;
 @Service("estadoManager")
 public class EstadoManagerImpl extends GenericManagerImpl<Estado, Long> implements EstadoManager {
 	
-    private EstadoDAO EstadoDao;
+    private EstadoDAO estadoDao;
     
 
     @Autowired
     public EstadoManagerImpl(EstadoDAO dao) {
         super(dao);
-        this.EstadoDao = dao;
+        this.estadoDao = dao;
     }
 
     @Autowired
     public void setEstadoDao(final EstadoDAO dao) {
     	this.dao = dao;
-        this.EstadoDao = dao;
+        this.estadoDao = dao;
     }
 
 	@Override
@@ -65,4 +65,7 @@ public class EstadoManagerImpl extends GenericManagerImpl<Estado, Long> implemen
 		return super.search(searchTerm, Estado.class);
 	}
 
+	public Estado getEstadoByCodigo(String codigo) {
+		return estadoDao.getProductosByCodigo(codigo);
+	}
 }

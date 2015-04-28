@@ -29,6 +29,9 @@ public interface EstadoManager extends GenericManager<Estado, Long> {
      * @return User
      */
     Estado getEstado(String id);
+    
+    
+    Estado getEstadoByCodigo(String codigo);
 
     /**
      * Retrieves a list of all users.

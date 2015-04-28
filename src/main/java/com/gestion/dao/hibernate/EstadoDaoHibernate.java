@@ -2,6 +2,7 @@ package com.gestion.dao.hibernate;
 
 import com.gestion.dao.EstadoDAO;
 import com.gestion.model.Estado;
+import com.gestion.model.Producto;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -63,6 +64,16 @@ public class EstadoDaoHibernate extends GenericDaoHibernate<Estado, Long> implem
 	     
 	     session.delete(estado);
 		return null;
+	}
+	
+	public Estado getEstadoByCodigo(String codigo) {
+		List estados = getSession().createCriteria(Estado.class).add(Restrictions.eq("codigo", codigo)).list();
+        if (estados.isEmpty()) {
+            return null;
+        } else {
+            return (Estado) estados.get(0);
+        }
+           
 	}
 
    

@@ -30,6 +30,8 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
 
+import com.gestion.service.EstadoManager;
+
 @Entity
 @Table(name = "necesidades")
 @Indexed
@@ -47,6 +49,8 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Date fechaCreacion;
 	private Producto producto;
 	private List<Estado> estados = new ArrayList<Estado>();
+	private EstadoManager estadoManager;
+	private Date fechaFinalizacion;
 	
 
     @Id  
@@ -93,8 +97,16 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.finalizado = finalizado;
 	}
 
-
 	
+	
+	public Date getFechaFinalizacion() {
+		return fechaFinalizacion;
+	}
+
+	public void setFechaFinalizacion(Date fechaFinalizacion) {
+		this.fechaFinalizacion = fechaFinalizacion;
+	}
+
 	public Necesidad(){
 	}
 
@@ -160,6 +172,142 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.estados = estados;
 	}
 	
+	public EstadoManager getEstadoManager() {
+		return estadoManager;
+	}
 
+	public void setEstadoManager(EstadoManager estadoManager) {
+		this.estadoManager = estadoManager;
+	}
+
+	public String getEstadoMatrizado() {
+		Iterator<Estado> estadosI = this.getEstados().iterator();
+		
+		while(estadosI.hasNext()) {
+	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("MATRIZADO_FIN")){
+	        	 return "Finalizado";
+	         }
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("MATRIZADO_QA")){
+	        	 return "Controlado";
+	         }
+	    }
+		return "";
+	}
+	
+	public String getEstadoPintado() {
+		Iterator<Estado> estadosI = this.getEstados().iterator();
+		
+		while(estadosI.hasNext()) {
+	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("PINTURA_FIN")){
+	        	 return "Finalizado";
+	         }
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("PINTURA_QA")){
+	        	 return "Controlado";
+	         }
+	    }
+		return "";
+	}
+	
+	public String getEstadoSoldadura() {
+		Iterator<Estado> estadosI = this.getEstados().iterator();
+		
+		while(estadosI.hasNext()) {
+	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("SOLDADURA_FIN")){
+	        	 return "Finalizado";
+	         }
+	         if (estado.getCodigo() != null && estado.getCodigo().equals("SOLDADURA_QA")){
+	        	 return "Controlado";
+	         }
+	    }
+		return "";
+	}
+
+	public void setEstadoPintado(String codigo) {
+		//hay q ver que se selecciono
+		Estado estado = estadoManager.getEstado(codigo);
+		if (estado != null) {
+			if (estado.getCodigo().contains("FIN")) {
+				this.setFinalizado(true);
+				this.setFechaFinalizacion(new Date());
+			}
+
+			this.getEstados().add(estado);
+		}
+	}
+	
+	public void setEstadoSoldadura(String codigo) {
+		//hay q ver que se selecciono
+		Estado estado = estadoManager.getEstado(codigo);
+		if (estado != null) {
+			if (estado.getCodigo().contains("FIN")) {
+				this.setFinalizado(true);
+				this.setFechaFinalizacion(new Date());
+			}
+			this.getEstados().add(estado);
+		}
+		
+	}
+	
+	public void setEstadoMatrizado(String codigo) {
+		//hay q ver que se selecciono
+		Estado estado = estadoManager.getEstado(codigo);
+		if (estado != null) {
+			//si el codigo incluye FIN es que es un estado de finalizado
+			if (estado.getCodigo().contains("FIN")) {
+				this.setFinalizado(true);
+				this.setFechaFinalizacion(new Date());
+			}
+			this.getEstados().add(estado);
+		}
+		
+	}
+	
+	public String createStyleSoldadura(){
+		String estado = getEstadoSoldadura();
+		
+	    switch (estado){
+	    case "Finalizado":
+	        return "AZUL";
+	        break;
+	    case "Controlado":
+	        return "VERDE";
+	        break;
+	    default: 
+	        return "DEFAULT";   
+	    }
+	}
+	
+	public String createStylePintado(){
+		String estado = getEstadoPintado();
+		
+	    switch (estado){
+	    case "Finalizado":
+	        return "AZUL";
+	        break;
+	    case "Controlado":
+	        return "VERDE";
+	        break;
+	    default: 
+	        return "DEFAULT";   
+	    }
+	}
+	
+	public String createStyleMatrizado(){
+		String estado = getEstadoMatrizado();
+		
+	    switch (estado){
+	    case "Finalizado":
+	        return "AZUL";
+	        break;
+	    case "Controlado":
+	        return "VERDE";
+	        break;
+	    default: 
+	        return "DEFAULT";   
+	    }
+	}
     
 }

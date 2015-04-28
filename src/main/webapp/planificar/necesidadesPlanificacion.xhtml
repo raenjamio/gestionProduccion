@@ -29,7 +29,7 @@
                     </h:commandButton>
                 </div>
 
-                <p:dataTable id="necesidades" var="necesidad" value="#{necesidadForm.necesidades}" sortBy="#{necesidadForm.sortColumn}"
+                <p:dataTable id="necesidades" var="necesidad" value="#{necesidadForm.necesidades}" sortBy="#{necesidadForm.sortColumn}"  editable="true" style="margin-bottom:20px"
                              paginator="true" rows="25"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
@@ -83,30 +83,46 @@
                         <h:outputText value="#{necesidad.fechaCreacion}"/>
                     </p:column>
                     <!-- estados  -->
-                     <p:column style="width: 34%">
-                        <f:facet name="header">
-                            <p:column sortBy="matrizado">
-                                <h:outputText value="#{text['estado.matrizado']}"/>
-                            </p:column>
-                        </f:facet>
-                        <h:outputText value="#{necesidad.getEstadoMatrizado}"/>
+                     <p:column style="width: 34%" headerText="#{text['estado.matrizado']}">
+                        <p:cellEditor>
+	                        <f:facet name="output">
+	                           	<h:outputText value="#{necesidad.estadoMatrizado}" styleClass="#{necesidad.createStyleMatrizado()}"/>
+	                        </f:facet>
+	                         <f:facet name="input">
+				                   <h:selectOneMenu value="#{necesidad.estadoMatrizado}" style="width:100%">
+				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+				                   </h:selectOneMenu>
+				             </f:facet>
+                    	</p:cellEditor>
                     </p:column>
-                     <p:column style="width: 34%">
-                        <f:facet name="header">
-                            <p:column sortBy="fechaCreacion">
-                                <h:outputText value="#{text['estado.soldado']}"/>
-                            </p:column>
-                        </f:facet>
-                        <h:outputText value="#{necesidad.getEstadoSoldado}"/>
+                    <p:column style="width: 34%" headerText="#{text['estado.soldado']}">
+                       <p:cellEditor>
+	                        <f:facet name="output">
+	                           	<h:outputText value="#{necesidad.estadoSoldado}" styleClass="#{necesidad.createStyleSoldado()}"/>
+	                        </f:facet>
+	                         <f:facet name="input">
+				                   <h:selectOneMenu value="#{necesidad.estadoSoldado}" style="width:100%">
+				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+				                   </h:selectOneMenu>
+				             </f:facet>
+                    	</p:cellEditor>
                     </p:column>
-                     <p:column style="width: 34%">
-                        <f:facet name="header">
-                            <p:column sortBy="fechaCreacion">
-                                <h:outputText value="#{text['estado.pintado']}"/>
-                            </p:column>
-                        </f:facet>
-                        <h:outputText value="#{necesidad.getEstadoPintado}"/>
+                    <p:column style="width: 34%" headerText="#{text['estado.pintado']}">
+                      	<p:cellEditor>
+	                        <f:facet name="output">
+	                           	<h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
+	                        </f:facet>
+	                         <f:facet name="input">
+				                   <h:selectOneMenu value="#{necesidad.estadoPintado}" style="width:100%">
+				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+				                   </h:selectOneMenu>
+				             </f:facet>
+                    	</p:cellEditor>
                     </p:column>
+                    
+                   <p:column style="width:32px">
+			       		<p:rowEditor />
+			       </p:column>
                    
                 </p:dataTable>
             </h:form>
