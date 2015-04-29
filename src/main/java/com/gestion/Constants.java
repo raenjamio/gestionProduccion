@@ -86,4 +86,13 @@ public final class Constants {
      * @deprecated No longer used to set themes.
      */
     public static final String CSS_THEME = "csstheme";
+    
+    public static final String FINALIZADO = "Finalizado";
+    public static final String CONTROLADO = "Controlado";
+    public static final String PINTURA_FINALIZADO = "PINTURA_FINALIZADO";
+    public static final String PINTURA_CONTROLADO = "PINTURA_CONTROLADO";
+    public static final String BALANCINADO_FINALIZADO = "BALANCINADO_FINALIZADO";
+    public static final String BALANCINADO_CONTROLADO = "BALANCINADO_CONTROLADO";
+    public static final String SOLDADO_FINALIZADO = "SOLDADO_FINALIZADO";
+    public static final String SOLDADO_CONTROLADO = "SOLDADO_CONTROLADO";
 }

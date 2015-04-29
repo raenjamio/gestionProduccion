@@ -64,5 +64,9 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 		// TODO Auto-generated method stub
 		return super.search(searchTerm, Necesidad.class);
 	}
-
+	
+	public List<Necesidad> getNecesidadesNoFinalizadas(){
+		return necesidadDao.getAllNoFinalizadas();
+		
+	}
 }

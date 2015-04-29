@@ -5,6 +5,7 @@ import com.gestion.dao.SearchException;
 import com.gestion.model.Estado;
 import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
+import com.gestion.service.EstadoManager;
 import com.gestion.service.NecesidadManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
@@ -41,15 +42,16 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	private String id;
 	private NecesidadManager necesidadManager;
 	private String query;
-	public String estado;
+	public String codEstado;
 	private Necesidad necesidad;
+	private EstadoManager estadoManager;
 
-	public String getEstado() {
-		return estado;
+	public String getCodEstado() {
+		return codEstado;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setCodEstado(String codEstado) {
+		this.codEstado = codEstado;
 	}
 
 	public DtEditPlanificacionForm() {
@@ -64,6 +66,19 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		this.necesidadManager = necesidadManager;
 	}
 	
+	
+	public EstadoManager getEstadoManager() {
+		return estadoManager;
+	}
+
+	public void setEstadoManager(EstadoManager estadoManager) {
+		this.estadoManager = estadoManager;
+	}
+
+	public NecesidadManager getNecesidadManager() {
+		return necesidadManager;
+	}
+
 	public Necesidad getNecesidad() {
 		return necesidad;
 	}
@@ -106,14 +121,39 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 			return sort(necesidadManager.search(query));
 		}
 	}
+	
+	public List getNecesidadesNoFinalizadas() {
+		try {
+			return sort(necesidadManager.getNecesidadesNoFinalizadas());
+		} catch (SearchException se) {
+			addError(se.getMessage());
+			return sort(necesidadManager.search(query));
+		}
+	}
 
 	public String search() {
 		return "success";
 	}
 	
 	public void onRowEdit(RowEditEvent event) {
+		//asignamos la necesidad que editamos
 		this.necesidad = (Necesidad) event.getObject();
-        FacesMessage msg = new FacesMessage("Car Edited", ((Necesidad) event.getObject()).getId().toString());
+		
+		//buscamos el estado de acuerdo al codigo seleccionado y se lo agregamos a la lista de estados de la necesidad
+		Estado estado = estadoManager.getEstadoByCodigo(codEstado);
+		if (estado  != null) {
+			this.necesidad.getEstados().add(estado);
+			//si el codigo contiene FIN se termino el proceso, queda el control de calidad
+			if (estado.getCodigo().contains("FIN")) {
+				necesidad.setFinalizado(true);
+				necesidad.setFechaFinalizacion(new Date());
+			}
+		}
+		
+		//guardamos el cambio
+		necesidadManager.saveNecesidad(necesidad);
+		
+        FacesMessage msg = new FacesMessage("Producto editado", ((Necesidad) event.getObject()).getProducto().getCodigo().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	

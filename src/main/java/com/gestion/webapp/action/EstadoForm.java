@@ -8,6 +8,7 @@ import com.gestion.model.Producto;
 import com.gestion.service.EstadoManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
+import com.gestion.Constants;
 
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
@@ -198,11 +199,13 @@ public class EstadoForm extends BasePage implements Serializable {
     	
     	if (request.isUserInRole("ROLE_CALIDAD")) {
     		//estados.add("Controlado");
-    	} else if (request.isUserInRole("ROLE_PINTADO") || request.isUserInRole("ROLE_MATRIZADO") || request.isUserInRole("ROLE_BALANCINADO") || request.isUserInRole("ROLE_ADMIN")) {
+    		estados.put("", "");
+    		estados.put(Constants.CONTROLADO, Constants.PINTURA_CONTROLADO);
+    	} else if (request.isUserInRole("ROLE_PINTADO") || request.isUserInRole("ROLE_BALANCINADO") || request.isUserInRole("ROLE_SOLDADO") || request.isUserInRole("ROLE_ADMIN")) {
     		//estados.add("");
     		//estados.add("Finalizado");	
-    		//estados.put("", "");
-    		estados.put("Finalizado", "PINTURA_FINALIZADO");
+    		estados.put("", "");
+    		estados.put(Constants.FINALIZADO, Constants.PINTURA_FINALIZADO);
 
     		//Estado estadoModel = new Estado();
     		//estadoModel.setCodigo("Algo");
@@ -212,44 +215,57 @@ public class EstadoForm extends BasePage implements Serializable {
     	return estados; 
     }
     
-    public List<String> getEstadosDisponiblesSoldadura () {
-    	List<String> estados = new ArrayList<String>();
+    public Map<String,String> getEstadosDisponiblesSoldadura () {
+    	//List<String> estados = new ArrayList<String>();
     	HttpServletRequest request = getRequest();
+    	Map<String,String> estados = new HashMap<String, String>();
 
     	
-    	if (request.isUserInRole("ROL_CALIDAD")) {
-    		estados.add("Controlado");
-    	} else if (request.isUserInRole("ROL_SOLDADURA")) {
-    		estados.add("Finalizado");	
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
+    		estados.put("", "");
+    		estados.put(Constants.CONTROLADO, Constants.SOLDADO_CONTROLADO);
+    		//estados.add("Controlado");
+    	} else if (request.isUserInRole("ROLE_SOLDADURA")) {
+    		estados.put("", "");
+    		estados.put(Constants.FINALIZADO, Constants.SOLDADO_FINALIZADO);
+    		//estados.add("Finalizado");	
     	}
     	return estados;
     }
     
-    public List<String> getEstadosDisponiblesPintura () {
-    	List<String> estados = new ArrayList<String>();
+    public Map<String,String> getEstadosDisponiblesPintura () {
+    	//List<String> estados = new ArrayList<String>();
     	//Map<String,String> estados = new HashMap<String, String>();
     	HttpServletRequest request = getRequest();
+    	Map<String,String> estados = new HashMap<String, String>();
     	
-    	
-    	if (request.isUserInRole("ROL_CALIDAD")) {
-    		estados.add("Controlado");
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
+    		estados.put("", "");
+    		estados.put(Constants.CONTROLADO, Constants.PINTURA_CONTROLADO);
+    		//estados.add("Controlado");
     		//estados.put("Controlado","PINTURA_QA");
-    	} else if (request.isUserInRole("ROL_PINTURA")) {
-    		estados.add("Finalizado");
+    	} else if (request.isUserInRole("ROLE_PINTURA")) {
+    		estados.put("", "");
+    		estados.put(Constants.FINALIZADO, Constants.PINTURA_FINALIZADO);
+    		//estados.add("Finalizado");
     		//estados.put("Finalizado","PINTURA_FINALIZADO");
     	}
     	return estados;
     }
     
-    public List<String> getEstadosDisponiblesBalancinado () {
-    	List<String> estados = new ArrayList<String>();
+    public Map<String,String> getEstadosDisponiblesBalancinado () {
+    	//List<String> estados = new ArrayList<String>();
     	HttpServletRequest request = getRequest();
-
+    	Map<String,String> estados = new HashMap<String, String>();
     	
-    	if (request.isUserInRole("ROL_CALIDAD")) {
-    		estados.add("Controlado");
-    	} else if (request.isUserInRole("ROL_BALANCINADO")) {
-    		estados.add("Finalizado");	
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
+    		estados.put("", "");
+    		estados.put(Constants.CONTROLADO, Constants.BALANCINADO_CONTROLADO);
+    		//estados.add("Controlado");
+    	} else if (request.isUserInRole("ROLE_BALANCINADO")) {
+    		estados.put("", "");
+    		estados.put(Constants.FINALIZADO, Constants.BALANCINADO_FINALIZADO);
+    		//estados.add("Finalizado");	
     	}
     	return estados;
     }

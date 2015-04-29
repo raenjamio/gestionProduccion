@@ -53,6 +53,9 @@ public interface NecesidadManager extends GenericManager<Necesidad, Long> {
      */
     List<Necesidad> search(String searchTerm);
 
+
+	List<Necesidad> getNecesidadesNoFinalizadas();
+
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.
      * 

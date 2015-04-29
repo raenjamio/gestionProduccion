@@ -248,6 +248,10 @@
             <property-name>necesidadManager</property-name>
             <value>#{necesidadManager}</value>
         </managed-property>
+        <managed-property>
+            <property-name>estadoManager</property-name>
+            <value>#{estadoManager}</value>
+        </managed-property>
     </managed-bean>
     
      <managed-bean>

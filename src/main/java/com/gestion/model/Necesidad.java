@@ -34,6 +34,7 @@ import org.hibernate.annotations.Fetch;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
+import com.gestion.Constants;
 import com.gestion.service.EstadoManager;
 
 @Entity
@@ -183,16 +184,16 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.estadoManager = estadoManager;
 	}*/
 
-	public String getEstadoMatrizado() {
+	public String getEstadoBalancinado() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("MATRIZADO_FIN")){
-	        	 return "Finalizado";
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)){
+	        	 return Constants.FINALIZADO;
 	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("MATRIZADO_QA")){
-	        	 return "Controlado";
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)){
+	        	 return Constants.CONTROLADO;
 	         }
 	    }
 		return "";
@@ -203,11 +204,11 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("PINTURA_FIN")){
-	        	 return "Finalizado";
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
+	        	 return Constants.FINALIZADO;
 	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("PINTURA_QA")){
-	        	 return "Controlado";
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)){
+	        	 return Constants.CONTROLADO;
 	         }
 	    }
 		return "";
@@ -218,11 +219,11 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("SOLDADURA_FIN")){
-	        	 return "Finalizado";
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)){
+	        	 return Constants.FINALIZADO;
 	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals("SOLDADURA_QA")){
-	        	 return "Controlado";
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)){
+	        	 return Constants.CONTROLADO;
 	         }
 	    }
 		return "";
@@ -255,7 +256,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 	}
 	
-	public void setEstadoMatrizado(String codigo) {
+	public void setEstadoBalancinado (String codigo) {
 		//hay q ver que se selecciono
 		Estado estado = null;//= estadoManager.getEstado(codigo);
 		if (estado != null) {
@@ -273,9 +274,9 @@ public class Necesidad extends BaseObject implements Serializable {
 		String estado = getEstadoSoldadura();
 		
 	    switch (estado){
-	    case "Finalizado":
+	    case Constants.FINALIZADO:
 	        return "AZUL";
-		case "Controlado":
+		case Constants.CONTROLADO:
 	        return "VERDE";
 		default: 
 	        return "DEFAULT";   
@@ -286,27 +287,27 @@ public class Necesidad extends BaseObject implements Serializable {
 		String estado = getEstadoPintado();
 		
 	    switch (estado){
-	    case "Finalizado":
+	    case Constants.FINALIZADO:
 	        return "AZUL";
-		case "Controlado":
+		case Constants.CONTROLADO:
 	        return "VERDE";
 		default: 
 	        return "DEFAULT";   
 	    }
 	}
 	
-	public String createStyleMatrizado(){
-		String estado = getEstadoMatrizado();
+	public String createStyleBalancinado(){
+		String estado = getEstadoBalancinado();
 		
 	    switch (estado){
-	    case "Finalizado":
+	    case Constants.FINALIZADO:
 	        return "AZUL";
-		case "Controlado":
+		case Constants.CONTROLADO:
 	        return "VERDE";
 		default:
 			return "";
 	        //return "DEFAULT";   
 	    }
 	}
-
+	
 }

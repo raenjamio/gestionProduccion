@@ -2,6 +2,7 @@ package com.gestion.dao.hibernate;
 
 import com.gestion.dao.NecesidadDAO;
 import com.gestion.model.Necesidad;
+import com.gestion.model.Producto;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -61,6 +62,17 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<Necesidad> getAllNoFinalizadas() {
+		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNull("fechaFinalizado")).list();
+	    if (necesidades.isEmpty()) {
+	        return null;
+	    } else {
+	        return necesidades;
+	    }
+		
+	}
+
 
    
 }
