@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -187,38 +188,28 @@ public class EstadoForm extends BasePage implements Serializable {
     public String search() {
         return "success";
     }
+   
     
-    public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Necesidad Editada", ((Necesidad) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-     
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Necesidad) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-     
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
-    
-    public List<String> getEstadosDisponibles() {
-    	List<String> estados = new ArrayList<String>();
+    public Map<String,String> getEstadosDisponibles() {
+    	//List<String> estados = new ArrayList<String>();
     	HttpServletRequest request = getRequest();
-
+    	Map<String,String> estados = new HashMap<String, String>();
+		List<Estado> listEstados = new ArrayList<Estado>();
     	
-    	if (request.isUserInRole("ROL_CALIDAD")) {
-    		estados.add("Controlado");
-    	} else if (request.isUserInRole("ROL_PINTADO") || request.isUserInRole("ROL_MATRIZADO") || request.isUserInRole("ROL_BALANCINADO") || request.isUserInRole("ROL_ADMIN")) {
-    		estados.add("Finalizado");	
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
+    		//estados.add("Controlado");
+    	} else if (request.isUserInRole("ROLE_PINTADO") || request.isUserInRole("ROLE_MATRIZADO") || request.isUserInRole("ROLE_BALANCINADO") || request.isUserInRole("ROLE_ADMIN")) {
+    		//estados.add("");
+    		//estados.add("Finalizado");	
+    		//estados.put("", "");
+    		estados.put("Finalizado", "PINTURA_FINALIZADO");
+
+    		//Estado estadoModel = new Estado();
+    		//estadoModel.setCodigo("Algo");
+    		//estadoModel.setDescripcion("descrip");
+    		//listEstados.add(estadoModel);
     	}
-    	return estados;
+    	return estados; 
     }
     
     public List<String> getEstadosDisponiblesSoldadura () {
@@ -262,4 +253,10 @@ public class EstadoForm extends BasePage implements Serializable {
     	}
     	return estados;
     }
+
+	public Estado getEstado(String codigo) {
+		// TODO Auto-generated method stub
+		estadoManager.getEstadoByCodigo(codigo);
+		return null;
+	}
 }

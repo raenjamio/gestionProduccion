@@ -12,27 +12,22 @@
             <h:form id="searchForm" styleClass="form-inline">
                 <div id="search" class="text-right">
                     <span class="col-sm-9">
-                        <h:inputText id="q" size="20" value="#{necesidadForm.query}" styleClass="form-control input-sm"/>
+                        <h:inputText id="q" size="20" value="#{dtEditPlanificacionForm.query}" styleClass="form-control input-sm"/>
                     </span>
-                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{necesidadForm.search}" value="#{text['button.search']}"/>
+                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{dtEditPlanificacionForm.search}" value="#{text['button.search']}"/>
                 </div>
             </h:form>
 
-            <h:form id="editUser">
-
-                <div id="actions" class="btn-group">
-                    <!-- <script> shows up here and causes square corners on the Add button below -->
-                    <h:commandButton action="#{necesidadForm.add}"  value="#{text['button.add']}" id="add"  styleClass="btn btn-primary">
-                        <f:param name="from" value="list"/>
-                    </h:commandButton>
-                    <h:commandButton value="#{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn btn-default">
-                    </h:commandButton>
-                </div>
-
-                <p:dataTable id="necesidades" var="necesidad" value="#{necesidadForm.necesidades}" sortBy="#{necesidadForm.sortColumn}"  editable="true" style="margin-bottom:20px"
+            <h:form id="formPlanificacion">
+				<p:growl id="msgs" showDetail="true"/>
+                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidades}" sortBy="#{dtEditPlanificacionForm.sortColumn}"  editable="true" style="margin-bottom:20px"
                              paginator="true" rows="25"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
+                             
+                    <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" update=":formPlanificacion:msgs" />
+       				<p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
+ 
                              
                      <p:column style="width: 25%">
                         <f:facet name="header">
@@ -57,7 +52,7 @@
                             <f:param name="from" value="list"/>
                         </h:commandLink>
                     </p:column>
-                    <p:column style="width: 34%">
+                    <p:column style="width: 44%">
                         <f:facet name="header">
                             <p:column sortBy="descripcion">
                                 <h:outputText value="#{text['producto.descripcion']}"/>
@@ -74,7 +69,7 @@
                         </f:facet>
                         <h:outputText value="#{necesidad.cantidad}"/>
                     </p:column>
-                    <p:column style="width: 34%">
+                    <p:column style="width: 44%">
                         <f:facet name="header">
                             <p:column sortBy="fechaCreacion">
                                 <h:outputText value="#{text['necesidad.fechaCreacion']}"/>
@@ -89,8 +84,8 @@
 	                           	<h:outputText value="#{necesidad.estadoMatrizado}" styleClass="#{necesidad.createStyleMatrizado()}"/>
 	                        </f:facet>
 	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{necesidad.estadoMatrizado}" style="width:100%">
-				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.estado}" style="width:100%">
+				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" />
 				                   </h:selectOneMenu>
 				             </f:facet>
                     	</p:cellEditor>
@@ -98,10 +93,10 @@
                     <p:column style="width: 34%" headerText="#{text['estado.soldado']}">
                        <p:cellEditor>
 	                        <f:facet name="output">
-	                           	<h:outputText value="#{necesidad.estadoSoldado}" styleClass="#{necesidad.createStyleSoldado()}"/>
+	                           	<h:outputText value="#{necesidad.estadoSoldadura}" styleClass="#{necesidad.createStyleSoldadura()}"/>
 	                        </f:facet>
 	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{necesidad.estadoSoldado}" style="width:100%">
+				                   <h:selectOneMenu value="#{necesidad.estadoSoldadura}" style="width:100%">
 				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="man" itemLabel="#{man}" itemValue="#{man}" />
 				                   </h:selectOneMenu>
 				             </f:facet>
@@ -114,7 +109,7 @@
 	                        </f:facet>
 	                         <f:facet name="input">
 				                   <h:selectOneMenu value="#{necesidad.estadoPintado}" style="width:100%">
-				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+				                       <f:selectItems value="#{estadoForm.estadosDisponibles}" var="estado" itemLabel="#{estado.descripcion}" itemValue="#{estado.codigo}" />
 				                   </h:selectOneMenu>
 				             </f:facet>
                     	</p:cellEditor>

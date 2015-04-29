@@ -1,5 +1,7 @@
 package com.gestion.model;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +31,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;  
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 import com.gestion.service.EstadoManager;
 
@@ -49,7 +53,6 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Date fechaCreacion;
 	private Producto producto;
 	private List<Estado> estados = new ArrayList<Estado>();
-	private EstadoManager estadoManager;
 	private Date fechaFinalizacion;
 	
 
@@ -66,7 +69,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	//@OneToOne(fetch = FetchType.LAZY)
 	@OneToOne(mappedBy="necesidad", cascade=CascadeType.ALL)
 	//@PrimaryKeyJoinColumn
@@ -172,13 +175,13 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.estados = estados;
 	}
 	
-	public EstadoManager getEstadoManager() {
+	/*public EstadoManager getEstadoManager() {
 		return estadoManager;
 	}
 
 	public void setEstadoManager(EstadoManager estadoManager) {
 		this.estadoManager = estadoManager;
-	}
+	}*/
 
 	public String getEstadoMatrizado() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
@@ -227,7 +230,8 @@ public class Necesidad extends BaseObject implements Serializable {
 
 	public void setEstadoPintado(String codigo) {
 		//hay q ver que se selecciono
-		Estado estado = estadoManager.getEstado(codigo);
+		//private EstadoManager estadoManager;
+		Estado estado = null;// = estadoManager.getEstado(codigo);
 		if (estado != null) {
 			if (estado.getCodigo().contains("FIN")) {
 				this.setFinalizado(true);
@@ -240,7 +244,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	
 	public void setEstadoSoldadura(String codigo) {
 		//hay q ver que se selecciono
-		Estado estado = estadoManager.getEstado(codigo);
+		Estado estado = null;//= estadoManager.getEstado(codigo);
 		if (estado != null) {
 			if (estado.getCodigo().contains("FIN")) {
 				this.setFinalizado(true);
@@ -253,7 +257,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	
 	public void setEstadoMatrizado(String codigo) {
 		//hay q ver que se selecciono
-		Estado estado = estadoManager.getEstado(codigo);
+		Estado estado = null;//= estadoManager.getEstado(codigo);
 		if (estado != null) {
 			//si el codigo incluye FIN es que es un estado de finalizado
 			if (estado.getCodigo().contains("FIN")) {
@@ -271,11 +275,9 @@ public class Necesidad extends BaseObject implements Serializable {
 	    switch (estado){
 	    case "Finalizado":
 	        return "AZUL";
-	        break;
-	    case "Controlado":
+		case "Controlado":
 	        return "VERDE";
-	        break;
-	    default: 
+		default: 
 	        return "DEFAULT";   
 	    }
 	}
@@ -286,11 +288,9 @@ public class Necesidad extends BaseObject implements Serializable {
 	    switch (estado){
 	    case "Finalizado":
 	        return "AZUL";
-	        break;
-	    case "Controlado":
+		case "Controlado":
 	        return "VERDE";
-	        break;
-	    default: 
+		default: 
 	        return "DEFAULT";   
 	    }
 	}
@@ -301,13 +301,12 @@ public class Necesidad extends BaseObject implements Serializable {
 	    switch (estado){
 	    case "Finalizado":
 	        return "AZUL";
-	        break;
-	    case "Controlado":
+		case "Controlado":
 	        return "VERDE";
-	        break;
-	    default: 
-	        return "DEFAULT";   
+		default:
+			return "";
+	        //return "DEFAULT";   
 	    }
 	}
-    
+
 }

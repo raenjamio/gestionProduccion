@@ -241,6 +241,16 @@
     </managed-bean>
     
      <managed-bean>
+        <managed-bean-name>dtEditPlanificacionForm</managed-bean-name>
+        <managed-bean-class>com.gestion.webapp.action.DtEditPlanificacionForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>necesidadManager</property-name>
+            <value>#{necesidadManager}</value>
+        </managed-property>
+    </managed-bean>
+    
+     <managed-bean>
         <managed-bean-name>estadoForm</managed-bean-name>
         <managed-bean-class>com.gestion.webapp.action.EstadoForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
