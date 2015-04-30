@@ -66,6 +66,6 @@ public class EstadoManagerImpl extends GenericManagerImpl<Estado, Long> implemen
 	}
 
 	public Estado getEstadoByCodigo(String codigo) {
-		return estadoDao.getProductosByCodigo(codigo);
+		return estadoDao.getEstadoByCodigo(codigo);
 	}
 }

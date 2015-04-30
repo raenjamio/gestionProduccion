@@ -112,7 +112,7 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-        	<from-action>#{esadoForm.save}</from-action>
+        	<from-action>#{estadoForm.save}</from-action>
             <from-outcome>list</from-outcome>
             <to-view-id>/nuevo/estados.xhtml</to-view-id>
             <redirect/>

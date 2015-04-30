@@ -157,9 +157,10 @@
     ID="cancel:#{estadoForm.save}:#nuevo#estados.xhtml" NAME="output"
     PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
     TITLE="#{estadoForm.save}:cancel" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="list:#{esadoForm.save}:#nuevo#estados.xhtml"
-    NAME="output1" PATH="/nuevo/estados.xhtml"
-    TARGET="rules:#nuevo#estados.xhtml" TITLE="#{esadoForm.save}:list" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{estadoForm.save}:#nuevo#estados.xhtml" NAME="output1"
+    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
+    TITLE="#{estadoForm.save}:list" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="list:#{estadoForm.delete}:#nuevo#estados.xhtml" NAME="output2"
     PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"

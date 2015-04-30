@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['prodList.title']}</ui:define>
@@ -31,18 +30,16 @@
        				<p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
  
                              
-                     <p:column style="width: 25%">
-                        <p:cellEditor>
-			               <f:facet name="output"><h:outputText value="#{text['necesidad.prioridad']}" /></f:facet>
-			               <f:facet name="input">
-			                  <pe:inputNumber id="modelInput" value="#{necesidad.prioridad}">  </pe:inputNumber>
-			               </f:facet>
+                    <p:column style="width: 25%" headerText="#{text['necesidad.prioridad']}" sortBy="#{necesidad.prioridad}">
+			           <p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{necesidad.prioridad}" /></f:facet>
+			               <f:facet name="input"><p:inputText id="modelInput" value="#{dtEditPlanificacionForm.prioridad}" style="width:100%"/></f:facet>
 			           </p:cellEditor>
-                    </p:column>
+			       </p:column>
                              
                     <p:column style="width: 25%">
                         <f:facet name="header">
-                            <p:column sortBy="codigo">
+                            <p:column sortBy="#{necesidad.producto.codigo}">
                                 <h:outputText value="#{text['producto.codigo']}"/>
                             </p:column>
                         </f:facet>
@@ -53,7 +50,7 @@
                     </p:column>
                     <p:column style="width: 44%">
                         <f:facet name="header">
-                            <p:column sortBy="descripcion">
+                            <p:column sortBy="#{necesidad.producto.descripcion}">
                                 <h:outputText value="#{text['producto.descripcion']}"/>
                             </p:column>
                         </f:facet>
@@ -62,7 +59,7 @@
                       
                     <p:column style="width: 34%">
                         <f:facet name="header">
-                            <p:column sortBy="cantidad">
+                            <p:column sortBy="#{text['necesidad.cantidad']}">
                                 <h:outputText value="#{text['necesidad.cantidad']}"/>
                             </p:column>
                         </f:facet>
@@ -70,7 +67,7 @@
                     </p:column>
                     <p:column style="width: 44%">
                         <f:facet name="header">
-                            <p:column sortBy="fechaCreacion">
+                            <p:column sortBy="#{necesidad.fechaCreacion}">
                                 <h:outputText value="#{text['necesidad.fechaCreacion']}"/>
                             </p:column>
                         </f:facet>
@@ -83,17 +80,21 @@
 	                           	<h:outputText value="#{necesidad.estadoBalancinado}" styleClass="#{necesidad.createStyleBalancinado()}"/>
 	                        </f:facet>
 	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.estado}" style="width:100%">
-				                       <f:selectItems value="#{estadoForm.estadosDisponibles}"/>
+				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%">
+				                       <f:selectItems value="#{estadoForm.estadosDisponiblesBalancinado}"/>
 				                   </h:selectOneMenu>
 				             </f:facet>
                     	</p:cellEditor>
                     </p:column>
                     <p:column style="width: 34%" headerText="#{text['estado.soldado']}">
                        <p:cellEditor>
-	                        <f:facet name="output">
-	                           	<h:outputText value="#{necesidad.estadoSoldadura}" styleClass="#{necesidad.createStyleSoldadura()}"/>
-	                        </f:facet>
+                       		
+		                        <f:facet name="output">
+		                        <div id="estiloEstado">
+		                           	<h:outputText value="#{necesidad.estadoSoldadura}" styleClass="#{necesidad.createStyleSoldadura()}"/>
+		                        </div>
+		                        </f:facet>
+		                     
 	                         <f:facet name="input">
 				                   <h:selectOneMenu value="#{necesidad.estadoSoldadura}" style="width:100%">
 				                       <f:selectItems value="#{estadoForm.estadosDisponiblesSoldadura}" itemDisabled="#{necesidad.estadoBalancinado != 'BALANCINADO_CONTROLADO'}" />
@@ -108,7 +109,7 @@
 	                        </f:facet>
 	                         <f:facet name="input">
 				                   <h:selectOneMenu value="#{necesidad.estadoPintado}" style="width:100%">
-				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintado}" itemDisabled="#{necesidad.estadoSoldado != 'SOLDADO_CONTROLADO'}" />
+				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}" itemDisabled="#{necesidad.estadoSoldado != 'SOLDADO_CONTROLADO'}" />
 				                   </h:selectOneMenu>
 				             </f:facet>
                     	</p:cellEditor>

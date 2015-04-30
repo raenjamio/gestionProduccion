@@ -12,6 +12,6 @@ public interface EstadoDAO  extends GenericDao<Estado, Long>{
 	 
 	Estado updateEstado(Estado estado);
 
-	Estado getProductosByCodigo(String codigo);
+	Estado getEstadoByCodigo(String codigo);
 
 }

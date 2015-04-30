@@ -75,11 +75,6 @@ public class EstadoDaoHibernate extends GenericDaoHibernate<Estado, Long> implem
         }
            
 	}
-	@Override
-	public Estado getProductosByCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
    

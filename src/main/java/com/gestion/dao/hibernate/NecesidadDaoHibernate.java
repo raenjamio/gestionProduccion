@@ -64,7 +64,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 	}
 	
 	public List<Necesidad> getAllNoFinalizadas() {
-		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNull("fechaFinalizado")).list();
+		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNull("fechaFinalizacion")).list();
 	    if (necesidades.isEmpty()) {
 	        return null;
 	    } else {

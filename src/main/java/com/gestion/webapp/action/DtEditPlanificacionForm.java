@@ -45,6 +45,15 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	public String codEstado;
 	private Necesidad necesidad;
 	private EstadoManager estadoManager;
+	private String prioridad;
+
+	public String getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(String prioridad) {
+		this.prioridad = prioridad;
+	}
 
 	public String getCodEstado() {
 		return codEstado;
@@ -141,13 +150,18 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		
 		//buscamos el estado de acuerdo al codigo seleccionado y se lo agregamos a la lista de estados de la necesidad
 		Estado estado = estadoManager.getEstadoByCodigo(codEstado);
+		
+		if (this.prioridad != null && "".equals(this.prioridad)) {	
+			this.necesidad.setPrioridad(new Long (this.prioridad));
+		}
+		
 		if (estado  != null) {
 			this.necesidad.getEstados().add(estado);
 			//si el codigo contiene FIN se termino el proceso, queda el control de calidad
-			if (estado.getCodigo().contains("FIN")) {
-				necesidad.setFinalizado(true);
-				necesidad.setFechaFinalizacion(new Date());
-			}
+			//if (estado.getCodigo().contains("FIN")) {
+			//	necesidad.setFinalizado(true);
+			//	necesidad.setFechaFinalizacion(new Date());
+			//}
 		}
 		
 		//guardamos el cambio

@@ -16,13 +16,21 @@ body {
     font-size: 18px;
 }
 
+#estiloEstado{
+		width: 25px;
+	height: 10px; 
+	border-radius: 2px 2px / 2px 2px;
+}
 
 .VERDE{
 	background-color: green !important;
+	margin: 12px 12px 12px 12px;
+        padding: 3px 3px 3px 3px;
 }
 
 .AZUL{
 	background-color: blue !important; 
+
 }
 
 

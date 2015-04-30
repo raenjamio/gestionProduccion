@@ -186,47 +186,49 @@ public class Necesidad extends BaseObject implements Serializable {
 
 	public String getEstadoBalancinado() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
+		String codEstado = null;
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)){
-	        	 return Constants.FINALIZADO;
+	        	 codEstado = Constants.FINALIZADO;
 	         }
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)){
-	        	 return Constants.CONTROLADO;
+	        	 codEstado = Constants.CONTROLADO;
 	         }
 	    }
-		return "";
+		return codEstado;
 	}
 	
 	public String getEstadoPintado() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
+		String codEstado = null;
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
-	        	 return Constants.FINALIZADO;
+	        	 codEstado = Constants.FINALIZADO;
 	         }
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)){
-	        	 return Constants.CONTROLADO;
+	        	 codEstado = Constants.CONTROLADO;
 	         }
 	    }
-		return "";
+		return codEstado;
 	}
 	
 	public String getEstadoSoldadura() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
-		
+		String codEstado = null;
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)){
-	        	 return Constants.FINALIZADO;
+	        	 codEstado = Constants.FINALIZADO;
 	         }
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)){
-	        	 return Constants.CONTROLADO;
+	        	 codEstado = Constants.CONTROLADO;
 	         }
 	    }
-		return "";
+		return codEstado;
 	}
 
 	public void setEstadoPintado(String codigo) {
