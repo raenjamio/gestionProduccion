@@ -14,13 +14,12 @@
         <Menu name="Importar" title="menu.importar.user" description="Importar" page="/importar/archivoNecesidades" roles="ROLE_ADMIN,ROLE_USER">
             <Item name="Necesidad" title="menu.user.impNecesidad" page="/importar/archivoNecesidades"/>
         </Menu>
-        <Menu name="Planificar" title="planificar.user" description="Planificar" page="/planificar/necesidadesPlanificacion" roles="ROLE_ADMIN,ROLE_SOLDADURA"/>
+        <Menu name="Planificar" title="planificar.user" description="Planificar" page="/planificar/necesidadesPlanificacion" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="Historial" title="historial.user" description="Historial" page="/historial/historial" roles="ROLE_ADMIN,ROLE_USER,ROLE_SOLDADURA"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="160" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
-            <Item name="FileUpload" title="menu.selectFile" page="/selectFile"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>

@@ -14,9 +14,9 @@
             <h:form id="searchForm" styleClass="form-inline">
                 <div id="search" class="text-right">
                     <span class="col-sm-9">
-                        <h:inputText id="q" size="20" value="#{dtEditPlanificacionForm.query}" styleClass="form-control input-sm"/>
+                        <h:inputText id="q" size="20" value="#{dtHistorial.query}" styleClass="form-control input-sm"/>
                     </span>
-                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{dtEditPlanificacionForm.search}" value="#{text['button.search']}"/>
+                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{dtHistorial.search}" value="#{text['button.search']}"/>
                 </div>
             </h:form>
 
@@ -25,7 +25,7 @@
 	             		<p:growl id="msgs" showDetail="true" sticky="true" /> 
 	             	</div>
 
-                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesFinalizadas}"  sortBy="#{necesidad.producto.codigo}"   style="margin-bottom:20px"
+                <p:dataTable id="necesidades" var="necesidad" value="#{dtHistorial.necesidadesFinalizadas}"  sortBy="#{necesidad.producto.codigo}"   style="margin-bottom:20px"
                              paginator="true" rows="25"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
@@ -37,10 +37,6 @@
                                 <h:outputText value="#{text['producto.codigo']}"/>
                             </p:column>
                         </f:facet>
-                        <h:commandLink action="#{productoForm.edit}" value="#{necesidad.producto.codigo}">
-                            <f:param name="id" value="#{prod.id}"/>
-                            <f:param name="from" value="list"/>
-                        </h:commandLink>
                     </p:column>
                     <p:column style="width: 50%" filterBy="#{necesidad.producto.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -80,7 +76,7 @@
 	                        </div>	
 	                        </f:facet>
 	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%" disabled="#{necesidad.estadoSoldadura ne 'Controlado'}">
+				                   <h:selectOneMenu value="#{dtHistorial.codEstado}" style="width:100%" disabled="#{necesidad.estadoSoldadura ne 'Controlado'}">
 				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
 				                   </h:selectOneMenu>
 				             </f:facet>
@@ -100,7 +96,7 @@
 			                <h:outputText value="Total:" />
 			            </p:column>
 			            <p:column>
-			                <h:outputText value="#{dtEditPlanificacionForm.totalFinalizadosByProd(necesidad.producto)}">
+			                <h:outputText value="#{dtHistorial.totalFinalizadosByProd(necesidad.producto)}">
 			                    <f:convertNumber pattern="#,000"/>
 			                </h:outputText>
 			            </p:column>
