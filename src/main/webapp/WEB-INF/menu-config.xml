@@ -15,8 +15,8 @@
             <Item name="Necesidad" title="menu.user.impNecesidad" page="/importar/archivoNecesidades"/>
         </Menu>
         <Menu name="Planificar" title="planificar.user" description="Planificar" page="/planificar/necesidadesPlanificacion" roles="ROLE_ADMIN,ROLE_SOLDADURA"/>
-        <Menu name="Historial" title="historial.user" description="Historial" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users">
+        <Menu name="Historial" title="historial.user" description="Historial" page="/historial/historial" roles="ROLE_ADMIN,ROLE_USER,ROLE_SOLDADURA"/>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="160" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>

@@ -3,7 +3,6 @@ package com.gestion.service;
 import com.gestion.dao.NecesidadDAO;
 import com.gestion.model.Necesidad;
 
-
 import java.util.List;
 
 
@@ -55,6 +54,12 @@ public interface NecesidadManager extends GenericManager<Necesidad, Long> {
 
 
 	List<Necesidad> getNecesidadesNoFinalizadas();
+
+
+	List<Necesidad> getNecesidadesFinalizadas();
+
+
+	List<Necesidad> getNecesidadesByProd(String codigo);
 
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.

@@ -23,7 +23,6 @@
         </div>
         
  		<div class="col-sm-7">
-            <h2>#{text['prodList.heading']}</h2>
 
             <h:form id="searchForm" styleClass="form-inline">
                 <div id="search" class="text-right">
@@ -36,28 +35,6 @@
        
                 
               <h:form id="productoForm" styleClass="well" autocomplete="off">
-        	    <p:dataTable id="productos" var="prod" value="#{productoForm.productosSinNecesidad}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{necesidadForm.selectedProducto}" rowKey="#{prod.id}"
-                             paginator="true" rows="15"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15">
-                    <p:column style="width: 25%">
-                        <f:facet name="header">
-                            <p:column sortBy="codigo">
-                                <h:outputText value="#{text['producto.codigo']}"/>
-                            </p:column>
-                        </f:facet>
-                        <h:outputText value="#{prod.codigo}"/>
-                    </p:column>
-                    <p:column style="width: 34%">
-                        <f:facet name="header">
-                            <p:column sortBy="descripcion">
-                                <h:outputText value="#{text['producto.descripcion']}"/>
-                            </p:column>
-                        </f:facet>
-                        <h:outputText value="#{prod.descripcion}"/>
-                    </p:column>
-                   
-                </p:dataTable>
         
                 <h:inputHidden value="#{necesidadForm.necesidad.id}" id="id"/>
 
@@ -90,6 +67,30 @@
                     <h:commandButton value="#{text['button.cancel']}" action="#{necesidadForm.cancel}" immediate="true"
                         styleClass="btn btn-default"/>
                 </div>
+                
+                            <h2>#{text['prodList.heading']}</h2>
+                <p:dataTable id="productos" var="prod" value="#{productoForm.productosSinNecesidad}" sortBy="#{productoForm.sortColumn}" selectionMode="single" selection="#{necesidadForm.selectedProducto}" rowKey="#{prod.id}"
+                             paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="codigo">
+                                <h:outputText value="#{text['producto.codigo']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{prod.codigo}"/>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="descripcion">
+                                <h:outputText value="#{text['producto.descripcion']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{prod.descripcion}"/>
+                    </p:column>
+                   
+                </p:dataTable>
             </h:form>
         </div>
 </ui:define>

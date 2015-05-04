@@ -127,7 +127,14 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#nuevo#productos.xhtml"
-  PATH="/nuevo/productos.xhtml" SHAPE="464,753,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/nuevo/productos.xhtml" SHAPE="464,753,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nuevo#productos.xhtml:0" NAME="item"
+   PATH="/nuevo/productos.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#nuevo#productos.xhtml"
+    NAME="output" PATH="/nuevo/productos.xhtml"
+    TARGET="rules:#nuevo#productos.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#nuevo#necesidades.xhtml"
   PATH="/nuevo/necesidades.xhtml" SHAPE="464,897,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#importar#archivoNecesidades.xhtml"

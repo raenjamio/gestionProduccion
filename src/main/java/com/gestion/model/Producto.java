@@ -5,6 +5,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import javassist.bytecode.Descriptor.Iterator;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * This class is used to represent available roles in the database.
@@ -38,8 +42,9 @@ public class Producto extends BaseObject implements Serializable {
     private String codigo;
 	private String descripcion;
     private Long prioridad;
-	private Necesidad necesidad;
+	//private Necesidad necesidad;
 	private FileUpload fileUploadHeader;
+	private List<Necesidad> necesidades;
 	
     /**
      * Default constructor - creates a new instance with no values set.
@@ -73,7 +78,7 @@ public class Producto extends BaseObject implements Serializable {
 	
 	//@OneToOne (mappedBy="producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn //(name="producto_id", unique= true, nullable=true, insertable=true, updatable=true)
-	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	/*@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name="id")
     public Necesidad getNecesidad() {
 		return necesidad;
@@ -81,10 +86,18 @@ public class Producto extends BaseObject implements Serializable {
 
 	public void setNecesidad(Necesidad necesidad) {
 		this.necesidad = necesidad;
+	}*/
+	
+	@OneToMany (fetch=FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="producto")
+    public List<Necesidad> getNecesidades() {
+		return necesidades;
 	}
 
+	public void setNecesidades(List<Necesidad> necesidades) {
+		this.necesidades = necesidades;
+	}
 
-    @Column (nullable = false, length = 20, unique = true)
+	@Column (nullable = false, length = 20, unique = true)
     @Field
     public String getCodigo() {
         return this.codigo;

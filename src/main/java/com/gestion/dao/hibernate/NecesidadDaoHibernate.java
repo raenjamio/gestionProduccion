@@ -5,6 +5,7 @@ import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -66,13 +67,36 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 	public List<Necesidad> getAllNoFinalizadas() {
 		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNull("fechaFinalizacion")).list();
 	    if (necesidades.isEmpty()) {
-	        return null;
+	        return necesidades;
+	    } else {
+	        return necesidades;
+	    }
+		
+	}
+	
+	public List<Necesidad> getAllFinalizadas() {
+		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalizacion")).list();
+	    if (necesidades.isEmpty()) {
+	        return necesidades;
 	    } else {
 	        return necesidades;
 	    }
 		
 	}
 
+	public 	List<Necesidad> getNecesidadesByProd(String codigo) {
+		List<Necesidad> necesidades = null;
 
+		if (codigo != null) {
+			//productos = getSession().createSQLQuery("select prod.*	from productos prod where not exists (select * from necesidades nec where nec.producto_id = prod.id AND nec.finalizado = true)").list();
+			SQLQuery query = getSession().createSQLQuery("select nec.id, nec.cantidad, nec.estadoBalancinado, nec.estadoPintado, nec.estadoSoldadura, nec.fechaCreacion, nec.fechaFinalizacion, nec.prioridad, nec.finalizado, nec.producto_id from necesidades nec inner join productos prod on prod.id = nec.producto_id where nec.finalizado = true and prod.codigo = '"+ codigo +"'")
+					//.addScalar("id", new LongType())
+					//.addScalar("codigo")
+					//.addScalar("descripcion");
+					.addEntity(Necesidad.class);
+			necesidades = query.list();
+		}
+		return necesidades;
+	}
    
 }

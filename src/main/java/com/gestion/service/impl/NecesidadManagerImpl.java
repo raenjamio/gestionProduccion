@@ -69,4 +69,14 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 		return necesidadDao.getAllNoFinalizadas();
 		
 	}
+	public List<Necesidad> getNecesidadesFinalizadas(){
+		return necesidadDao.getAllFinalizadas();
+		
+	}
+
+	@Override
+	public List<Necesidad> getNecesidadesByProd(String codigo) {
+		// TODO Auto-generated method stub
+		return necesidadDao.getNecesidadesByProd(codigo);
+	}
 }

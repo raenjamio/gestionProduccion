@@ -65,6 +65,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 
 	public DtEditPlanificacionForm() {
 		setSortColumn("prioridad");
+		super.nullsAreHigh = true;
 	}
 
 	public void setId(String id) {
@@ -139,6 +140,15 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 			return sort(necesidadManager.search(query));
 		}
 	}
+	
+	public List getNecesidadesFinalizadas() {
+		try {
+			return sort(necesidadManager.getNecesidadesFinalizadas());
+		} catch (SearchException se) {
+			addError(se.getMessage());
+			return sort(necesidadManager.search(query));
+		}
+	}
 
 	public String search() {
 		return "success";
@@ -151,27 +161,65 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		//buscamos el estado de acuerdo al codigo seleccionado y se lo agregamos a la lista de estados de la necesidad
 		Estado estado = estadoManager.getEstadoByCodigo(codEstado);
 		
-		if (this.prioridad != null && "".equals(this.prioridad)) {	
-			this.necesidad.setPrioridad(new Long (this.prioridad));
-		}
+		if (this.prioridad != null && !"".equals(this.prioridad)) {	
+			if (isNumeric(prioridad)) {
+				this.necesidad.setPrioridad(new Long (this.prioridad));
+			} else {
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage("El campo prioridad debe ser numerico",  "No se puede cambiar el estado"));
+				
+		        return;
+			}
+		} 
 		
 		if (estado  != null) {
-			this.necesidad.getEstados().add(estado);
-			//si el codigo contiene FIN se termino el proceso, queda el control de calidad
-			//if (estado.getCodigo().contains("FIN")) {
-			//	necesidad.setFinalizado(true);
-			//	necesidad.setFechaFinalizacion(new Date());
-			//}
+			//si le voy a poner finalizado, lo pongo sin importar otro estado
+			if (codEstado.contains("FINALIZADO")) {
+				this.necesidad.getEstados().add(estado);
+			} else if (this.necesidad.estaFinalizado(codEstado))
+				{
+					this.necesidad.getEstados().add(estado);
+				}
+			
+			else {
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage("El producto no se encuentra finalizado",  "No se puede cambiar el estado"));
+				
+		        return;
+			}
+			//si el codigo es igual al ultimo proceso lo damos por finalizado
+			if (estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)) {
+				necesidad.setFinalizado(true);
+				necesidad.setFechaFinalizacion(new Date());
+			}
+		} else {
+			if (codEstado != null) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage("Necesidad no actualizada",  "No esta parametrizado el estado"));
+		        return;
+			}
 		}
 		
 		//guardamos el cambio
 		necesidadManager.saveNecesidad(necesidad);
-		
-        FacesMessage msg = new FacesMessage("Producto editado", ((Necesidad) event.getObject()).getProducto().getCodigo().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Producto editado",  "Se cambio de estado y/o prioridad"));
     }
 	
-    public void onRowCancel(RowEditEvent event) {
+    private boolean isNumeric(String prioridad2) {
+		 try  
+		  {  
+		    Integer num = Integer.parseInt(prioridad2);  
+		  }  
+		  catch(NumberFormatException nfe)  
+		  {  
+		    return false;  
+		  }  
+		  return true;  
+	}
+
+	public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Necesidad) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -184,6 +232,17 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+    
+    public Integer totalFinalizadosByProd(Producto producto) {
+    	Integer total= new Integer(0);
+    	List<Necesidad> necesidades = necesidadManager.getNecesidadesByProd(producto.getCodigo());
+    	
+    	for(Necesidad necesidad : necesidades) {
+            total += necesidad.getCantidad();
+        }
+    	return total;
+    	
     }
     
 

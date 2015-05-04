@@ -123,7 +123,7 @@ public class NecesidadForm extends BasePage implements Serializable {
         // Check for Integers set to 0: happens in Tomcat, not in Jetty
 		if (selectedProducto != null) {
 			getNecesidad().setFechaCreacion(new Date());
-			selectedProducto.setNecesidad(getNecesidad());
+			//selectedProducto.setNecesidad(getNecesidad());
 	        getNecesidad().setProducto(selectedProducto);
 		} else {
 			return "recargarNecesidades";  

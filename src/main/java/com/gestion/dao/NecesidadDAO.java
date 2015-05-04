@@ -16,4 +16,8 @@ public interface NecesidadDAO  extends GenericDao<Necesidad, Long>{
 
 	List<Necesidad> getAllNoFinalizadas();
 
+	List<Necesidad> getAllFinalizadas();
+
+	List<Necesidad> getNecesidadesByProd(String codigo);
+
 }

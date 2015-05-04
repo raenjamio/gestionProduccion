@@ -124,11 +124,12 @@ public class Estado extends BaseObject implements Serializable {
 	public void setRolUser(String rolUser) {
 		this.rolUser = rolUser;
 	}
-
+	
+    @Column (nullable = false, unique = true )
 	public String getCodigo() {
 		return codigo;
 	}
-
+	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}

@@ -11,35 +11,102 @@ body {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
 }
 
+table tr td {
+	height: 20px;
+}
+
 .nav-stacked .nav-header {
     margin-bottom: 10px;
     font-size: 18px;
 }
 
-#estiloEstado{
-		width: 25px;
-	height: 10px; 
-	border-radius: 2px 2px / 2px 2px;
+.ui-datatable .ui-row-editing .ui-cell-editor .ui-cell-editor-input {
+    color: #000;
+    text-align: center;
+    font-weight: bold;
+}
+
+div[id="outputEstadoAzul"]{
+	width: 100px;
+	height: 21px;
+	border-radius: 8px;
+	background-color: blue !important;
+	font-size: 14px;
+	font-weight: bold;
+	color: white !important;
+}
+
+div[id="outputEstadoVerde"]{
+	width: 100px;
+	height: 21px;
+	border-radius: 8px;
+	background-color: green !important;
+	font-size: 14px;
+	font-weight: bold;
+	color: white !important;
 }
 
 .VERDE{
 	background-color: green !important;
-	margin: 12px 12px 12px 12px;
-        padding: 3px 3px 3px 3px;
+	width: 110px;
+	color: white !important; 
+	border-color: black;
+	border-width: 1px;
+	padding: 3px 3px;
+	vertical-align: middle;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 5px;
 }
 
 .AZUL{
 	background-color: blue !important; 
+	width: 110px;
+	color: white !important; 
+	border-color: black;
+	border-width: 1px;
+	padding: 3px 3px;
+	vertical-align: middle;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 5px;
 
 }
 
+.ui-widget {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+}
 
+.ui-widget-content {
+    border: 1px solid #DDD;
+    background: none repeat scroll 0% 0% #FFF;
+    color: #333;
+    text-align: center;
+}
 .DEFAULT{
 	background-color: white !important; 
 }
 
 body#login {
     padding-bottom: 40px;
+}
+
+div[id="formPlanificacion:growlImport_container"] {
+    position:absolute;
+    top:100px;
+}
+
+ui-growl-item {
+    display: block;
+    padding: 60px 15px;
+    top: 100px;
+}
+.ui-growl {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 301px;
 }
 
 div[id="uploadForm:growlImport_container"] {

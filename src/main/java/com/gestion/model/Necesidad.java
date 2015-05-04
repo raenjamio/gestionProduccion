@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -71,9 +72,9 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.id = id;
 	}
 
-	//@OneToOne(fetch = FetchType.LAZY)
-	@OneToOne(mappedBy="necesidad", cascade=CascadeType.ALL)
-	//@PrimaryKeyJoinColumn
+	//@OneToOne(mappedBy="necesidad", cascade=CascadeType.ALL)
+	@ManyToOne//(cascade=CascadeType.ALL)
+	@JoinColumn(nullable = false)
 	public Producto getProducto() {
 		return producto;
 	}
@@ -186,47 +187,50 @@ public class Necesidad extends BaseObject implements Serializable {
 
 	public String getEstadoBalancinado() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
-		String codEstado = null;
+		String codEstado = "";
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)){
+	        	 return Constants.CONTROLADO;
+	         } 
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)){
 	        	 codEstado = Constants.FINALIZADO;
 	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)){
-	        	 codEstado = Constants.CONTROLADO;
-	         }
+	         
 	    }
 		return codEstado;
 	}
 	
 	public String getEstadoPintado() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
-		String codEstado = null;
+		String codEstado = "";
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)){
+	        	 return Constants.CONTROLADO;
+	         }
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
 	        	 codEstado = Constants.FINALIZADO;
 	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)){
-	        	 codEstado = Constants.CONTROLADO;
-	         }
+	         
 	    }
 		return codEstado;
 	}
 	
 	public String getEstadoSoldadura() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
-		String codEstado = null;
+		String codEstado = "";
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)){
+	        	 return Constants.CONTROLADO;
+	         }
 	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)){
 	        	 codEstado = Constants.FINALIZADO;
 	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)){
-	        	 codEstado = Constants.CONTROLADO;
-	         }
+	        
 	    }
 		return codEstado;
 	}
@@ -277,9 +281,9 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 	    switch (estado){
 	    case Constants.FINALIZADO:
-	        return "AZUL";
+	        return "outputEstadoAzul";
 		case Constants.CONTROLADO:
-	        return "VERDE";
+	        return "outputEstadoVerde";
 		default: 
 	        return "DEFAULT";   
 	    }
@@ -290,9 +294,9 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 	    switch (estado){
 	    case Constants.FINALIZADO:
-	        return "AZUL";
+	        return "outputEstadoAzul";
 		case Constants.CONTROLADO:
-	        return "VERDE";
+	        return "outputEstadoVerde";
 		default: 
 	        return "DEFAULT";   
 	    }
@@ -303,13 +307,31 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 	    switch (estado){
 	    case Constants.FINALIZADO:
-	        return "AZUL";
+	        return "outputEstadoAzul";
 		case Constants.CONTROLADO:
-	        return "VERDE";
+	        return "outputEstadoVerde";
 		default:
-			return "";
+			return "DEFAULT";
 	        //return "DEFAULT";   
 	    }
+	}
+	
+
+	public boolean estaFinalizado(String codEstado) {
+		// TODO Auto-generated method stub
+		if (codEstado != null && !codEstado.contains("FINALIZADO")) {
+			String estado = codEstado.substring(0, codEstado.indexOf("_")+1);
+			//recorro los estados y me fijo si para ese estado (soldado, balancinado o pintado) esta finalizado
+			Iterator<Estado> estadosI = this.getEstados().iterator();
+			while(estadosI.hasNext()) {
+		         Estado estado_ = estadosI.next();
+		         if (estado_.getCodigo() != null && estado_.getCodigo().equals(estado + "FINALIZADO")){
+		        	 return true;
+		         }   
+		    }
+
+		}
+		return false;
 	}
 	
 }
