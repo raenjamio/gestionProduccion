@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.faces.component.UIData;
+import org.omnifaces.util.Ajax;
 
 /**
  * JSF Page class to handle editing a user with a form.
@@ -46,6 +50,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	private Necesidad necesidad;
 	private EstadoManager estadoManager;
 	private String prioridad;
+	private List<Necesidad> necesidades;
 
 	public String getPrioridad() {
 		return prioridad;
@@ -66,6 +71,12 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	public DtEditPlanificacionForm() {
 		setSortColumn("prioridad");
 		super.nullsAreHigh = true;
+
+	}
+	
+
+	public void setNecesidades(List<Necesidad> necesidades) {
+		this.necesidades = necesidades;
 	}
 
 	public void setId(String id) {
@@ -125,7 +136,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 
 	public List getNecesidades() {
 		try {
-			return sort(necesidadManager.search(query));
+			return sort(getNecesidadesNoFinalizadas());
 		} catch (SearchException se) {
 			addError(se.getMessage());
 			return sort(necesidadManager.search(query));
@@ -204,6 +215,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		necesidadManager.saveNecesidad(necesidad);
 
 		FacesContext context = FacesContext.getCurrentInstance();
+		necesidades = getNecesidadesNoFinalizadas();
 		context.addMessage(null, new FacesMessage("Producto editado",  "Se cambio de estado y/o prioridad"));
     }
 	
@@ -245,5 +257,14 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     	
     }
     
+    @PostConstruct
+    public void init(){
+    	necesidades = getNecesidadesNoFinalizadas();
+    }
+    
+    public void refresh(){
+    	necesidades = getNecesidadesNoFinalizadas();
+    }
+
 
 }

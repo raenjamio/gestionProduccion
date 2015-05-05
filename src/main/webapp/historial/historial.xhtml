@@ -31,13 +31,14 @@
                              rowsPerPageTemplate="15,25,50">
               
                              
-                    <p:column style="width: 38%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains" sortBy="#{necesidad.producto.codigo}">
+                    <p:column style="width: 50%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
-                            <p:column sortBy="#{necesidad.producto.codigo}" >
+                            <p:column filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
                                 <h:outputText value="#{text['producto.codigo']}"/>
                             </p:column>
                         </f:facet>
-                    </p:column>
+                        <h:outputText value="#{necesidad.producto.codigo}"/>
+                    </p:column>  
                     <p:column style="width: 50%" filterBy="#{necesidad.producto.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
                             <p:column filterBy="#{necesidad.producto.descripcion}" filterMatchMode="contains">

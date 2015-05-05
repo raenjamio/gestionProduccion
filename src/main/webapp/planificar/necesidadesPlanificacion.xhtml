@@ -21,19 +21,22 @@
             </h:form>
 
             <h:form id="formPlanificacion">
+              <p:commandButton value="Refresh Table" action="#{dtEditPlanificacionForm.refresh()}"
+                      update=":formPlanificacion:mygroup" />  
             <h:panelGroup id="mygroup">
+            <p:outputPanel id="testContainer">
            			<div id="growlImport_container">
 	             		<p:growl id="msgs" showDetail="true" sticky="true" /> 
 	             	</div>
-
-                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesNoFinalizadas}" sortBy="#{dtEditPlanificacionForm.sortColumn}"  editable="true" style="margin-bottom:20px"
+				
+				<p:remoteCommand name="onRowEdit" action="#{dtEditPlanificacionForm.refresh()}" update="testContainer" />
+                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidades}" sortBy="#{dtEditPlanificacionForm.sortColumn}"  editable="true" style="margin-bottom:20px"
                              paginator="true" rows="25"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
                              
-                    <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" update=":formPlanificacion:msgs" />
+                    <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" update=":formPlanificacion:msgs" oncomplete="onRowEdit()" />
        				<p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
-					<p:ajax event="rowEdit" update=":formPlanificacion:mygroup" />
                              
                     <p:column style="width: 25%" headerText="#{text['necesidad.prioridad']}" sortBy="#{necesidad.prioridad}" >
 			           <p:cellEditor>
@@ -128,10 +131,12 @@
                     </p:column>
                     
                    <p:column style="width:32px">
-			       		<p:rowEditor> <p:ajaxStatus update=":formPlanificacion:mygroup" /> </p:rowEditor>
+			       		<p:rowEditor/>
 			       </p:column>
                    
                 </p:dataTable>
+                
+    </p:outputPanel>   
                   </h:panelGroup>
             </h:form>
             

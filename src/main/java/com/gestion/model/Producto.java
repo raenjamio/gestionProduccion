@@ -36,7 +36,7 @@ import java.util.List;
 @Table(name = "productos")
 @Indexed
 @XmlRootElement
-public class Producto extends BaseObject implements Serializable {
+public class Producto extends BaseObject implements Serializable,  Comparable<Producto> {
     private static final long serialVersionUID = 3690197650654049848L;
     private Long id;
     private String codigo;
@@ -164,6 +164,16 @@ public class Producto extends BaseObject implements Serializable {
                 .append(this.codigo)
                 .toString();
     }
+
+	@Override
+	public int compareTo(Producto arg0) {
+		// TODO Auto-generated method stub
+
+		String codigo = ((Producto) arg0).getCodigo(); 
+ 
+		//ascending order
+		return this.getCodigo().compareTo(codigo);
+	}
 
 
 }

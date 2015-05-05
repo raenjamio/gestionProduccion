@@ -54,7 +54,7 @@ public class DtHistorial extends BasePage implements Serializable {
 	}
 
 	public DtHistorial() {
-		setSortColumn("codigo");
+		setSortColumn("producto");
 		super.nullsAreHigh = true;
 	}
 
