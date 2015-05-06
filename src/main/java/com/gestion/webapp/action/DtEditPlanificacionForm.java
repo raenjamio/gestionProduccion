@@ -177,7 +177,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 				this.necesidad.setPrioridad(new Long (this.prioridad));
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage("El campo prioridad debe ser numerico",  "No se puede cambiar el estado"));
+				context.addMessage(null, new FacesMessage("El campo prioridad debe ser numérico",  "No se puede cambiar el estado"));
 				
 		        return;
 			}
@@ -204,7 +204,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 				necesidad.setFechaFinalizacion(new Date());
 			}
 		} else {
-			if (codEstado != null) {
+			if (codEstado != null && !"".equals(codEstado)) {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage("Necesidad no actualizada",  "No esta parametrizado el estado"));
 		        return;
@@ -232,7 +232,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Necesidad) event.getObject()).getId().toString());
+        FacesMessage msg = new FacesMessage("Se cancelo la edición", ((Necesidad) event.getObject()).getProducto().getCodigo());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      

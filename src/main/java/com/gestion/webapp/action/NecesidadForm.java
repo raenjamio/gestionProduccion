@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -126,7 +128,10 @@ public class NecesidadForm extends BasePage implements Serializable {
 			//selectedProducto.setNecesidad(getNecesidad());
 	        getNecesidad().setProducto(selectedProducto);
 		} else {
-			return "recargarNecesidades";  
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Seleccione un producto",  "No se puede crear la necesidad"));
+			
+	        return "nuevaNecesidad";
 		}
         if (necesidad.getId() != null && necesidad.getId() == 0 ) {
         	necesidad.setId(null);
