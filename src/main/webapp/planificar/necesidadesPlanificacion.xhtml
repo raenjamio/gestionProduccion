@@ -16,7 +16,7 @@
                     <span class="col-sm-9">
                         <h:inputText id="q" size="20" value="#{dtEditPlanificacionForm.query}" styleClass="form-control input-sm"/>
                     </span>
-                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{dtEditPlanificacionForm.search}" value="#{text['button.search']}"/>
+                    <h:commandButton styleClass="btn btn-default btn-sm" icon="ui-icon-search" action="#{dtEditPlanificacionForm.search}" value="#{text['button.search']}"/>
                 </div>
             </h:form>
 
@@ -28,7 +28,7 @@
 	             	</div>
 				
 				<p:remoteCommand name="onRowEdit" action="#{dtEditPlanificacionForm.refresh()}" update="testContainer" />
-                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidades}" sortBy="#{dtEditPlanificacionForm.sortColumn}"  editable="true" style="margin-bottom:20px"
+                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidades}" sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
                              paginator="true" rows="25"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">

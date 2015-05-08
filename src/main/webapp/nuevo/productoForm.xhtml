@@ -50,7 +50,7 @@
 
 
                 <div class="form-group form-actions">
-                    <h:commandButton value="#{text['button.save']}" oncomplete="limpiarForm()" action="#{productoForm.save}" styleClass="btn btn-primary"/>
+                    <h:commandButton value="#{text['button.save']}" icon="ui-icon-disk" oncomplete="limpiarForm()" action="#{productoForm.save}" styleClass="btn btn-primary"/>
 
                     <!-- Todo: hide this button when the user's id is not assigned. Wrapping it with <c:if test="${not empty userForm.user.id}"> or
                          rendered="${not empty userForm.user.id}" causes this button to not call the delete() method in UserForm.  -->

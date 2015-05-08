@@ -202,7 +202,17 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 			if (estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)) {
 				necesidad.setFinalizado(true);
 				necesidad.setFechaFinalizacion(new Date());
-			}
+			} else if (estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
+				necesidad.setFechaFinalPintado(new Date());
+			} else if (estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)) {
+				necesidad.setFechaFinalBalancinado(new Date());
+			} else if (estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)) {
+				necesidad.setFechaFinalSoldado(new Date());
+			} else if (estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)) {
+				necesidad.setFechaControlBalancinado(new Date());
+			} else if (estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)) {
+				necesidad.setFechaControlSoldado(new Date());
+			} 
 		} else {
 			if (codEstado != null && !"".equals(codEstado)) {
 				FacesContext context = FacesContext.getCurrentInstance();

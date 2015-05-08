@@ -56,6 +56,12 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Producto producto;
 	private List<Estado> estados = new ArrayList<Estado>();
 	private Date fechaFinalizacion;
+	private Date fechaFinalBalancinado;
+	private Date fechaControlBalancinado;
+	private Date fechaFinalPintado;
+	private Date fechaControlPintado;
+	private Date fechaFinalSoldado;
+	private Date fechaControlSoldado;
 	
 
     @Id  
@@ -131,6 +137,54 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
+	
+	public Date getFechaFinalBalancinado() {
+		return fechaFinalBalancinado;
+	}
+
+	public void setFechaFinalBalancinado(Date fechaFinalBalancinado) {
+		this.fechaFinalBalancinado = fechaFinalBalancinado;
+	}
+
+	public Date getFechaControlBalancinado() {
+		return fechaControlBalancinado;
+	}
+
+	public void setFechaControlBalancinado(Date fechaControlBalancinado) {
+		this.fechaControlBalancinado = fechaControlBalancinado;
+	}
+
+	public Date getFechaFinalPintado() {
+		return fechaFinalPintado;
+	}
+
+	public void setFechaFinalPintado(Date fechaFinalPintado) {
+		this.fechaFinalPintado = fechaFinalPintado;
+	}
+
+	public Date getFechaControlPintado() {
+		return fechaControlPintado;
+	}
+
+	public void setFechaControlPintado(Date fechaControlPintado) {
+		this.fechaControlPintado = fechaControlPintado;
+	}
+
+	public Date getFechaFinalSoldado() {
+		return fechaFinalSoldado;
+	}
+
+	public void setFechaFinalSoldado(Date fechaFinalSoldado) {
+		this.fechaFinalSoldado = fechaFinalSoldado;
+	}
+
+	public Date getFechaControlSoldado() {
+		return fechaControlSoldado;
+	}
+
+	public void setFechaControlSoldado(Date fechaControlSoldado) {
+		this.fechaControlSoldado = fechaControlSoldado;
+	}
 
 	@Override
 	public boolean equals(Object o) {
