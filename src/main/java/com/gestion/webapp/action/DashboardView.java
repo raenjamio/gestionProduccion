@@ -6,11 +6,13 @@ import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 import com.gestion.model.FileUpload;
 import com.gestion.service.FileUploadManager;
+import com.gestion.service.NecesidadManager;
 import com.gestion.service.ProductoManager;
 import com.gestion.service.RoleManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CloseEvent;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.event.FileUploadEvent;
@@ -56,25 +58,27 @@ public class DashboardView extends BasePage implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private DashboardModel model;
+	private List<Necesidad> ulimasNecBalancinadas;
+	private NecesidadManager necesidadManager;
+
 	     
 	    @PostConstruct
 	    public void init() {
 	        model = new DefaultDashboardModel();
 	        DashboardColumn column1 = new DefaultDashboardColumn();
 	        DashboardColumn column2 = new DefaultDashboardColumn();
-	        DashboardColumn column3 = new DefaultDashboardColumn();
 	         
-	        column1.addWidget("sports");
-	        column1.addWidget("finance");
+	        column2.addWidget("sports");
+	        column2.addWidget("finance");
 	         
-	        column2.addWidget("lifestyle");
-	        column2.addWidget("weather");
-	         
-	        column3.addWidget("politics");
+	        column1.addWidget("lifestyle");
+	        column1.addWidget("weather");
+	        
+	        this.setUlimasNecBalancinadas(necesidadManager.getTopBalancFinalizadas());
 	 
 	        model.addColumn(column1);
 	        model.addColumn(column2);
-	        model.addColumn(column3);
+
 	    }
 	     
 	    public void handleReorder(DashboardReorderEvent event) {
@@ -105,6 +109,25 @@ public class DashboardView extends BasePage implements Serializable {
 	    public DashboardModel getModel() {
 	        return model;
 	    }
+
+		public List<Necesidad> getUlimasNecBalancinadas() {
+			return ulimasNecBalancinadas;
+		}
+
+		public void setUlimasNecBalancinadas(List<Necesidad> ulimasNecBalancinadas) {
+			this.ulimasNecBalancinadas = ulimasNecBalancinadas;
+		}
+
+		public NecesidadManager getNecesidadManager() {
+			return necesidadManager;
+		}
+
+		public void setNecesidadManager(NecesidadManager necesidadManager) {
+			this.necesidadManager = necesidadManager;
+		}
+	    
+	    
+	    
 	
  
 }

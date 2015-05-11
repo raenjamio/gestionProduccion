@@ -8,15 +8,9 @@
     <ui:define name="body">
         <div class="col-sm-10">
             <h2>#{text['prodList.heading']}</h2>
-
-            <h:form id="searchForm" styleClass="form-inline">
-                <div id="search" class="text-right">
-                    <span class="col-sm-9">
-                        <h:inputText id="q" size="20" value="#{productoForm.query}" styleClass="form-control input-sm"/>
-                    </span>
-                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{productoForm.search}" value="#{text['button.search']}"/>
-                </div>
-            </h:form>
+						
+			<hr style="hr" size="2" color="black"/>
+          
 
             <h:form id="editUser">
 
@@ -30,7 +24,7 @@
                 </div>
 
                 <p:dataTable id="productos" var="prod" value="#{productoForm.productos}" sortBy="#{productoForm.sortColumn}"
-                             paginator="true" rows="10"
+                             paginator="true" rows="10" paginatorPosition="bottom"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
                     <p:column style="width: 25%">

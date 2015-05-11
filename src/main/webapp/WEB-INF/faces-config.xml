@@ -271,6 +271,26 @@
         </managed-property>
     </managed-bean>
     
+    <managed-bean>
+        <managed-bean-name>dashboardView</managed-bean-name>
+        <managed-bean-class>com.gestion.webapp.action.DashboardView</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>necesidadManager</property-name>
+            <value>#{necesidadManager}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>chartView</managed-bean-name>
+        <managed-bean-class>com.gestion.webapp.action.ChartView</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+         <managed-property>
+            <property-name>chartManager</property-name>
+            <value>#{chartManager}</value>
+        </managed-property>
+    </managed-bean>
+    
      <managed-bean>
         <managed-bean-name>estadoForm</managed-bean-name>
         <managed-bean-class>com.gestion.webapp.action.EstadoForm</managed-bean-class>

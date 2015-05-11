@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['home.title']}</ui:define>
+    <ui:param name="menu" value="Home"/>
+
+    <ui:define name="body">
+        <h2>#{text['dashboard.heading']}</h2>
+        
+        <hr style="hr" size="2" color="black"/>
+
+		<div style="height:500px;width:1000px">
+		    <h:form>
+		    	<p:growl id="msgs" showDetail="true" />
+		    	
+		    	
+		    <h:panelGrid columns="1" cellpadding="5">
+		    	<p:outputLabel  value="Seleccione un periodo:" />
+		  	</h:panelGrid> 
+		  	 <h:panelGrid columns="2" cellpadding="5">
+		    	<p:outputLabel value="Desde:" />
+        		<p:calendar style="width:100px" id="fechaDesde" showOn="button" pattern="yyyy-MM"  value="#{chartView.fechaDesde}" effect="fold" />
+ 				<p:outputLabel value="Hasta:" />
+ 				<p:calendar id="fechaHasta" showOn="button" pattern="yyyy-MM"  value="#{chartView.fechaHasta}" effect="fold" />
+ 				
+ 				<p:commandButton value="Buscar" update="msgs" actionListener="#{chartView.click}" icon="ui-icon-search" />
+ 
+		     </h:panelGrid>    
+		 <br />
+		        <p:dashboard id="board" model="#{dashboardView.model}">
+		            <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+		 
+		            <p:panel id="sports" header="Ultimos Balancinados" style="width:200px">
+		                <p:dataList value="#{dashboardView.ulimasNecBalancinadas}" var="nec" type="ordered">
+					       
+					        #{nec.producto.codigo}, #{nec.producto.descripcion}
+					    </p:dataList>
+		            </p:panel>
+		 
+		            <p:panel id="finance" header="Finance" style="width:200px">
+		                <h:outputText value="Finance Content" />
+		            </p:panel>
+		 
+		 
+		            <p:panel id="weather" header="Weather" style="width:800px">
+		                	<p:chart type="line" model="#{chartView.areaModel}" style="height:300px" />
+		            </p:panel>
+	
+		 			<p:panel id="lifestyle" header="grafico" style="width:800px">
+		                	<p:chart type="bar" model="#{chartView.barModel}" style="height:300px"/>
+		            </p:panel>
+
+		        </p:dashboard>
+		        
+		     
+		    </h:form>
+		</div>
+    </ui:define>
+</ui:composition>
+</html>

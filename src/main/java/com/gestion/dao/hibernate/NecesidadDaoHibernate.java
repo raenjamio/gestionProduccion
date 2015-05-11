@@ -1,12 +1,14 @@
 package com.gestion.dao.hibernate;
 
 import com.gestion.dao.NecesidadDAO;
+import com.gestion.model.Chart;
 import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +20,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -97,6 +102,88 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 			necesidades = query.list();
 		}
 		return necesidades;
+	}
+	@Override
+	public List<Chart> getSoldadasFinalizadas() {
+		List<Object[]> necesidades = null;
+		List<Chart> charts = new ArrayList<>();
+		Chart chart;
+		//List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalBalancinado")).list();
+		SQLQuery query = getSession().createSQLQuery("select DATE_FORMAT(fechaFinalSoldado, '%Y-%m') as fecha, SUM(cantidad) as cantidad from necesidades where fechaFinalSoldado is not null group by DATE_FORMAT(fechaFinalSoldado, '%Y-%m')  order by fechaFinalSoldado");
+				//.addScalar("fecha")
+				//.addScalar("cantidad");
+				//.addEntity(Chart.class);
+		necesidades = query.list();
+		
+		for (Object[] aRow : necesidades) {
+			chart = new Chart();
+			Long sum = ((BigDecimal) aRow[1]).longValue();
+		    String anioMes = (String) aRow[0];
+		    chart.setFecha(anioMes);
+		    chart.setCantidad(sum);
+		    charts.add(chart);
+		}
+		
+		return charts;
+	}
+	@Override
+	public List<Chart> getBalancinadasFinalizadas() {
+		List<Object[]> necesidades = null;
+		List<Chart> charts = new ArrayList<>();
+		Chart chart;
+		//List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalBalancinado")).list();
+		SQLQuery query = getSession().createSQLQuery("select DATE_FORMAT(fechaFinalBalancinado, '%Y-%m') as fecha, SUM(cantidad) as cantidad from necesidades where fechaFinalBalancinado is not null group by DATE_FORMAT(fechaFinalBalancinado, '%Y-%m')  order by fechaFinalBalancinado");
+				//.addScalar("fecha")
+				//.addScalar("cantidad");
+				//.addEntity(Chart.class);
+		necesidades = query.list();
+		
+		for (Object[] aRow : necesidades) {
+			chart = new Chart();
+			Long sum = ((BigDecimal) aRow[1]).longValue();
+		    String anioMes = (String) aRow[0];
+		    chart.setFecha(anioMes);
+		    chart.setCantidad(sum);
+		    charts.add(chart);
+		}
+		
+		return charts;
+	}
+	@Override
+	public List<Chart> getPintadasFinalizadas() {
+		List<Object[]> necesidades = null;
+		List<Chart> charts = new ArrayList<>();
+		Chart chart;
+		//List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalBalancinado")).list();
+		SQLQuery query = getSession().createSQLQuery("select DATE_FORMAT(fechaFinalPintado, '%Y-%m') as fecha, SUM(cantidad) as cantidad from necesidades where fechaFinalPintado is not null group by DATE_FORMAT(fechaFinalPintado, '%Y-%m') order by fechaFinalPintado");
+				//.addScalar("fecha")
+				//.addScalar("cantidad");
+				//.addEntity(Chart.class);
+		necesidades = query.list();
+		
+		for (Object[] aRow : necesidades) {
+			chart = new Chart();
+			Long sum = ((BigDecimal) aRow[1]).longValue();
+		    String anioMes = (String) aRow[0];
+		    chart.setFecha(anioMes);
+		    chart.setCantidad(sum);
+		    charts.add(chart);
+		}
+		
+		return charts;
+	}
+	
+	public List<Necesidad> getTopBalancFinalizadas() {
+		
+		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalBalancinado")).addOrder(Order.desc("fechaFinalBalancinado"))
+				.list();
+		
+	    if (necesidades.isEmpty()) {
+	        return necesidades;
+	    } else {
+	        return necesidades.subList(0, (necesidades.size()<5) ? necesidades.size() : 5);
+	    }
+		
 	}
    
 }

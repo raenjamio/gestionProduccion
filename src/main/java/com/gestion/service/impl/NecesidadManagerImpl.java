@@ -79,4 +79,8 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 		// TODO Auto-generated method stub
 		return necesidadDao.getNecesidadesByProd(codigo);
 	}
+	
+	public List<Necesidad> getTopBalancFinalizadas(){
+		return necesidadDao.getTopBalancFinalizadas();
+	}
 }

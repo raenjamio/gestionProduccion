@@ -2,9 +2,11 @@ package com.gestion.webapp.action;
 
 import com.gestion.Constants;
 import com.gestion.dao.SearchException;
+import com.gestion.model.Chart;
 import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 import com.gestion.model.FileUpload;
+import com.gestion.service.ChartManager;
 import com.gestion.service.FileUploadManager;
 import com.gestion.service.ProductoManager;
 import com.gestion.service.RoleManager;
@@ -22,7 +24,9 @@ import org.primefaces.model.DefaultDashboardModel;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 import org.springframework.mail.MailException;
@@ -56,16 +60,155 @@ import java.util.Map;
  * @author mraiblefileUploadHead
  */
 public class ChartView extends BasePage implements Serializable {
-	  private LineChartModel areaModel;
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private LineChartModel areaModel;
+	private BarChartModel barModel;
+	private ChartManager chartManager;
+	private Date fechaDesde;
+	private Date fechaHasta;
 	  
 	    @PostConstruct
 	    public void init() {
 	        createAreaModel();
+	        createBarModels();
 	    }
 	 
+	    public ChartManager getChartManager() {
+			return chartManager;
+		}
+
+
+		public void setChartManager(ChartManager chartManager) {
+			this.chartManager = chartManager;
+		}
+
+
+
+		public BarChartModel getBarModel() {
+	        return barModel;
+	    }
+		 
 	    public LineChartModel getAreaModel() {
 	        return areaModel;
 	    }
+	    
+	    public Date getFechaDesde() {
+			return fechaDesde;
+		}
+
+		public void setFechaDesde(Date fechaDesde) {
+			this.fechaDesde = fechaDesde;
+		}
+
+		public Date getFechaHasta() {
+			return fechaHasta;
+		}
+
+		public void setFechaHasta(Date fechaHasta) {
+			this.fechaHasta = fechaHasta;
+		}
+	    
+		public void click() {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			
+			if (fechaDesde.compareTo(fechaHasta) > 0) {
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "La fecha desde tiene que ser menor a la fecha hasta",""));
+			}
+	         
+
+			
+	    }
+	    
+	    private BarChartModel initBarModel() {
+	        BarChartModel model = new BarChartModel();
+	        ChartSeries soldado = new ChartSeries();
+	        ChartSeries balancinado = new ChartSeries();
+	        ChartSeries pintado = new ChartSeries();
+	        
+	        List<Chart> necesidadesBalancinadasFinalizadas = chartManager.getNecesidadesBalancinadasFinalizadas();
+	        
+	        balancinado.setLabel("Balancinadas");
+	        
+	        for (Chart chart : necesidadesBalancinadasFinalizadas) {
+	        	//Axis yAxis = barModel.getAxis(AxisType.Y);
+	        	//yAxis.setMax(chart.getCantidad()); //seteo el maximo para cada iteracion
+	        	 balancinado.set(chart.getFecha(), chart.getCantidad());
+	        	 if (soldado.getData().get(chart.getFecha()) == null) {
+	        		 soldado.set(chart.getFecha(), 0);
+	        	 }
+	        	 if (pintado.getData().get(chart.getFecha()) == null) {
+	        		 pintado.set(chart.getFecha(), 0);
+	        	 }
+			}
+	         
+	        List<Chart> necesidadesSoldadasFinalizadas = chartManager.getNecesidadesSoldadasFinalizadas();
+	         
+	        soldado.setLabel("Soldadas");
+	        
+	        for (Chart chart : necesidadesSoldadasFinalizadas) {
+	        	//Axis yAxis = barModel.getAxis(AxisType.Y);
+	        	//yAxis.setMax(chart.getCantidad()); //seteo el maximo para cada iteracion
+	        	soldado.set(chart.getFecha(), chart.getCantidad());
+	        	if (balancinado.getData().get(chart.getFecha()) == null) {
+	        		balancinado.set(chart.getFecha(), 0);
+	        	 }
+	        	if (pintado.getData().get(chart.getFecha())== null) {
+	        		 pintado.set(chart.getFecha(), 0);
+	        	}
+			}
+	        
+	        
+	        List<Chart> necesidadesPintadosFinalizadas = chartManager.getNecesidadesPintadasFinalizadas();
+	        pintado.setLabel("Pintados");
+	        
+	        
+	        for (Chart chart : necesidadesPintadosFinalizadas) {
+	        	//Axis yAxis = barModel.getAxis(AxisType.Y);
+	        	//yAxis.setMax(chart.getCantidad()); //seteo el maximo para cada iteracion
+	        	pintado.set(chart.getFecha(), chart.getCantidad());
+	        	if (balancinado.getData().get(chart.getFecha()) == null) {
+	        		balancinado.set(chart.getFecha(), 0);
+	        	 }
+	        	if (soldado.getData().get(chart.getFecha())== null) {
+	        		 soldado.set(chart.getFecha(), 0);
+	        	}
+			}
+			
+	        if (!soldado.getData().isEmpty()) {
+	        	model.addSeries(soldado);
+	        }
+	        if (!balancinado.getData().isEmpty()) {
+	        	model.addSeries(balancinado);
+	        }
+	        if (!pintado.getData().isEmpty()) {
+	        	model.addSeries(pintado);
+	        }
+	         
+	        return model;
+	    }
+	     
+	    private void createBarModels() {
+	        createBarModel();
+	    }
+	     
+	    private void createBarModel() {
+	        barModel = initBarModel();
+	         
+	        barModel.setTitle("Finalizados");
+	        barModel.setLegendPosition("ne");
+	         
+	        Axis xAxis = barModel.getAxis(AxisType.X);
+	        xAxis.setLabel("Año-Mes");
+	         
+	        Axis yAxis = barModel.getAxis(AxisType.Y);
+	        yAxis.setLabel("Cantidad");
+	        yAxis.setMin(0);
+	        //yAxis.setMax(200);
+	    }
+	     
 	     
 	    private void createAreaModel() {
 	        areaModel = new LineChartModel();

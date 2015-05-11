@@ -1,5 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="nuevoProducto::#nuevo#productoForm.xhtml"
+    NAME="output" PATH="/nuevo/productoForm.xhtml"
+    TARGET="rules:#nuevo#productoForm.xhtml" TITLE="nuevoProducto" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nuevo#productoForm.xhtml"
+  PATH="/nuevo/productoForm.xhtml" SHAPE="240,513,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nuevo#productoForm.xhtml:0" NAME="item"
+   PATH="/nuevo/productoForm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel:#{productoForm.save}:#nuevo#productos.xhtml"
+    NAME="output" PATH="/nuevo/productos.xhtml"
+    TARGET="rules:#nuevo#productos.xhtml"
+    TITLE="#{productoForm.save}:cancel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{productoForm.save}:#nuevo#productos.xhtml" NAME="output1"
+    PATH="/nuevo/productos.xhtml" TARGET="rules:#nuevo#productos.xhtml"
+    TITLE="#{productoForm.save}:list" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{productoForm.delete}:#nuevo#productos.xhtml"
+    NAME="output2" PATH="/nuevo/productos.xhtml"
+    TARGET="rules:#nuevo#productos.xhtml"
+    TITLE="#{productoForm.delete}:list" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nuevo#productos.xhtml"
+  PATH="/nuevo/productos.xhtml" SHAPE="464,753,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nuevo#productos.xhtml:0" NAME="item"
+   PATH="/nuevo/productos.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#nuevo#productos.xhtml"
+    NAME="output" PATH="/nuevo/productos.xhtml"
+    TARGET="rules:#nuevo#productos.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*:1" PATH="/*" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:1" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="nuevaNecesidad::#nuevo#necesidadForm.xhtml"
+    NAME="output" PATH="/nuevo/necesidadForm.xhtml"
+    TARGET="rules:#nuevo#necesidadForm.xhtml" TITLE="nuevaNecesidad" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nuevo#necesidadForm.xhtml"
+  PATH="/nuevo/necesidadForm.xhtml" SHAPE="240,769,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nuevo#necesidadForm.xhtml:0" NAME="item"
+   PATH="/nuevo/necesidadForm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="cancel::#nuevo#necesidades.xhtml"
+    NAME="output" PATH="/nuevo/necesidades.xhtml"
+    TARGET="rules:#nuevo#necesidades.xhtml" TITLE="cancel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{necesidadForm.save}:#nuevo#necesidades.xhtml"
+    NAME="output1" PATH="/nuevo/necesidades.xhtml"
+    TARGET="rules:#nuevo#necesidades.xhtml"
+    TITLE="#{necesidadForm.save}:list" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#importar#archivoNecesidades.xhtml"
+  PATH="/importar/archivoNecesidades.xhtml" SHAPE="240,657,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#importar#archivoNecesidades.xhtml:0"
+   NAME="item" PATH="/importar/archivoNecesidades.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#importar#archivoNecesidades.xhtml"
+    NAME="output" PATH="/importar/archivoNecesidades.xhtml"
+    TARGET="rules:#importar#archivoNecesidades.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="error::#importar#archivoNecesidades.xhtml"
+    NAME="output1" PATH="/importar/archivoNecesidades.xhtml"
+    TARGET="rules:#importar#archivoNecesidades.xhtml" TITLE="error" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#*:2" PATH="/*" SHAPE="32,609,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:2" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="nuevoEstado::#nuevo#estadoForm.xhtml"
+    NAME="output" PATH="/nuevo/estadoForm.xhtml"
+    TARGET="rules:#nuevo#estadoForm.xhtml" TITLE="nuevoEstado" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nuevo#estadoForm.xhtml"
+  PATH="/nuevo/estadoForm.xhtml" SHAPE="240,977,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nuevo#estadoForm.xhtml:0" NAME="item"
+   PATH="/nuevo/estadoForm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel:#{estadoForm.save}:#nuevo#estados.xhtml" NAME="output"
+    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
+    TITLE="#{estadoForm.save}:cancel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{estadoForm.save}:#nuevo#estados.xhtml" NAME="output1"
+    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
+    TITLE="#{estadoForm.save}:list" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{estadoForm.delete}:#nuevo#estados.xhtml" NAME="output2"
+    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
+    TITLE="#{estadoForm.delete}:list" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
   SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#home.xhtml:0" NAME="item" PATH="/home.xhtml" model-entity="JSFProcessItem">
@@ -8,18 +102,17 @@
     TITLE="selectFile" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="nuevoProducto::#nuevo#productoForm.xhtml"
-    NAME="output" PATH="/nuevo/productoForm.xhtml"
-    TARGET="rules:#nuevo#productoForm.xhtml" TITLE="nuevoProducto" model-entity="JSFProcessItemOutput"/>
+ <PROCESS-ITEM NAME="rules:#*:3" PATH="/*" SHAPE="32,865,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:3" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="home::#home.xhtml" NAME="output"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#*:1" PATH="/*" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#*:1" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="nuevaNecesidad::#nuevo#necesidadForm.xhtml"
-    NAME="output" PATH="/nuevo/necesidadForm.xhtml"
-    TARGET="rules:#nuevo#necesidadForm.xhtml" TITLE="nuevaNecesidad" model-entity="JSFProcessItemOutput"/>
+ <PROCESS-ITEM NAME="rules:#*:4" PATH="/*" SHAPE="32,1281,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:4" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editProfile::#userForm.xhtml" NAME="output"
+    PATH="/userForm.xhtml" TARGET="rules:#userForm.xhtml"
+    TITLE="editProfile" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#userForm.xhtml" PATH="/userForm.xhtml"
@@ -76,104 +169,11 @@
     TITLE="success" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#showFile.xhtml" PATH="/showFile.xhtml"
-  SHAPE="672,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#login" PATH="/login" SHAPE="256,401,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#*:2" PATH="/*" SHAPE="32,609,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#*:2" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="nuevoEstado::#nuevo#estadoForm.xhtml"
-    NAME="output" PATH="/nuevo/estadoForm.xhtml"
-    TARGET="rules:#nuevo#estadoForm.xhtml" TITLE="nuevoEstado" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#nuevo#productoForm.xhtml"
-  PATH="/nuevo/productoForm.xhtml" SHAPE="240,513,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#nuevo#productoForm.xhtml:0" NAME="item"
-   PATH="/nuevo/productoForm.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="cancel:#{productoForm.save}:#nuevo#productos.xhtml"
-    NAME="output" PATH="/nuevo/productos.xhtml"
-    TARGET="rules:#nuevo#productos.xhtml"
-    TITLE="#{productoForm.save}:cancel" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="list:#{productoForm.save}:#nuevo#productos.xhtml" NAME="output1"
-    PATH="/nuevo/productos.xhtml" TARGET="rules:#nuevo#productos.xhtml"
-    TITLE="#{productoForm.save}:list" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="list:#{productoForm.delete}:#nuevo#productos.xhtml"
-    NAME="output2" PATH="/nuevo/productos.xhtml"
-    TARGET="rules:#nuevo#productos.xhtml"
-    TITLE="#{productoForm.delete}:list" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#*:3" PATH="/*" SHAPE="32,865,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#*:3" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="home::#home.xhtml" NAME="output"
-    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#nuevo#necesidadForm.xhtml"
-  PATH="/nuevo/necesidadForm.xhtml" SHAPE="240,769,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#nuevo#necesidadForm.xhtml:0" NAME="item"
-   PATH="/nuevo/necesidadForm.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="cancel::#nuevo#necesidades.xhtml"
-    NAME="output" PATH="/nuevo/necesidades.xhtml"
-    TARGET="rules:#nuevo#necesidades.xhtml" TITLE="cancel" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="list:#{necesidadForm.save}:#nuevo#necesidades.xhtml"
-    NAME="output1" PATH="/nuevo/necesidades.xhtml"
-    TARGET="rules:#nuevo#necesidades.xhtml"
-    TITLE="#{necesidadForm.save}:list" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#nuevo#productos.xhtml"
-  PATH="/nuevo/productos.xhtml" SHAPE="464,753,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#nuevo#productos.xhtml:0" NAME="item"
-   PATH="/nuevo/productos.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="success::#nuevo#productos.xhtml"
-    NAME="output" PATH="/nuevo/productos.xhtml"
-    TARGET="rules:#nuevo#productos.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#nuevo#necesidades.xhtml"
   PATH="/nuevo/necesidades.xhtml" SHAPE="464,897,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#importar#archivoNecesidades.xhtml"
-  PATH="/importar/archivoNecesidades.xhtml" SHAPE="240,657,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#importar#archivoNecesidades.xhtml:0"
-   NAME="item" PATH="/importar/archivoNecesidades.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="success::#importar#archivoNecesidades.xhtml"
-    NAME="output" PATH="/importar/archivoNecesidades.xhtml"
-    TARGET="rules:#importar#archivoNecesidades.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="error::#importar#archivoNecesidades.xhtml"
-    NAME="output1" PATH="/importar/archivoNecesidades.xhtml"
-    TARGET="rules:#importar#archivoNecesidades.xhtml" TITLE="error" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#*:4" PATH="/*" SHAPE="32,1281,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#*:4" NAME="item" PATH="/*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="editProfile::#userForm.xhtml" NAME="output"
-    PATH="/userForm.xhtml" TARGET="rules:#userForm.xhtml"
-    TITLE="editProfile" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#nuevo#estadoForm.xhtml"
-  PATH="/nuevo/estadoForm.xhtml" SHAPE="240,977,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#nuevo#estadoForm.xhtml:0" NAME="item"
-   PATH="/nuevo/estadoForm.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="cancel:#{estadoForm.save}:#nuevo#estados.xhtml" NAME="output"
-    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
-    TITLE="#{estadoForm.save}:cancel" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="list:#{estadoForm.save}:#nuevo#estados.xhtml" NAME="output1"
-    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
-    TITLE="#{estadoForm.save}:list" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="list:#{estadoForm.delete}:#nuevo#estados.xhtml" NAME="output2"
-    PATH="/nuevo/estados.xhtml" TARGET="rules:#nuevo#estados.xhtml"
-    TITLE="#{estadoForm.delete}:list" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#showFile.xhtml" PATH="/showFile.xhtml"
+  SHAPE="672,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#nuevo#estados.xhtml"
   PATH="/nuevo/estados.xhtml" SHAPE="480,961,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#login" PATH="/login" SHAPE="256,401,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

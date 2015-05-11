@@ -1,6 +1,7 @@
 package com.gestion.service;
 
 import com.gestion.dao.NecesidadDAO;
+import com.gestion.model.Chart;
 import com.gestion.model.Necesidad;
 
 import java.util.List;
@@ -13,21 +14,12 @@ import java.util.List;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
-public interface NecesidadManager extends GenericManager<Necesidad, Long> {
+public interface ChartManager {
     /**
      * Convenience method for testing - allows you to mock the DAO and set it on an interface.
      * @param userDao the UserDao implementation to use
      */
     void setNecesidadDao(NecesidadDAO necesidadDao);
-
-
-    /**
-     * Retrieves a user by userId.  An exception is thrown if user not found
-     *
-     * @param userId the identifier for the user
-     * @return User
-     */
-    Necesidad getNecesidad(String id);
 
     /**
      * Retrieves a list of all users.
@@ -36,32 +28,13 @@ public interface NecesidadManager extends GenericManager<Necesidad, Long> {
     List<Necesidad> getNecesidades();
 
 
-    Necesidad saveNecesidad(Necesidad necesidad);
-
-    /**
-     * Removes a user from the database
-     *
-     * @param user the user to remove
-     */
-    void removeNecesidad(Necesidad necesidad);
-
-    /**
-     * Search a user for search terms.
-     * @param searchTerm the search terms.
-     * @return a list of matches, or all if no searchTerm.
-     */
-    List<Necesidad> search(String searchTerm);
-
-
-	List<Necesidad> getNecesidadesNoFinalizadas();
-
-
 	List<Necesidad> getNecesidadesFinalizadas();
-
-
-	List<Necesidad> getNecesidadesByProd(String codigo);
 	
-	List<Necesidad> getTopBalancFinalizadas();
+	List<Chart> getNecesidadesSoldadasFinalizadas();
+	List<Chart> getNecesidadesBalancinadasFinalizadas();
+	List<Chart> getNecesidadesPintadasFinalizadas();
+
+
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.
      * 

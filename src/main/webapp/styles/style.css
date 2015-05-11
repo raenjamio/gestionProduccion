@@ -11,6 +11,16 @@ body {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
 }
 
+hr { 
+  background-color: black;
+  height: 2px; 
+}
+
+h2, .h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
 table tr td {
 	height: 20px;
 }

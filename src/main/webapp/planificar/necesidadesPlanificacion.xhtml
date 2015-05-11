@@ -10,15 +10,8 @@
     <ui:define name="body">
         <div class="col-sm-10">
             <h2>#{text['necesidadList.heading']}</h2>
-
-            <h:form id="searchForm" styleClass="form-inline">
-                <div id="search" class="text-right">
-                    <span class="col-sm-9">
-                        <h:inputText id="q" size="20" value="#{dtEditPlanificacionForm.query}" styleClass="form-control input-sm"/>
-                    </span>
-                    <h:commandButton styleClass="btn btn-default btn-sm" icon="ui-icon-search" action="#{dtEditPlanificacionForm.search}" value="#{text['button.search']}"/>
-                </div>
-            </h:form>
+            
+            <hr style="hr" size="2" color="black"/>
 
             <h:form id="formPlanificacion">  
             <h:panelGroup id="mygroup">

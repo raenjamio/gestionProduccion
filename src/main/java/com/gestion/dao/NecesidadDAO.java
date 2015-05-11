@@ -3,6 +3,7 @@ package com.gestion.dao;
 
 import java.util.List;
 
+import com.gestion.model.Chart;
 import com.gestion.model.Necesidad;
 
 
@@ -19,5 +20,13 @@ public interface NecesidadDAO  extends GenericDao<Necesidad, Long>{
 	List<Necesidad> getAllFinalizadas();
 
 	List<Necesidad> getNecesidadesByProd(String codigo);
+	
+	List<Necesidad> getTopBalancFinalizadas();
+
+	List<Chart> getSoldadasFinalizadas();
+
+	List<Chart> getBalancinadasFinalizadas();
+
+	List<Chart> getPintadasFinalizadas();
 
 }
