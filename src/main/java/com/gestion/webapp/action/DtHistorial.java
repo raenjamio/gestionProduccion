@@ -44,6 +44,7 @@ public class DtHistorial extends BasePage implements Serializable {
 	private String query;
 	public String codEstado;
 	private Necesidad necesidad;
+	private Necesidad selectedNecesidad;
 
 	public String getCodEstado() {
 		return codEstado;
@@ -76,6 +77,15 @@ public class DtHistorial extends BasePage implements Serializable {
 
 	public void setNecesidad(Necesidad necesidad) {
 		this.necesidad = necesidad;
+	}
+	
+
+	public Necesidad getSelectedNecesidad() {
+		return selectedNecesidad;
+	}
+
+	public void setSelectedNecesidad(Necesidad selectedNecesidad) {
+		this.selectedNecesidad = selectedNecesidad;
 	}
 
 	public String cancel() {

@@ -31,7 +31,7 @@
                              rowsPerPageTemplate="15,25,50">
               
                              
-                    <p:column style="width: 50%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
+                    <p:column style="width: 40%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                             <p:column filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
                                 <h:outputText value="#{text['producto.codigo']}"/>
@@ -69,19 +69,12 @@
                         </h:outputText>
                     </p:column>
                     <!-- estados  -->
-                    <p:column style="width: 38%" headerText="#{text['estado.pintado']}" filterBy="#{necesidad.estadoPintado}" filterMatchMode="contains">
-                        <p:cellEditor>
+                    <p:column style="width: 38%" headerText="Estado">
 	                        <f:facet name="output">
 	                        <div id="#{necesidad.createStylePintado()}">
 	                           	<h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
 	                        </div>	
 	                        </f:facet>
-	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtHistorial.codEstado}" style="width:100%" disabled="#{necesidad.estadoSoldadura ne 'Controlado'}">
-				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
-				                   </h:selectOneMenu>
-				             </f:facet>
-                    	</p:cellEditor>
                     </p:column>
                      <p:column style="width: 50%">
                         <f:facet name="header">
@@ -92,6 +85,11 @@
                         <h:outputText value="#{necesidad.fechaFinalizacion}"/>
   
                     </p:column>
+                    <p:column style="width:32px;text-align: center">
+			             <p:commandButton update=":form:necesidadDetail" oncomplete="PF('necesidadDialog').show()" icon="ui-icon-search" title="View">
+			                <f:setPropertyActionListener value="#{necesidad}" target="#{dtHistorial.selectedNecesidad}" />
+			            </p:commandButton>
+			        </p:column>
                      <p:summaryRow>
 			            <p:column colspan="2" style="text-align:right">
 			                <h:outputText value="Total:" />
@@ -105,6 +103,38 @@
   
                    
                 </p:dataTable>
+                
+                
+                <p:dialog header="Detalle de Necesidad" widgetVar="necesidadDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		        <p:outputPanel id="necesidadDetail" style="text-align:center;">
+		            <p:panelGrid  columns="2" rendered="#{not empty dtHistorial.selectedNecesidad}" columnClasses="label,value">
+		 
+		                <h:outputText value="#{text['producto.codigo']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.producto.codigo}" />
+		 
+		                <h:outputText value="#{text['historial.fechaFinalBalancinado']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalBalancinado}" />
+		                
+		                <h:outputText value="#{text['historial.fechaControlBalancinado']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaControlBalancinado}" />
+		                
+		                <h:outputText value="#{text['historial.fechaFinalSoldado']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalSoldado}" />
+		                
+		                <h:outputText value="#{text['historial.fechaControlSoldado']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaControlSoldado}" />
+		                
+		                <h:outputText value="#{text['historial.fechaFinalPintado']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalPintado}" />
+		                
+		                <h:outputText value="#{text['historial.fechaControlPintado']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaControlPintado}" />
+		 
+
+		            </p:panelGrid>
+		        </p:outputPanel>
+		    </p:dialog>
+    
             </h:form>
             
         </div>          
