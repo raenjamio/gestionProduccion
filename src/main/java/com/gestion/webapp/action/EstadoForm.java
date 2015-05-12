@@ -221,12 +221,11 @@ public class EstadoForm extends BasePage implements Serializable {
     	Map<String,String> estados = new HashMap<String, String>();
 
     	
-    	if (request.isUserInRole("ROLE_ADMIN")) {
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
     		estados.put("", "");
     		estados.put(Constants.CONTROLADO, Constants.SOLDADO_CONTROLADO);
-    		estados.put(Constants.FINALIZADO, Constants.SOLDADO_FINALIZADO);
     		//estados.add("Controlado");
-    	} else if (request.isUserInRole("ROLE_ADMIN")) {
+    	} else if (request.isUserInRole("ROLE_SOLDADO")) {
     		estados.put("", "");
     		estados.put(Constants.FINALIZADO, Constants.SOLDADO_FINALIZADO);
     		//estados.add("Finalizado");	
@@ -240,13 +239,12 @@ public class EstadoForm extends BasePage implements Serializable {
     	HttpServletRequest request = getRequest();
     	Map<String,String> estados = new HashMap<String, String>();
     	
-    	if (request.isUserInRole("ROLE_ADMIN")) {
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
     		estados.put("", "");
     		estados.put(Constants.CONTROLADO, Constants.PINTURA_CONTROLADO);
-    		estados.put(Constants.FINALIZADO, Constants.PINTURA_FINALIZADO);
     		//estados.add("Controlado");
     		//estados.put("Controlado","PINTURA_QA");
-    	} else if (request.isUserInRole("ROLE_ADMIN")) {
+    	} else if (request.isUserInRole("ROLE_PINTURA")) {
     		estados.put("", "");
     		estados.put(Constants.FINALIZADO, Constants.PINTURA_FINALIZADO);
     		//estados.add("Finalizado");
@@ -260,12 +258,11 @@ public class EstadoForm extends BasePage implements Serializable {
     	HttpServletRequest request = getRequest();
     	Map<String,String> estados = new HashMap<String, String>();
     	
-    	if (request.isUserInRole("ROLE_ADMIN")) {
+    	if (request.isUserInRole("ROLE_CALIDAD")) {
     		estados.put("", "");
     		estados.put(Constants.CONTROLADO, Constants.BALANCINADO_CONTROLADO);
-    		estados.put(Constants.FINALIZADO, Constants.BALANCINADO_FINALIZADO);
     		//estados.add("Controlado");
-    	} else if (request.isUserInRole("ROLE_ADMIN")) {
+    	} else if (request.isUserInRole("ROLE_BALANCINADO")) {
     		estados.put("", "");
     		estados.put(Constants.FINALIZADO, Constants.BALANCINADO_FINALIZADO);
     		//estados.add("Finalizado");	
