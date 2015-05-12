@@ -65,5 +65,17 @@ public class ActividadManagerImpl extends GenericManagerImpl<Actividad, Long> im
 		return super.search(searchTerm, Actividad.class);
 	}
 
+	@Override
+	public void setActividadoDao(ActividadDAO actividadDao) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Actividad getEstado(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

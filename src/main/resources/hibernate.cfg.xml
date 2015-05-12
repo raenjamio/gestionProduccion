@@ -12,5 +12,6 @@
         <mapping class="com.gestion.model.Necesidad"/>
         <mapping class="com.gestion.model.FileUpload"/>
         <mapping class="com.gestion.model.Estado"/>
+        <mapping class="com.gestion.model.Actividad"/>
     </session-factory>
 </hibernate-configuration>

@@ -11,14 +11,7 @@
         <div class="col-sm-10">
             <h2>#{text['historial.heading']}</h2>
 
-            <h:form id="searchForm" styleClass="form-inline">
-                <div id="search" class="text-right">
-                    <span class="col-sm-9">
-                        <h:inputText id="q" size="20" value="#{dtHistorial.query}" styleClass="form-control input-sm"/>
-                    </span>
-                    <h:commandButton styleClass="btn btn-default btn-sm" action="#{dtHistorial.search}" value="#{text['button.search']}"/>
-                </div>
-            </h:form>
+			<hr style="hr" size="2" color="black"/>
 
             <h:form id="formPlanificacion">
            			<div id="growlImport_container">
@@ -26,12 +19,12 @@
 	             	</div>
 
                 <p:dataTable id="necesidades" var="necesidad" value="#{dtHistorial.necesidadesFinalizadas}"  sortBy="#{necesidad.producto.codigo}"   style="margin-bottom:20px"
-                             paginator="true" rows="25"
+                             paginator="true" rows="25" paginatorPosition="bottom"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
               
                              
-                    <p:column style="width: 40%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
+                    <p:column style="width: 30%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                             <p:column filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains">
                                 <h:outputText value="#{text['producto.codigo']}"/>
@@ -69,14 +62,21 @@
                         </h:outputText>
                     </p:column>
                     <!-- estados  -->
-                    <p:column style="width: 38%" headerText="Estado">
+                    <p:column style="width: 30%" headerText="Estado">
+	                       <p:cellEditor>
 	                        <f:facet name="output">
 	                        <div id="#{necesidad.createStylePintado()}">
 	                           	<h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
 	                        </div>	
 	                        </f:facet>
+	                         <f:facet name="input">
+				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%" disabled="#{necesidad.estadoSoldadura ne 'Controlado'}">
+				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
+				                   </h:selectOneMenu>
+				             </f:facet>
+                    	</p:cellEditor>
                     </p:column>
-                     <p:column style="width: 50%">
+                     <p:column style="width: 40%">
                         <f:facet name="header">
                             <p:column sortBy="#{necesidad.fechaFinalizacion}">
                                 <h:outputText value="#{text['necesidad.fechaFinalizacion']}"/>
@@ -85,8 +85,8 @@
                         <h:outputText value="#{necesidad.fechaFinalizacion}"/>
   
                     </p:column>
-                    <p:column style="width:32px;text-align: center">
-			             <p:commandButton update=":form:necesidadDetail" oncomplete="PF('necesidadDialog').show()" icon="ui-icon-search" title="View">
+                    <p:column style="width:50px;text-align: center">
+			             <p:commandButton update=":formPlanificacion:necesidadDetail" oncomplete="PF('necesidadDialog').show()" icon="ui-icon-search" title="View">
 			                <f:setPropertyActionListener value="#{necesidad}" target="#{dtHistorial.selectedNecesidad}" />
 			            </p:commandButton>
 			        </p:column>
@@ -108,6 +108,9 @@
                 <p:dialog header="Detalle de Necesidad" widgetVar="necesidadDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 		        <p:outputPanel id="necesidadDetail" style="text-align:center;">
 		            <p:panelGrid  columns="2" rendered="#{not empty dtHistorial.selectedNecesidad}" columnClasses="label,value">
+		            	<f:facet name="header">
+                    		 <h:outputText value="Fechas:" />
+                		</f:facet>
 		 
 		                <h:outputText value="#{text['producto.codigo']}" />
 		                <h:outputText value="#{dtHistorial.selectedNecesidad.producto.codigo}" />

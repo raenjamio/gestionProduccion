@@ -3,7 +3,6 @@ package com.gestion.service;
 import com.gestion.dao.ActividadDAO;
 import com.gestion.model.Actividad;
 
-
 import java.util.List;
 
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
-public interface ActividadManager extends GenericManager<Estado, Long> {
+public interface ActividadManager extends GenericManager<Actividad, Long> {
     /**
      * Convenience method for testing - allows you to mock the DAO and set it on an interface.
      * @param userDao the UserDao implementation to use
@@ -53,6 +52,9 @@ public interface ActividadManager extends GenericManager<Estado, Long> {
      * @return a list of matches, or all if no searchTerm.
      */
     List<Actividad> search(String searchTerm);
+
+
+	Actividad getActividad(String id);
 
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.

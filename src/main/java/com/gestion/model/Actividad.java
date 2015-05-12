@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -71,7 +73,9 @@ public class Actividad extends BaseObject implements Serializable {
 	public void setRolUser(String rolUser) {
 		this.rolUser = rolUser;
 	}
-
+	
+	@ManyToOne//(cascade=CascadeType.ALL)
+	@JoinColumn(nullable = false)
 	public Necesidad getNecesidad() {
 		return necesidad;
 	}

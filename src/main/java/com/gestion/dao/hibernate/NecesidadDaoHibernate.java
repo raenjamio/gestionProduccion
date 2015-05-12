@@ -94,7 +94,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 
 		if (codigo != null) {
 			//productos = getSession().createSQLQuery("select prod.*	from productos prod where not exists (select * from necesidades nec where nec.producto_id = prod.id AND nec.finalizado = true)").list();
-			SQLQuery query = getSession().createSQLQuery("select nec.id, nec.cantidad, nec.estadoBalancinado, nec.estadoPintado, nec.estadoSoldadura, nec.fechaCreacion, nec.fechaFinalizacion, nec.prioridad, nec.finalizado, nec.producto_id from necesidades nec inner join productos prod on prod.id = nec.producto_id where nec.finalizado = true and prod.codigo = '"+ codigo +"'")
+			SQLQuery query = getSession().createSQLQuery("select nec.id, nec.cantidad, nec.estadoBalancinado, nec.estadoPintado, nec.estadoSoldadura, nec.fechaCreacion, nec.fechaFinalizacion, nec.prioridad, nec.finalizado, nec.producto_id, nec.fechaControlBalancinado, nec.fechaFinalBalancinado, nec.fechaControlPintado, nec.fechaFinalPintado, nec.fechaFinalSoldado, nec.fechaControlSoldado from necesidades nec inner join productos prod on prod.id = nec.producto_id where nec.finalizado = true and prod.codigo = '"+ codigo +"'")
 					//.addScalar("id", new LongType())
 					//.addScalar("codigo")
 					//.addScalar("descripcion");

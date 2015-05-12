@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -62,6 +63,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Date fechaControlPintado;
 	private Date fechaFinalSoldado;
 	private Date fechaControlSoldado;
+	private List<Actividad> actividades;
 	
 
     @Id  
@@ -76,6 +78,16 @@ public class Necesidad extends BaseObject implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+	@OneToMany (fetch=FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="necesidad")
+	public List<Actividad> getActividades() {
+		return actividades;
+	}
+
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
 	}
 
 	//@OneToOne(mappedBy="necesidad", cascade=CascadeType.ALL)

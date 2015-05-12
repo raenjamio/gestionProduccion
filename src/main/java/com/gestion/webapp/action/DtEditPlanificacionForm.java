@@ -2,9 +2,11 @@ package com.gestion.webapp.action;
 
 import com.gestion.Constants;
 import com.gestion.dao.SearchException;
+import com.gestion.model.Actividad;
 import com.gestion.model.Estado;
 import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
+import com.gestion.service.ActividadManager;
 import com.gestion.service.EstadoManager;
 import com.gestion.service.NecesidadManager;
 import com.gestion.util.ConvertUtil;
@@ -28,12 +30,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIData;
+
 import org.omnifaces.util.Ajax;
 
 /**
@@ -51,6 +55,8 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	private EstadoManager estadoManager;
 	private String prioridad;
 	private List<Necesidad> necesidades;
+	private ActividadManager actividadManager;
+	private Actividad actividad = new Actividad();
 
 	public String getPrioridad() {
 		return prioridad;
@@ -74,6 +80,14 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 
 	}
 	
+
+	public ActividadManager getActividadManager() {
+		return actividadManager;
+	}
+
+	public void setActividadManager(ActividadManager actividadManager) {
+		this.actividadManager = actividadManager;
+	}
 
 	public void setNecesidades(List<Necesidad> necesidades) {
 		this.necesidades = necesidades;
@@ -177,7 +191,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 				this.necesidad.setPrioridad(new Long (this.prioridad));
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage("El campo prioridad debe ser numérico",  "No se puede cambiar el estado"));
+				context.addMessage(null, new FacesMessage("El campo prioridad debe ser numï¿½rico",  "No se puede cambiar el estado"));
 				
 		        return;
 			}
@@ -202,6 +216,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 			if (estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)) {
 				necesidad.setFinalizado(true);
 				necesidad.setFechaFinalizacion(new Date());
+				necesidad.setFechaControlPintado(new Date());
 			} else if (estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
 				necesidad.setFechaFinalPintado(new Date());
 			} else if (estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)) {
@@ -220,7 +235,16 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		        return;
 			}
 		}
-		
+		actividad.setDescripcion("Se modifico prioridad: " + (necesidad.getPrioridad() != null ? necesidad.getPrioridad().toString() : ""));
+		actividad.setNecesidad(necesidad);
+		if (necesidad.getActividades() == null) {
+			List<Actividad> actividades = new ArrayList<Actividad>();
+			actividades.add(actividad);
+			necesidad.setActividades(actividades);
+		} //else {
+		//	necesidad.getActividades().add(actividad);
+		//}
+			
 		//guardamos el cambio
 		necesidadManager.saveNecesidad(necesidad);
 
@@ -242,7 +266,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Se cancelo la edición", ((Necesidad) event.getObject()).getProducto().getCodigo());
+        FacesMessage msg = new FacesMessage("Se cancelo la ediciï¿½n", ((Necesidad) event.getObject()).getProducto().getCodigo());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      

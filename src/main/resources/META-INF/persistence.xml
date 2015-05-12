@@ -9,6 +9,7 @@
         <class>com.gestion.model.Necesidad</class>
         <class>com.gestion.model.FileUpload</class>
         <class>com.gestion.model.Estado</class>
+        <class>com.gestion.model.Actividad</class>
     </persistence-unit>
 
     <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The

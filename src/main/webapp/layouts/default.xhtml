@@ -48,8 +48,8 @@
 
     <div id="footer" class="container navbar-fixed-bottom">
         <span class="col-sm-6 text-left">#{text['webapp.version']}
-            <c:if test="${not empty pageContext.request.remoteUser}">
-                | #{text['user.status']} ${pageContext.request.remoteUser}
+            <c:if test="${not empty request.remoteUser}">
+                | #{text['user.status']} ${request.remoteUser}
             </c:if>
         </span>
         <span class="col-sm-6 text-right">
