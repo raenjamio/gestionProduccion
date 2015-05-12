@@ -237,6 +237,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		}
 		actividad.setDescripcion("Se modifico prioridad: " + (necesidad.getPrioridad() != null ? necesidad.getPrioridad().toString() : ""));
 		actividad.setNecesidad(necesidad);
+		necesidadManager.getNecesidad(necesidad.getId().toString()).getActividades().add(actividad);
 		if (necesidad.getActividades() == null) {
 			List<Actividad> actividades = new ArrayList<Actividad>();
 			actividades.add(actividad);
