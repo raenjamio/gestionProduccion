@@ -74,7 +74,7 @@
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
 		<jdbc.version>5.1.6</jdbc.version>
         
-        <jdbc.url>    <![CDATA[jdbc:mysql://192.168.2.105:3306/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
+        <jdbc.url>    <![CDATA[jdbc:mysql://192.168.1.122:3306/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password>adminuser</jdbc.password>
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
