@@ -38,6 +38,7 @@ import java.util.Map;
 
 import javax.faces.component.UIData;
 
+import org.hibernate.Hibernate;
 import org.omnifaces.util.Ajax;
 
 /**
@@ -182,13 +183,19 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	public void onRowEdit(RowEditEvent event) {
 		//asignamos la necesidad que editamos
 		this.necesidad = (Necesidad) event.getObject();
+		this.necesidad = necesidadManager.getNecesidad(this.necesidad.getId().toString());
 		
 		//buscamos el estado de acuerdo al codigo seleccionado y se lo agregamos a la lista de estados de la necesidad
 		Estado estado = estadoManager.getEstadoByCodigo(codEstado);
 		
 		if (this.prioridad != null && !"".equals(this.prioridad)) {	
 			if (isNumeric(prioridad)) {
+				actividad.setDescripcion("Se modifico prioridad: " + necesidad.getPrioridad() + " por : " + this.prioridad );
 				this.necesidad.setPrioridad(new Long (this.prioridad));
+				actividad.setRolUser(getRequest().getRemoteUser());
+				actividad.setNecesidad(necesidad);
+				necesidad.getActividades().add(actividad);
+				//necesidadManager.getNecesidad(necesidad.getId().toString()).getActividades().add(actividad);
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage("El campo prioridad debe ser num�rico",  "No se puede cambiar el estado"));
@@ -235,16 +242,6 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		        return;
 			}
 		}
-		actividad.setDescripcion("Se modifico prioridad: " + (necesidad.getPrioridad() != null ? necesidad.getPrioridad().toString() : ""));
-		actividad.setNecesidad(necesidad);
-		necesidadManager.getNecesidad(necesidad.getId().toString()).getActividades().add(actividad);
-		if (necesidad.getActividades() == null) {
-			List<Actividad> actividades = new ArrayList<Actividad>();
-			actividades.add(actividad);
-			necesidad.setActividades(actividades);
-		} //else {
-		//	necesidad.getActividades().add(actividad);
-		//}
 			
 		//guardamos el cambio
 		necesidadManager.saveNecesidad(necesidad);

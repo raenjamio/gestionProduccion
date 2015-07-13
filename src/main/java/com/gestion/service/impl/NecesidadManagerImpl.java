@@ -1,5 +1,6 @@
 package com.gestion.service.impl;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,10 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 	@Override
 	public Necesidad getNecesidad(String id) {
 		// TODO Auto-generated method stub
-		return dao.get(new Long(id));
+		Necesidad necesidad;
+		necesidad = dao.get(new Long(id));
+		Hibernate.initialize(necesidad.getActividades());
+		return necesidad;
 	}
 
 	@Override

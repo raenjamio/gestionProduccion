@@ -27,7 +27,7 @@
                              paginator="true" rows="10" paginatorPosition="bottom"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
-                    <p:column style="width: 25%">
+                    <p:column style="width: 25%" filterBy="#{prod.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                             <p:column sortBy="codigo">
                                 <h:outputText value="#{text['producto.codigo']}"/>
@@ -38,7 +38,7 @@
                             <f:param name="from" value="list"/>
                         </h:commandLink>
                     </p:column>
-                    <p:column style="width: 34%">
+                    <p:column style="width: 34%" filterBy="#{prod.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
                             <p:column sortBy="descripcion">
                                 <h:outputText value="#{text['producto.descripcion']}"/>

@@ -35,6 +35,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gestion.Constants;
 import com.gestion.service.EstadoManager;
@@ -63,7 +65,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Date fechaControlPintado;
 	private Date fechaFinalSoldado;
 	private Date fechaControlSoldado;
-	private List<Actividad> actividades;
+	private List<Actividad> actividades = new ArrayList<Actividad>();
 	
 
     @Id  
@@ -80,7 +82,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.id = id;
 	}
 	
-	
+	@Transactional(propagation=Propagation.REQUIRED)
 	@OneToMany (fetch=FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="necesidad")
 	public List<Actividad> getActividades() {
 		return actividades;

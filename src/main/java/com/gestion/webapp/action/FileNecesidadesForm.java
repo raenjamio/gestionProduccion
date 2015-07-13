@@ -110,7 +110,7 @@ public class FileNecesidadesForm extends BasePage implements Serializable {
 	public String importar(){
 		fileUploadHead.setFechaImpo(new Date());
 		fileUploadHead.setNombreArchivo(file.getFileName());
-		fileUploadHead.setUsuario("");
+		fileUploadHead.setUsuario(getRequest().getRemoteUser()); 
 		
 		List<Producto> productos = productoManager.getProductosExcel(file);
 		Iterator<Producto> productoIterator = productos.iterator();

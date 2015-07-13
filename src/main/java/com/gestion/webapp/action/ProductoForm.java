@@ -165,8 +165,10 @@ public class ProductoForm extends BasePage implements Serializable {
     }
 
     public String delete() {
-    	productoManager.removeProducto(this.getProducto().getId().toString());
-        addMessage("producto.deleted", this.getProducto().getDescripcion());
+    	if (this.producto.getNecesidades().isEmpty()) {
+    		productoManager.removeProducto(this.getProducto().getId().toString());
+    		addMessage("producto.deleted", this.getProducto().getDescripcion());
+    	}
 
         return "list";
     }
