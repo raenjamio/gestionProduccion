@@ -180,9 +180,15 @@ public class NecesidadForm extends BasePage implements Serializable {
 
 
 	public String delete() {
-    	necesidadManager.remove(necesidad.getId());
-        addMessage("necesidad.deleted", necesidad.getPrioridad());
-
+		necesidad = necesidadManager.getNecesidad(necesidad.getId().toString());
+		if (!necesidad.getFinalizado()) { //si la necesidad no esta finalizada la eliminamos
+			if (necesidadManager.removeNecesidad(necesidad)){
+				addMessage("necesidad.deleted", necesidad.getPrioridad());
+			} 
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pudo eliminar la necesidad", "Ya que esta finalizada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
         return "list";
     }
 

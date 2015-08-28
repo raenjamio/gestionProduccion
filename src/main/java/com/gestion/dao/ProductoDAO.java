@@ -22,4 +22,6 @@ public interface ProductoDAO  extends GenericDao<Producto, Long>{
 
 	Producto getProductoConNdadSinFinByCodigo(String codigo);
 
+	List<Producto> getProductos(String codigo);
+
 }

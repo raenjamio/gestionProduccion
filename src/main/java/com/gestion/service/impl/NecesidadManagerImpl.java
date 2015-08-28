@@ -57,9 +57,10 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 	}
 
 	@Override
-	public void removeNecesidad(Necesidad necesidad) {
+	public boolean removeNecesidad(Necesidad necesidad) {
 		// TODO Auto-generated method stub
-		dao.remove(necesidad);
+
+		return necesidadDao.deleteNecesidad(necesidad);
 		
 	}
 
@@ -86,5 +87,11 @@ public class NecesidadManagerImpl extends GenericManagerImpl<Necesidad, Long> im
 	
 	public List<Necesidad> getTopBalancFinalizadas(){
 		return necesidadDao.getTopBalancFinalizadas();
+	}
+
+	@Override
+	public List<Necesidad> getTopProducidasFinalizadas() {
+		// TODO Auto-generated method stub
+		return necesidadDao.getTopProducidasFinalizadas();
 	}
 }

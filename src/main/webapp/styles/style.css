@@ -83,6 +83,8 @@ div[id="outputEstadoAzul"]{
 	font-size: 14px;
 	font-weight: bold;
 	color: white !important;
+	position:relative;
+	left:8px;
 }
 
 div[id="outputEstadoVerde"]{
@@ -93,6 +95,8 @@ div[id="outputEstadoVerde"]{
 	font-size: 14px;
 	font-weight: bold;
 	color: white !important;
+	position:relative;
+	left:8px;
 }
 
 .VERDE{
@@ -106,6 +110,8 @@ div[id="outputEstadoVerde"]{
 	font-size: 14px;
 	font-weight: bold;
 	border-radius: 5px;
+	position:relative;
+	left:8px;
 }
 
 .AZUL{
@@ -119,6 +125,8 @@ div[id="outputEstadoVerde"]{
 	font-size: 14px;
 	font-weight: bold;
 	border-radius: 5px;
+	position:relative;
+	left:8px;
 
 }
 

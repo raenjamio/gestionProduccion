@@ -55,6 +55,11 @@
     NAME="output1" PATH="/nuevo/necesidades.xhtml"
     TARGET="rules:#nuevo#necesidades.xhtml"
     TITLE="#{necesidadForm.save}:list" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="list:#{necesidadForm.delete}:#nuevo#necesidades.xhtml"
+    NAME="output2" PATH="/nuevo/necesidades.xhtml"
+    TARGET="rules:#nuevo#necesidades.xhtml"
+    TITLE="#{necesidadForm.delete}:list" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#importar#archivoNecesidades.xhtml"

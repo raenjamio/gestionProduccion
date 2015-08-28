@@ -25,16 +25,15 @@
                 <p:dataTable id="necesidades" var="necesidad" value="#{necesidadForm.necesidades}" sortBy="#{necesidadForm.sortColumn}"
                              paginator="true" rows="15" paginatorPosition="bottom"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15">
+                             rowsPerPageTemplate="15,25,50,100">
 
-                    <p:column style="width: 15%">
-                        <f:facet name="header">
-                            <p:column sortBy="prioridad">
-                                <h:outputText value="#{text['necesidad.prioridad']}"/>
-                            </p:column>
-                        </f:facet>
-                        <h:commandLink action="#{necesidadForm.edit}" value="#{necesidad.prioridad}">
-                            <f:param name="id" value="#{necesidad.prioridad}"/>
+                    <p:column style="width: 15%" headerText="#{text['necesidad.prioridad']}" sortBy="#{necesidad.prioridad}" >
+			               		<h:outputText value="#{necesidad.prioridad}" />
+			       </p:column>
+                    <p:column headerText="#{text['producto.codigo']}" style="width: 38%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains" >
+
+                        <h:commandLink action="#{necesidadForm.edit}" value="#{necesidad.producto.codigo}">
+                            <f:param name="id" value="#{necesidad.id}"/>
                             <f:param name="from" value="list"/>
                         </h:commandLink>
                     </p:column>

@@ -62,6 +62,12 @@
 			<artifactId>poi</artifactId>
 			<version>3.10-FINAL</version>
 		</dependency>
+		<dependency>
+            <groupId>net.sourceforge.jwebunit</groupId>
+            <artifactId>jwebunit-htmlunit-plugin</artifactId>
+            <version>3.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
    
 
@@ -69,12 +75,10 @@
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>
         <dao.framework>hibernate</dao.framework>
-        <db.name>GProd</db.name>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
 		<jdbc.version>5.1.6</jdbc.version>
         
-        <jdbc.url>    <![CDATA[jdbc:mysql://192.168.1.122:3306/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password>adminuser</jdbc.password>
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
@@ -84,8 +88,35 @@
         <appfuse.version>3.5.0</appfuse.version>
         <java.version>1.7</java.version>
     </properties>
-
-    <profiles>
+     <profiles>
+	    <profile>
+	      <id>perfil-desarrollo</id>
+	      <activation>
+	        <property>
+	          <name>entorno</name>
+	          <value>desa</value>
+	        </property>
+	      </activation>
+	      <properties>
+	      		<db.name>GProdDESA</db.name>
+	          	<jdbc.url>    <![CDATA[jdbc:mysql://192.168.2.105:3306/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
+	      </properties>
+	    </profile>
+	 
+	    <profile>
+	      <id>perfil-produccion</id>
+	      <activation>
+	        <property>
+	          <name>entorno</name>
+	          <value>prod</value>
+	        </property>
+	      </activation>
+	      <properties>
+	      		<db.name>GProd</db.name>
+	          	<jdbc.url>    <![CDATA[jdbc:mysql://192.168.1.122:3306/${db.name}?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
+	      </properties>
+	    </profile>
+	    
         <profile>
             <id>itest</id>
             <build>

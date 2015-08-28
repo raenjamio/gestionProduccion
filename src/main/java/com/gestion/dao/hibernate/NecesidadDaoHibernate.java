@@ -64,9 +64,17 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 	}
 
 	@Override
-	public Necesidad deleteNecesidad(Necesidad necesidad) {
+	public boolean deleteNecesidad(Necesidad necesidad) {
 		// TODO Auto-generated method stub
-		return null;
+			try { 
+			    getSession().delete(necesidad);
+			    return true;
+			} catch (Exception e) {
+				// TODO: handle exception
+				 return false;
+			}
+
+		   
 	}
 	
 	public List<Necesidad> getAllNoFinalizadas() {
@@ -94,7 +102,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 
 		if (codigo != null) {
 			//productos = getSession().createSQLQuery("select prod.*	from productos prod where not exists (select * from necesidades nec where nec.producto_id = prod.id AND nec.finalizado = true)").list();
-			SQLQuery query = getSession().createSQLQuery("select nec.id, nec.cantidad, nec.estadoBalancinado, nec.estadoPintado, nec.estadoSoldadura, nec.fechaCreacion, nec.fechaFinalizacion, nec.prioridad, nec.finalizado, nec.producto_id, nec.fechaControlBalancinado, nec.fechaFinalBalancinado, nec.fechaControlPintado, nec.fechaFinalPintado, nec.fechaFinalSoldado, nec.fechaControlSoldado from necesidades nec inner join productos prod on prod.id = nec.producto_id where nec.finalizado = true and prod.codigo = '"+ codigo +"'")
+			SQLQuery query = getSession().createSQLQuery("select nec.id, nec.cantidad, nec.estadoPintado, nec.estadoProduccion , nec.fechaCreacion, nec.fechaFinalizacion, nec.prioridad, nec.finalizado, nec.producto_id, nec.fechaControlProduccion, nec.fechaFinalProduccion, nec.fechaControlPintado, nec.fechaFinalPintado from necesidades nec inner join productos prod on prod.id = nec.producto_id where nec.finalizado = true and prod.codigo = '"+ codigo +"'")
 					//.addScalar("id", new LongType())
 					//.addScalar("codigo")
 					//.addScalar("descripcion");
@@ -110,6 +118,29 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 		Chart chart;
 		//List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalBalancinado")).list();
 		SQLQuery query = getSession().createSQLQuery("select DATE_FORMAT(fechaFinalSoldado, '%Y-%m') as fecha, SUM(cantidad) as cantidad from necesidades where fechaFinalSoldado is not null group by DATE_FORMAT(fechaFinalSoldado, '%Y-%m')  order by fechaFinalSoldado");
+				//.addScalar("fecha")
+				//.addScalar("cantidad");
+				//.addEntity(Chart.class);
+		necesidades = query.list();
+		
+		for (Object[] aRow : necesidades) {
+			chart = new Chart();
+			Long sum = ((BigDecimal) aRow[1]).longValue();
+		    String anioMes = (String) aRow[0];
+		    chart.setFecha(anioMes);
+		    chart.setCantidad(sum);
+		    charts.add(chart);
+		}
+		
+		return charts;
+	}
+	@Override
+	public List<Chart> getProduccionFinalizadas() {
+		List<Object[]> necesidades = null;
+		List<Chart> charts = new ArrayList<>();
+		Chart chart;
+		//List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalBalancinado")).list();
+		SQLQuery query = getSession().createSQLQuery("select DATE_FORMAT(fechaFinalProduccion, '%Y-%m') as fecha, SUM(cantidad) as cantidad from necesidades where fechaFinalProduccion is not null group by DATE_FORMAT(fechaFinalProduccion, '%Y-%m')  order by fechaFinalProduccion");
 				//.addScalar("fecha")
 				//.addScalar("cantidad");
 				//.addEntity(Chart.class);
@@ -184,6 +215,18 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 	        return necesidades.subList(0, (necesidades.size()<5) ? necesidades.size() : 5);
 	    }
 		
+	}
+	@Override
+	public List<Necesidad> getTopProducidasFinalizadas() {
+		// TODO Auto-generated method stub
+		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalProduccion")).addOrder(Order.desc("fechaFinalProduccion"))
+				.list();
+		
+	    if (necesidades.isEmpty()) {
+	        return necesidades;
+	    } else {
+	        return necesidades.subList(0, (necesidades.size()<5) ? necesidades.size() : 5);
+	    }
 	}
    
 }

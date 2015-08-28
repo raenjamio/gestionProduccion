@@ -34,6 +34,8 @@ public interface ChartManager {
 	List<Chart> getNecesidadesBalancinadasFinalizadas();
 	List<Chart> getNecesidadesPintadasFinalizadas();
 
+	List<Chart> getNecesidadesProduccionFinalizadas();
+
 
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.

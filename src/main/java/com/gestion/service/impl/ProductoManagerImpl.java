@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -58,7 +59,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 	}
 
 	@Override
-	public Producto getProductoByCodigo(String codigo)			throws UsernameNotFoundException {
+	public Producto getProductoByCodigo(String codigo)	 {
 		// TODO Auto-generated method stub
 		return prodDao.getProductoByCodigo(codigo);
 	}
@@ -71,7 +72,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 	}
 
 	@Override
-	public Producto saveProducto(Producto prod) throws UserExistsException {
+	public Producto saveProducto(Producto prod)  {
 		return dao.save(prod);
 	}
 
@@ -93,7 +94,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 		// TODO Auto-generated method stub
 		//return super.search(searchTerm, Producto.class);
 		if  (searchTerm == null || "".equals(searchTerm.trim())) {
-			return super.search(searchTerm, Producto.class);
+			return prodDao.getProductos(""); //super.search(searchTerm, Producto.class);
         } else {
         	List<Producto> productos = getProductosByCodigo(searchTerm);
         	 if (productos == null) {

@@ -43,7 +43,7 @@ public interface NecesidadManager extends GenericManager<Necesidad, Long> {
      *
      * @param user the user to remove
      */
-    void removeNecesidad(Necesidad necesidad);
+    boolean removeNecesidad(Necesidad necesidad);
 
     /**
      * Search a user for search terms.
@@ -72,5 +72,8 @@ public interface NecesidadManager extends GenericManager<Necesidad, Long> {
      *            template including two placeholders '{username}' and '{token}'
      * @return
      */
+
+
+	List<Necesidad> getTopProducidasFinalizadas();
 
  }

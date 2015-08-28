@@ -89,6 +89,12 @@
             <to-view-id>/nuevo/necesidades.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+        	<from-action>#{necesidadForm.delete}</from-action>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/nuevo/necesidades.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
      <navigation-rule>
         <from-view-id>/importar/archivoNecesidades.xhtml</from-view-id>

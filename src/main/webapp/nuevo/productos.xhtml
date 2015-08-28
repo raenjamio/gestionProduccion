@@ -22,6 +22,9 @@
                     <h:commandButton value="#{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn btn-default">
                     </h:commandButton>
                 </div>
+                <div id="growlImport_container">
+	            	<p:growl id="msgs" showDetail="true" sticky="true" /> 
+	            </div>
 
                 <p:dataTable id="productos" var="prod" value="#{productoForm.productos}" sortBy="#{productoForm.sortColumn}"
                              paginator="true" rows="10" paginatorPosition="bottom"

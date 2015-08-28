@@ -74,7 +74,7 @@ public class DashboardView extends BasePage implements Serializable {
 	        column1.addWidget("lifestyle");
 	        column1.addWidget("weather");
 	        
-	        this.setUlimasNecBalancinadas(necesidadManager.getTopBalancFinalizadas());
+	        this.setulimasNecProducidas(necesidadManager.getTopProducidasFinalizadas());
 	 
 	        model.addColumn(column1);
 	        model.addColumn(column2);
@@ -112,6 +112,13 @@ public class DashboardView extends BasePage implements Serializable {
 
 		public List<Necesidad> getUlimasNecBalancinadas() {
 			return ulimasNecBalancinadas;
+		}
+		public List<Necesidad> getUlimasNecProducidas() {
+			return ulimasNecBalancinadas;
+		}
+		
+		public void setulimasNecProducidas(List<Necesidad> ulimasNecProducidas) {
+			this.ulimasNecBalancinadas = ulimasNecProducidas;
 		}
 
 		public void setUlimasNecBalancinadas(List<Necesidad> ulimasNecBalancinadas) {

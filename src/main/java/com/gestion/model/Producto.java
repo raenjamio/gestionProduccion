@@ -88,7 +88,7 @@ public class Producto extends BaseObject implements Serializable,  Comparable<Pr
 		this.necesidad = necesidad;
 	}*/
 	
-	@OneToMany (fetch=FetchType.LAZY, cascade = CascadeType.ALL,mappedBy="producto")
+	@OneToMany (fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="producto")
     public List<Necesidad> getNecesidades() {
 		return necesidades;
 	}

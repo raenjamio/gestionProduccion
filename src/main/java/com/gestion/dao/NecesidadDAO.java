@@ -11,7 +11,7 @@ public interface NecesidadDAO  extends GenericDao<Necesidad, Long>{
 	
 	Necesidad saveNecesidad(Necesidad necesidad);
 	 
-	Necesidad deleteNecesidad(Necesidad necesidad);
+	boolean deleteNecesidad(Necesidad necesidad);
 	 
 	Necesidad updateNecesidad(Necesidad necesidad);
 
@@ -28,5 +28,9 @@ public interface NecesidadDAO  extends GenericDao<Necesidad, Long>{
 	List<Chart> getBalancinadasFinalizadas();
 
 	List<Chart> getPintadasFinalizadas();
+
+	List<Chart> getProduccionFinalizadas();
+
+	List<Necesidad> getTopProducidasFinalizadas();
 
 }

@@ -50,7 +50,7 @@ public class MailEngineTest extends BaseManagerTestCase {
         wiser.start();
         
         Date dte = new Date();
-        this.mailMessage.setTo("foo@bar.com");
+        this.mailMessage.setTo("raenjamio@gmail.com");
         String emailSubject = "grepster testSend: " + dte;
         String emailBody = "Body of the grepster testSend message sent at: " + dte;
         this.mailMessage.setSubject(emailSubject);
@@ -82,11 +82,11 @@ public class MailEngineTest extends BaseManagerTestCase {
         ClassPathResource cpResource = new ClassPathResource("/test-attachment.txt");
         // a null from should work
         mailEngine.sendMessage(new String[] {
-            "foo@bar.com"
+            "raenjamio@gmail.com"
         }, null, cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
 
         mailEngine.sendMessage(new String[] {
-            "foo@bar.com"
+            "raenjamio@gmail.com"
         }, mailMessage.getFrom(), cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
 
         wiser.stop();

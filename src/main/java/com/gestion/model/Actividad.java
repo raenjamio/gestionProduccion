@@ -1,6 +1,7 @@
 package com.gestion.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class Actividad extends BaseObject implements Serializable {
 	private String rolUser;
 	private Necesidad necesidad;
 	private String descripcion;
+	private Date fechaCreacion;
 
     @Id  
     @Column(name="id") 
@@ -92,7 +94,14 @@ public class Actividad extends BaseObject implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
-	
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
 	
 	
 }

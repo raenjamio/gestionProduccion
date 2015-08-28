@@ -8,9 +8,12 @@ import com.gestion.model.Producto;
 import com.gestion.model.Role;
 import com.gestion.model.User;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.LongType;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -83,6 +86,12 @@ public class ProductoDaoHibernate extends GenericDaoHibernate<Producto, Long> im
 	public Producto updateProduto(Producto prod) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public List<Producto> getProductos(String prodCod) {
+		List<Producto> productos = null;
+		productos = getSession().createCriteria(Producto.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();//setProjection(Projections.distinct(Projections.property("codigo"))).list();
+		return productos;
 	}
 
 	@Override

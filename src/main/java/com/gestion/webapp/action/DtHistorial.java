@@ -152,7 +152,7 @@ public class DtHistorial extends BasePage implements Serializable {
     	List<Necesidad> necesidades = necesidadManager.getNecesidadesByProd(producto.getCodigo());
     	
     	for(Necesidad necesidad : necesidades) {
-            total += necesidad.getCantidad();
+            total += necesidad.getCantidad()==null ? 0: necesidad.getCantidad();
         }
     	return total;
     	

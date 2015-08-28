@@ -25,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,6 +39,9 @@ import java.util.Map;
 
 import javax.faces.component.UIData;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.hibernate.Hibernate;
 import org.omnifaces.util.Ajax;
 
@@ -194,6 +198,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 				this.necesidad.setPrioridad(new Long (this.prioridad));
 				actividad.setRolUser(getRequest().getRemoteUser());
 				actividad.setNecesidad(necesidad);
+				actividad.setFechaCreacion(new Date());
 				necesidad.getActividades().add(actividad);
 				//necesidadManager.getNecesidad(necesidad.getId().toString()).getActividades().add(actividad);
 			} else {
@@ -226,14 +231,10 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 				necesidad.setFechaControlPintado(new Date());
 			} else if (estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
 				necesidad.setFechaFinalPintado(new Date());
-			} else if (estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)) {
-				necesidad.setFechaFinalBalancinado(new Date());
-			} else if (estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)) {
-				necesidad.setFechaFinalSoldado(new Date());
-			} else if (estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)) {
-				necesidad.setFechaControlBalancinado(new Date());
-			} else if (estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)) {
-				necesidad.setFechaControlSoldado(new Date());
+			} else if (estado.getCodigo().equals(Constants.PRODUCCION_FINALIZADO)) {
+				necesidad.setFechaFinalProduccion(new Date());
+			} else if (estado.getCodigo().equals(Constants.PRODUCCION_CONTROLADO)) {
+				necesidad.setFechaControlProduccion(new Date());
 			} 
 		} else {
 			if (codEstado != null && !"".equals(codEstado)) {
@@ -297,6 +298,6 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     public void refresh(){
     	necesidades = getNecesidadesNoFinalizadas();
     }
-
+    
 
 }

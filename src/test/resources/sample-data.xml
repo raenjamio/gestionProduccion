@@ -83,6 +83,69 @@
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
         </row>
+         <row>
+            <value description="id">-4</value>
+            <value description="username">produccion</value>
+            <value description="password">$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO</value>
+            <value description="first_name">produccion</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">prueba@appfuse.org</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://prueba.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+         <row>
+            <value description="id">-5</value>
+            <value description="username">pintura</value>
+            <value description="password">$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO</value>
+            <value description="first_name">pintura</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">pintura@appfuse.org</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://prueba.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+         <row>
+            <value description="id">-6</value>
+            <value description="username">calidad</value>
+            <value description="password">$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO</value>
+            <value description="first_name">calidad</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">calidad@appfuse.org</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://prueba.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
     </table>
     <table name="role">
         <column>id</column>
@@ -97,6 +160,21 @@
             <value description="id">-2</value>
             <value description="name">ROLE_USER</value>
             <value description="description"><![CDATA[Default role for all Users]]></value>
+        </row>
+        <row>
+            <value description="id">-3</value>
+            <value description="name">ROLE_PRODUCCION</value>
+            <value description="description"><![CDATA[produccion]]></value>
+        </row>
+        <row>
+            <value description="id">-4</value>
+            <value description="name">ROLE_PINTURA</value>
+            <value description="description"><![CDATA[pintura]]></value>
+        </row>
+        <row>
+            <value description="id">-5</value>
+            <value description="name">ROLE_CALIDAD</value>
+            <value description="description"><![CDATA[calidad]]></value>
         </row>
     </table>
     <table name="user_role">
@@ -116,6 +194,34 @@
         </row>
         <row>
             <value description="user_id">-3</value>
+            <value description="role_id">-2</value>
+        </row>
+        <row>
+            <value description="user_id">-4</value>
+            <value description="role_id">-2</value>
+        </row>
+        <row>
+            <value description="user_id">-4</value>
+            <value description="role_id">-1</value>
+        </row>
+         <row>
+            <value description="user_id">-4</value>
+            <value description="role_id">-3</value>
+        </row>
+         <row>
+            <value description="user_id">-5</value>
+            <value description="role_id">-4</value>
+        </row>
+        <row>
+            <value description="user_id">-6</value>
+            <value description="role_id">-5</value>
+        </row>
+         <row>
+            <value description="user_id">-5</value>
+            <value description="role_id">-2</value>
+        </row>
+        <row>
+            <value description="user_id">-6</value>
             <value description="role_id">-2</value>
         </row>
     </table>

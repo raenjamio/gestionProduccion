@@ -47,6 +47,11 @@ public class ChartManagerImpl  implements ChartManager {
 
 		return necesidades;
 	}
+	public List<Chart> getNecesidadesProduccionFinalizadas() {
+		List<Chart> necesidades = necesidadDao.getProduccionFinalizadas();
+
+		return necesidades;
+	}
 	public List<Chart> getNecesidadesPintadasFinalizadas() {
 		return necesidadDao.getPintadasFinalizadas();
 	}

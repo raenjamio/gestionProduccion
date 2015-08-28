@@ -95,4 +95,6 @@ public final class Constants {
     public static final String BALANCINADO_CONTROLADO = "BALANCINADO_CONTROLADO";
     public static final String SOLDADO_FINALIZADO = "SOLDADO_FINALIZADO";
     public static final String SOLDADO_CONTROLADO = "SOLDADO_CONTROLADO";
+	public static final String PRODUCCION_CONTROLADO = "PRODUCCION_CONTROLADO";
+	public static final String PRODUCCION_FINALIZADO = "PRODUCCION_FINALIZADO";
 }

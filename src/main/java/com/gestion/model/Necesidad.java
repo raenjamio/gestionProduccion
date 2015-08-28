@@ -59,12 +59,10 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Producto producto;
 	private List<Estado> estados = new ArrayList<Estado>();
 	private Date fechaFinalizacion;
-	private Date fechaFinalBalancinado;
-	private Date fechaControlBalancinado;
+	private Date fechaFinalProduccion;
+	private Date fechaControlProduccion;
 	private Date fechaFinalPintado;
 	private Date fechaControlPintado;
-	private Date fechaFinalSoldado;
-	private Date fechaControlSoldado;
 	private List<Actividad> actividades = new ArrayList<Actividad>();
 	
 
@@ -93,7 +91,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	}
 
 	//@OneToOne(mappedBy="necesidad", cascade=CascadeType.ALL)
-	@ManyToOne//(cascade=CascadeType.ALL)
+	@ManyToOne//(cascade=CascadeType.MERGE)
 	@JoinColumn(nullable = false)
 	public Producto getProducto() {
 		return producto;
@@ -151,21 +149,21 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	
-	public Date getFechaFinalBalancinado() {
-		return fechaFinalBalancinado;
+
+	public Date getFechaFinalProduccion() {
+		return fechaFinalProduccion;
 	}
 
-	public void setFechaFinalBalancinado(Date fechaFinalBalancinado) {
-		this.fechaFinalBalancinado = fechaFinalBalancinado;
+	public void setFechaFinalProduccion(Date fechaFinalProduccion) {
+		this.fechaFinalProduccion = fechaFinalProduccion;
 	}
 
-	public Date getFechaControlBalancinado() {
-		return fechaControlBalancinado;
+	public Date getFechaControlProduccion() {
+		return fechaControlProduccion;
 	}
 
-	public void setFechaControlBalancinado(Date fechaControlBalancinado) {
-		this.fechaControlBalancinado = fechaControlBalancinado;
+	public void setFechaControlProduccion(Date fechaControlProduccion) {
+		this.fechaControlProduccion = fechaControlProduccion;
 	}
 
 	public Date getFechaFinalPintado() {
@@ -184,21 +182,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.fechaControlPintado = fechaControlPintado;
 	}
 
-	public Date getFechaFinalSoldado() {
-		return fechaFinalSoldado;
-	}
 
-	public void setFechaFinalSoldado(Date fechaFinalSoldado) {
-		this.fechaFinalSoldado = fechaFinalSoldado;
-	}
-
-	public Date getFechaControlSoldado() {
-		return fechaControlSoldado;
-	}
-
-	public void setFechaControlSoldado(Date fechaControlSoldado) {
-		this.fechaControlSoldado = fechaControlSoldado;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -253,16 +237,16 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.estadoManager = estadoManager;
 	}*/
 
-	public String getEstadoBalancinado() {
+	public String getEstadoProduccion() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
 		String codEstado = "";
 		
 		while(estadosI.hasNext()) {
 	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_CONTROLADO)){
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PRODUCCION_CONTROLADO)){
 	        	 return Constants.CONTROLADO;
 	         } 
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.BALANCINADO_FINALIZADO)){
+	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PRODUCCION_FINALIZADO)){
 	        	 codEstado = Constants.FINALIZADO;
 	         }
 	         
@@ -287,7 +271,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		return codEstado;
 	}
 	
-	public String getEstadoSoldadura() {
+/*	public String getEstadoSoldadura() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
 		String codEstado = "";
 		while(estadosI.hasNext()) {
@@ -302,7 +286,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	    }
 		return codEstado;
 	}
-
+*/
 	public void setEstadoPintado(String codigo) {
 		//hay q ver que se selecciono
 		//private EstadoManager estadoManager;
@@ -316,7 +300,7 @@ public class Necesidad extends BaseObject implements Serializable {
 			this.getEstados().add(estado);
 		}
 	}
-	
+/*	
 	public void setEstadoSoldadura(String codigo) {
 		//hay q ver que se selecciono
 		Estado estado = null;//= estadoManager.getEstado(codigo);
@@ -329,8 +313,8 @@ public class Necesidad extends BaseObject implements Serializable {
 		}
 		
 	}
-	
-	public void setEstadoBalancinado (String codigo) {
+	*/
+	public void setEstadoProduccion (String codigo) {
 		//hay q ver que se selecciono
 		Estado estado = null;//= estadoManager.getEstado(codigo);
 		if (estado != null) {
@@ -344,7 +328,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 	}
 	
-	public String createStyleSoldadura(){
+/*	public String createStyleSoldadura(){
 		String estado = getEstadoSoldadura();
 		
 	    switch (estado){
@@ -356,7 +340,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	        return "DEFAULT";   
 	    }
 	}
-	
+	*/
 	public String createStylePintado(){
 		String estado = getEstadoPintado();
 		
@@ -370,8 +354,8 @@ public class Necesidad extends BaseObject implements Serializable {
 	    }
 	}
 	
-	public String createStyleBalancinado(){
-		String estado = getEstadoBalancinado();
+	public String createStyleProduccion(){
+		String estado = getEstadoProduccion();
 		
 	    switch (estado){
 	    case Constants.FINALIZADO:

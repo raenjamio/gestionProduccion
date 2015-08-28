@@ -70,7 +70,7 @@
 	                        </div>	
 	                        </f:facet>
 	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%" disabled="#{necesidad.estadoSoldadura ne 'Controlado'}">
+				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%" disabled="#{necesidad.estadoProduccion ne 'Controlado'}">
 				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
 				                   </h:selectOneMenu>
 				             </f:facet>
@@ -115,17 +115,11 @@
 		                <h:outputText value="#{text['producto.codigo']}" />
 		                <h:outputText value="#{dtHistorial.selectedNecesidad.producto.codigo}" />
 		 
-		                <h:outputText value="#{text['historial.fechaFinalBalancinado']}" />
-		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalBalancinado}" />
+		                <h:outputText value="#{text['historial.fechaFinalProduccion']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalProduccion}" />
 		                
-		                <h:outputText value="#{text['historial.fechaControlBalancinado']}" />
-		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaControlBalancinado}" />
-		                
-		                <h:outputText value="#{text['historial.fechaFinalSoldado']}" />
-		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalSoldado}" />
-		                
-		                <h:outputText value="#{text['historial.fechaControlSoldado']}" />
-		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaControlSoldado}" />
+		                <h:outputText value="#{text['historial.fechaControlProduccion']}" />
+		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaControlProduccion}" />
 		                
 		                <h:outputText value="#{text['historial.fechaFinalPintado']}" />
 		                <h:outputText value="#{dtHistorial.selectedNecesidad.fechaFinalPintado}" />

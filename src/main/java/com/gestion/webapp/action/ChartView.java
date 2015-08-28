@@ -125,26 +125,24 @@ public class ChartView extends BasePage implements Serializable {
 	    private BarChartModel initBarModel() {
 	        BarChartModel model = new BarChartModel();
 	        ChartSeries soldado = new ChartSeries();
-	        ChartSeries balancinado = new ChartSeries();
+	        ChartSeries produccion = new ChartSeries();
 	        ChartSeries pintado = new ChartSeries();
 	        
-	        List<Chart> necesidadesBalancinadasFinalizadas = chartManager.getNecesidadesBalancinadasFinalizadas();
+	        List<Chart> necesidadesBalancinadasFinalizadas = chartManager.getNecesidadesProduccionFinalizadas();
 	        
-	        balancinado.setLabel("Balancinadas");
+	        produccion.setLabel("Produccion");
 	        
 	        for (Chart chart : necesidadesBalancinadasFinalizadas) {
 	        	//Axis yAxis = barModel.getAxis(AxisType.Y);
 	        	//yAxis.setMax(chart.getCantidad()); //seteo el maximo para cada iteracion
-	        	 balancinado.set(chart.getFecha(), chart.getCantidad());
-	        	 if (soldado.getData().get(chart.getFecha()) == null) {
-	        		 soldado.set(chart.getFecha(), 0);
-	        	 }
+	        	produccion.set(chart.getFecha(), chart.getCantidad());
+
 	        	 if (pintado.getData().get(chart.getFecha()) == null) {
 	        		 pintado.set(chart.getFecha(), 0);
 	        	 }
 			}
 	         
-	        List<Chart> necesidadesSoldadasFinalizadas = chartManager.getNecesidadesSoldadasFinalizadas();
+	      /*  List<Chart> necesidadesSoldadasFinalizadas = chartManager.getNecesidadesSoldadasFinalizadas();
 	         
 	        soldado.setLabel("Soldadas");
 	        
@@ -159,7 +157,7 @@ public class ChartView extends BasePage implements Serializable {
 	        		 pintado.set(chart.getFecha(), 0);
 	        	}
 			}
-	        
+	        */
 	        
 	        List<Chart> necesidadesPintadosFinalizadas = chartManager.getNecesidadesPintadasFinalizadas();
 	        pintado.setLabel("Pintados");
@@ -169,19 +167,14 @@ public class ChartView extends BasePage implements Serializable {
 	        	//Axis yAxis = barModel.getAxis(AxisType.Y);
 	        	//yAxis.setMax(chart.getCantidad()); //seteo el maximo para cada iteracion
 	        	pintado.set(chart.getFecha(), chart.getCantidad());
-	        	if (balancinado.getData().get(chart.getFecha()) == null) {
-	        		balancinado.set(chart.getFecha(), 0);
+	        	if (produccion.getData().get(chart.getFecha()) == null) {
+	        		produccion.set(chart.getFecha(), 0);
 	        	 }
-	        	if (soldado.getData().get(chart.getFecha())== null) {
-	        		 soldado.set(chart.getFecha(), 0);
-	        	}
+
 			}
 			
-	        if (!soldado.getData().isEmpty()) {
-	        	model.addSeries(soldado);
-	        }
-	        if (!balancinado.getData().isEmpty()) {
-	        	model.addSeries(balancinado);
+	        if (!produccion.getData().isEmpty()) {
+	        	model.addSeries(produccion);
 	        }
 	        if (!pintado.getData().isEmpty()) {
 	        	model.addSeries(pintado);

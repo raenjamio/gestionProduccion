@@ -35,7 +35,7 @@
 		            <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
 		 
 		            <p:panel id="sports" header="Ultimos Balancinados" style="width:200px">
-		                <p:dataList value="#{dashboardView.ulimasNecBalancinadas}" var="nec" type="ordered">
+		                <p:dataList value="#{dashboardView.ulimasNecProducidas}" var="nec" type="ordered">
 					       
 					        #{nec.producto.codigo}, #{nec.producto.descripcion}
 					    </p:dataList>

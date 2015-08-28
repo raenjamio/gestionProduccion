@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +27,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * JSF Page class to handle editing a user with a form.
@@ -137,7 +140,13 @@ public class ProductoForm extends BasePage implements Serializable {
         }
 
         try {
-            producto = productoManager.save(producto);
+        	if (productoManager.getProductoByCodigo(producto.getCodigo()) == null) {
+        		producto = productoManager.save(producto);
+        	} else {
+        		addMessage("producto.noInsert", producto.getDescripcion());
+				return "nuevoProducto";
+        	}
+        		
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
             log.warn(ade.getMessage());
@@ -165,9 +174,14 @@ public class ProductoForm extends BasePage implements Serializable {
     }
 
     public String delete() {
+    	this.producto = productoManager.get(this.producto.getId());
     	if (this.producto.getNecesidades().isEmpty()) {
     		productoManager.removeProducto(this.getProducto().getId().toString());
     		addMessage("producto.deleted", this.getProducto().getDescripcion());
+    	} else {
+    		 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pudo eliminar el producto", "Ya que tiene necesidades pendientes");
+             FacesContext.getCurrentInstance().addMessage(null, msg);
+             return "nuevoProducto";
     	}
 
         return "list";
@@ -196,7 +210,7 @@ public class ProductoForm extends BasePage implements Serializable {
     
     public List getProductos() {
         try {
-            return sort(productoManager.search(query));
+            return productoManager.search(query);
         } catch (SearchException se) {
             addError(se.getMessage());
             return sort(productoManager.search(query));
