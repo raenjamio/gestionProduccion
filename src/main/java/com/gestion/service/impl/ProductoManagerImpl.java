@@ -136,68 +136,70 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 				
 				HSSFCell codigoCell = hssfRow.getCell(0);
 				String codigo = codigoCell.getStringCellValue();
-				
-				//vemos si existe el producto, si es asi lo actualizamos
-				producto = prodDao.getProductoByCodigo(codigo);
-				//producto = prodDao.getProductoConNdadSinFinByCodigo(codigo);
-				if (producto == null) {			
-					producto = new Producto();
-					Necesidad necesidad = new Necesidad();
-					List<Necesidad> necesidades = new ArrayList<Necesidad>();
-					
-					producto.setCodigo(codigo);
-					
-					HSSFCell descripcionCell = hssfRow.getCell(1);
-					String descripcion = descripcionCell.getStringCellValue();
-					
-					producto.setDescripcion(descripcion);
-					
-					HSSFCell faltanteCell = hssfRow.getCell(2);
-					Integer faltante = (int) faltanteCell.getNumericCellValue();
-					
-					necesidad.setCantidad(faltante);
-					necesidad.setFechaCreacion(new Date());
-					necesidad.setFinalizado(false);
-					necesidad.setProducto(producto);
-					//producto.setNecesidad(necesidad);
-					necesidades.add(necesidad);
-					producto.setNecesidades(necesidades);
-					productosTemp.add(producto);
-					cantInsertados++;
-				} else {//existe el producto
-					//actualizamos descripcion
-					HSSFCell descripcionCell = hssfRow.getCell(1);
-					String descripcion = descripcionCell.getStringCellValue();
-					Necesidad necesidad = null;
-					producto.setDescripcion(descripcion);
-					
-					//actualizamos cantidad
-					HSSFCell faltanteCell = hssfRow.getCell(2);
-					Integer faltante = (int) faltanteCell.getNumericCellValue();
-					
-					Iterator iNecesidades = producto.getNecesidades().iterator();
-					//producto.getNecesidades().setCantidad(faltante);
-					while (iNecesidades.hasNext()) {
-						Necesidad _necesidad = (Necesidad) iNecesidades.next();
-						if (!_necesidad.getFinalizado()) {
-							necesidad = _necesidad; //si existe una necesidad sin terminar la actualizo
-						}
-					}
-					//si no existe ninguna necesidad sin terminar la creo
-					if (necesidad == null) {
-						necesidad = new Necesidad();
+				if (!"".equals(codigo)) {
+		
+					//vemos si existe el producto, si es asi lo actualizamos
+					producto = prodDao.getProductoByCodigo(codigo);
+					//producto = prodDao.getProductoConNdadSinFinByCodigo(codigo);
+					if (producto == null) {			
+						producto = new Producto();
+						Necesidad necesidad = new Necesidad();
+						List<Necesidad> necesidades = new ArrayList<Necesidad>();
 						
+						producto.setCodigo(codigo);
+						
+						HSSFCell descripcionCell = hssfRow.getCell(1);
+						String descripcion = descripcionCell.getStringCellValue();
+						
+						producto.setDescripcion(descripcion);
+						
+						HSSFCell faltanteCell = hssfRow.getCell(2);
+						Integer faltante = (int) faltanteCell.getNumericCellValue();
+						
+						necesidad.setCantidad(faltante);
 						necesidad.setFechaCreacion(new Date());
 						necesidad.setFinalizado(false);
 						necesidad.setProducto(producto);
+						//producto.setNecesidad(necesidad);
+						necesidades.add(necesidad);
+						producto.setNecesidades(necesidades);
+						productosTemp.add(producto);
+						cantInsertados++;
+					} else {//existe el producto
+						//actualizamos descripcion
+						HSSFCell descripcionCell = hssfRow.getCell(1);
+						String descripcion = descripcionCell.getStringCellValue();
+						Necesidad necesidad = null;
+						producto.setDescripcion(descripcion);
 						
-						producto.getNecesidades().add(necesidad);
+						//actualizamos cantidad
+						HSSFCell faltanteCell = hssfRow.getCell(2);
+						Integer faltante = (int) faltanteCell.getNumericCellValue();
+						
+						Iterator iNecesidades = producto.getNecesidades().iterator();
+						//producto.getNecesidades().setCantidad(faltante);
+						while (iNecesidades.hasNext()) {
+							Necesidad _necesidad = (Necesidad) iNecesidades.next();
+							if (!_necesidad.getFinalizado()) {
+								necesidad = _necesidad; //si existe una necesidad sin terminar la actualizo
+							}
+						}
+						//si no existe ninguna necesidad sin terminar la creo
+						if (necesidad == null) {
+							necesidad = new Necesidad();
+							
+							necesidad.setFechaCreacion(new Date());
+							necesidad.setFinalizado(false);
+							necesidad.setProducto(producto);
+							
+							producto.getNecesidades().add(necesidad);
+						}
+							
+						necesidad.setCantidad(faltante);
+						prodDao.updateProduto(producto);
+						
+						cantActualizados++;
 					}
-						
-					necesidad.setCantidad(faltante);
-					prodDao.updateProduto(producto);
-					
-					cantActualizados++;
 				}
 					
 			}
