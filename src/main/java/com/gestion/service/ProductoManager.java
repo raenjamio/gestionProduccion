@@ -87,5 +87,6 @@ public interface ProductoManager extends GenericManager<Producto, Long> {
     Long getCantInsertados() ;
     Long getCantActualizados();
     Long getCantBorrados();
+    boolean isExistDuplicados();
 
  }

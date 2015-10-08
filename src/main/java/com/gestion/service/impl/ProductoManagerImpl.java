@@ -25,6 +25,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 
 /**
  * Implementation of UserManager interface.
@@ -38,6 +41,7 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
     private Long cantInsertados=new Long(0);
     private Long cantActualizados=new Long(0);
     private Long cantBorrados= new Long(0);
+    private boolean existDuplicados = false;
     
 
     @Autowired
@@ -81,6 +85,15 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 		// TODO Auto-generated method stub
 		dao.remove(prod);
 		
+	}
+	
+
+	public boolean isExistDuplicados() {
+		return existDuplicados;
+	}
+
+	public void setExistDuplicados(boolean existDuplicados) {
+		this.existDuplicados = existDuplicados;
 	}
 
 	@Override
@@ -148,24 +161,28 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 							List<Necesidad> necesidades = new ArrayList<Necesidad>();
 							
 							producto.setCodigo(codigo);
-							
-							HSSFCell descripcionCell = hssfRow.getCell(1);
-							String descripcion = descripcionCell.getStringCellValue();
-							
-							producto.setDescripcion(descripcion);
-							
-							HSSFCell faltanteCell = hssfRow.getCell(2);
-							Integer faltante = (int) faltanteCell.getNumericCellValue();
-							
-							necesidad.setCantidad(faltante);
-							necesidad.setFechaCreacion(new Date());
-							necesidad.setFinalizado(false);
-							necesidad.setProducto(producto);
-							//producto.setNecesidad(necesidad);
-							necesidades.add(necesidad);
-							producto.setNecesidades(necesidades);
-							productosTemp.add(producto);
-							cantInsertados++;
+							if (productosTemp.contains(producto)) { //si existe no importo nada
+								setExistDuplicados(true);
+								return null;
+							}
+								HSSFCell descripcionCell = hssfRow.getCell(1);
+								String descripcion = descripcionCell.getStringCellValue();
+								
+								producto.setDescripcion(descripcion);
+								
+								HSSFCell faltanteCell = hssfRow.getCell(2);
+								Integer faltante = (int) faltanteCell.getNumericCellValue();
+								
+								necesidad.setCantidad(faltante);
+								necesidad.setFechaCreacion(new Date());
+								necesidad.setFinalizado(false);
+								necesidad.setProducto(producto);
+								//producto.setNecesidad(necesidad);
+								necesidades.add(necesidad);
+								producto.setNecesidades(necesidades);
+								productosTemp.add(producto);
+								cantInsertados++;
+							 
 						} else {//existe el producto
 							//actualizamos descripcion
 							HSSFCell descripcionCell = hssfRow.getCell(1);

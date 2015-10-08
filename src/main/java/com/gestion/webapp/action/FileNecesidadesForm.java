@@ -111,32 +111,42 @@ public class FileNecesidadesForm extends BasePage implements Serializable {
 		fileUploadHead.setFechaImpo(new Date());
 		fileUploadHead.setNombreArchivo(file.getFileName());
 		fileUploadHead.setUsuario(getRequest().getRemoteUser()); 
+		FacesContext context = FacesContext.getCurrentInstance();
 		
 		List<Producto> productos = productoManager.getProductosExcel(file);
-		Iterator<Producto> productoIterator = productos.iterator();
-		
-		while (productoIterator.hasNext()) {
-			productoIterator.next().setFileUploadHeader(fileUploadHead);
+		if (productos != null) {
+			Iterator<Producto> productoIterator = productos.iterator();
+			
+			while (productoIterator.hasNext()) {
+				productoIterator.next().setFileUploadHeader(fileUploadHead);
+				
+			}
+			
+			fileUploadHead.setProductos(productos);
+			fileUploadHead.setCantInsertados(productoManager.getCantInsertados());
+			fileUploadHead.setCantActualizados(productoManager.getCantActualizados());
+			
+			fileNecesidadesManager.saveFileUpload(fileUploadHead);
+			
+			if ((fileUploadHead.getCantActualizados()> 0) || (fileUploadHead.getCantInsertados()>0)) {
+				context.addMessage(null, new FacesMessage("Importacion realizada correctamente",  "Registros insertados: " + fileUploadHead.getCantInsertados()) );
+				context.addMessage(null, new FacesMessage("Importacion realizada correctamente",  "Registros actualizados: " + fileUploadHead.getCantActualizados()) );
+				return "success";
+			}
+			else {
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Importacion No realizada",  "Importacion No realizada ") );
+				return "error";
+			}
 			
 		}
 		
-		fileUploadHead.setProductos(productos);
-		fileUploadHead.setCantInsertados(productoManager.getCantInsertados());
-		fileUploadHead.setCantActualizados(productoManager.getCantActualizados());
-		
-		fileNecesidadesManager.saveFileUpload(fileUploadHead);
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		
-		if ((fileUploadHead.getCantActualizados()> 0) || (fileUploadHead.getCantInsertados()>0)) {
-			context.addMessage(null, new FacesMessage("Importacion realizada correctamente",  "Registros insertados: " + fileUploadHead.getCantInsertados()) );
-			context.addMessage(null, new FacesMessage("Importacion realizada correctamente",  "Registros actualizados: " + fileUploadHead.getCantActualizados()) );
-			return "success";
-		}
-		else {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Importacion No realizada",  "Importacion No realizada ") );
+
+		if (productoManager.isExistDuplicados()) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Importacion No realizada",  "Existen productos duplicados en el archivo") );
 			return "error";
 		}
+		
+		return "success";
 	}
 
 	public Long getCantInsertados() {
