@@ -149,7 +149,13 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 				
 				HSSFCell codigoCell = hssfRow.getCell(0);
 				if (codigoCell != null) {
-					String codigo = codigoCell.getStringCellValue();
+					String codigo;
+					try {
+						codigo = codigoCell.getStringCellValue();
+					} catch (IllegalStateException e) {
+						codigo = codigoCell.toString().substring(0, codigoCell.toString().indexOf(".") == -1 ? codigoCell.toString().length() : codigoCell.toString().indexOf("."));
+					}
+					
 					if (!"".equals(codigo)) {
 			
 						//vemos si existe el producto, si es asi lo actualizamos
