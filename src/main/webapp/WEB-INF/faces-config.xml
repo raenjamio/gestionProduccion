@@ -256,7 +256,7 @@
      <managed-bean>
         <managed-bean-name>dtEditPlanificacionForm</managed-bean-name>
         <managed-bean-class>com.gestion.webapp.action.DtEditPlanificacionForm</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
         <managed-property>
             <property-name>necesidadManager</property-name>
             <value>#{necesidadManager}</value>
@@ -274,7 +274,7 @@
     <managed-bean>
         <managed-bean-name>dtHistorial</managed-bean-name>
         <managed-bean-class>com.gestion.webapp.action.DtHistorial</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
         <managed-property>
             <property-name>necesidadManager</property-name>
             <value>#{necesidadManager}</value>

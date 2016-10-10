@@ -20,13 +20,15 @@
 	             		<p:growl id="msgs" showDetail="true" sticky="true" /> 
 	             	</div>
 				
-				<p:remoteCommand name="onRowEdit" action="#{dtEditPlanificacionForm.refresh()}" update="testContainer" />
-                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidades}" sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
+				<p:remoteCommand name="onRowEdit" update="necesidades" />
+                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesNoFinalizadasList}" sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
                              paginator="true" rows="25"
+                             selection="#{dtEditPlanificacionForm.necesidad}"
+                             rowKey="#{necesidad.id}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}  {Exporters}"
                              rowsPerPageTemplate="15,25,50">
                              
-                    <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" update=":formPlanificacion:msgs" oncomplete="onRowEdit()" />
+                    <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" oncomplete="onRowEdit();" update=":formPlanificacion:msgs" process="necesidades" />
        				<p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
                     <p:ajax event="cellEdit" listener="#{dtEditPlanificacionForm.onCellEdit}" update=":formPlanificacion:msgs" />
                     
@@ -59,7 +61,7 @@
                       
                     <p:column style="width: 26%" headerText="#{text['necesidad.cantidad']}">
                         <h:outputText value="#{necesidad.cantidad}" >
-                        	<f:convertNumber pattern="#,000"/>
+                        	<f:convertNumber pattern="#,##0"/>
                         </h:outputText>
                     </p:column>
                     <p:column style="width: 40%" headerText="#{text['necesidad.fechaCreacion']}">

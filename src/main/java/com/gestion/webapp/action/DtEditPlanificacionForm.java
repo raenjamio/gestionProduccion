@@ -56,12 +56,15 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	private NecesidadManager necesidadManager;
 	private String query;
 	public String codEstado;
-	private Necesidad necesidad;
+	private Necesidad necesidad = new Necesidad();
+	private Necesidad necesidadSelected = new Necesidad();
 	private EstadoManager estadoManager;
 	private String prioridad;
 	private List<Necesidad> necesidades;
+	private List<Necesidad> necesidadesNoFinalizadasList;
 	private ActividadManager actividadManager;
 	private Actividad actividad = new Actividad();
+	private boolean changePrioridad = false;
 
 	public String getPrioridad() {
 		return prioridad;
@@ -82,7 +85,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 	public DtEditPlanificacionForm() {
 		setSortColumn("prioridad");
 		super.nullsAreHigh = true;
-
+		this.setNecesidadesNoFinalizadasList(new ArrayList<Necesidad>());
 	}
 	
 
@@ -179,6 +182,16 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 			return sort(necesidadManager.search(query));
 		}
 	}
+	
+
+	public List<Necesidad> getNecesidadesNoFinalizadasList() {
+		return necesidadesNoFinalizadasList;
+	}
+
+	public void setNecesidadesNoFinalizadasList(
+			List<Necesidad> necesidadesNoFinalizadasList) {
+		this.necesidadesNoFinalizadasList = necesidadesNoFinalizadasList;
+	}
 
 	public String search() {
 		return "success";
@@ -200,6 +213,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 				actividad.setNecesidad(necesidad);
 				actividad.setFechaCreacion(new Date());
 				necesidad.getActividades().add(actividad);
+				this.setChangePrioridad(true);
 				//necesidadManager.getNecesidad(necesidad.getId().toString()).getActividades().add(actividad);
 			} else {
 				FacesContext context = FacesContext.getCurrentInstance();
@@ -248,11 +262,37 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 		necesidadManager.saveNecesidad(necesidad);
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		necesidades = getNecesidadesNoFinalizadas();
+		this.buscarNecesidadLista(this.getNecesidadesNoFinalizadasList(), this.getNecesidad());
+		
+		if (isChangePrioridad()) {
+			//si se cambio la prioridad reordenamos
+			this.setNecesidadesNoFinalizadasList(sort(this.getNecesidadesNoFinalizadasList()));
+		}
+		
+		//necesidades = getNecesidadesNoFinalizadas();
 		context.addMessage(null, new FacesMessage("Producto editado",  "Se cambio de estado y/o prioridad"));
     }
 	
-    private boolean isNumeric(String prioridad2) {
+	//busco la necesidad de la tabla para actualizarla y no tener que cargar toda la tabla
+    private void buscarNecesidadLista(List<Necesidad> necesidadesNoFinalizadasList2, Necesidad necesidad2) {
+		for (Necesidad necesidad : necesidadesNoFinalizadasList2) {
+			if (necesidad.equals(necesidad2)) {
+				if (necesidad2.getFinalizado()) {
+					//si esta finalizado lo eliminamos de la coleccion sino se sigue viendo en pantalla
+					necesidadesNoFinalizadasList2.remove(necesidad2);
+					break;
+				}
+				necesidad.setPrioridad(necesidad2.getPrioridad());
+				necesidad.setEstadoProduccion(necesidad2.getEstadoProduccion());
+				necesidad.setEstadoPintado(necesidad2.getEstadoPintado());
+				necesidad.setEstados(necesidad2.getEstados());
+				break;
+			}
+		}
+		
+	}
+
+	private boolean isNumeric(String prioridad2) {
 		 try  
 		  {  
 		    Integer num = Integer.parseInt(prioridad2);  
@@ -292,12 +332,31 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     
     @PostConstruct
     public void init(){
-    	necesidades = getNecesidadesNoFinalizadas();
+    	if (this.getNecesidadesNoFinalizadasList() != null && this.getNecesidadesNoFinalizadasList().isEmpty()) {
+    		this.setNecesidadesNoFinalizadasList(sort(necesidadManager.getNecesidadesNoFinalizadas()));
+    	}
+    	//necesidades = getNecesidadesNoFinalizadas();
     }
     
     public void refresh(){
-    	necesidades = getNecesidadesNoFinalizadas();
+    	//necesidades = getNecesidadesNoFinalizadas();
     }
+
+	public boolean isChangePrioridad() {
+		return changePrioridad;
+	}
+
+	public void setChangePrioridad(boolean changePrioridad) {
+		this.changePrioridad = changePrioridad;
+	}
+
+	public Necesidad getNecesidadSelected() {
+		return necesidadSelected;
+	}
+
+	public void setNecesidadSelected(Necesidad necesidadSelected) {
+		this.necesidadSelected = necesidadSelected;
+	}
     
 
 }

@@ -18,7 +18,7 @@
 	             		<p:growl id="msgs" showDetail="true" sticky="true" /> 
 	             	</div>
 
-                <p:dataTable id="necesidades" var="necesidad" value="#{dtHistorial.necesidadesFinalizadas}"  sortBy="#{necesidad.producto.codigo}"   style="margin-bottom:20px"
+                <p:dataTable id="necesidades" var="necesidad" value="#{dtHistorial.necesidadesFinalizadasList}"  sortBy="#{necesidad.producto.codigo}"   style="margin-bottom:20px"
                              paginator="true" rows="25" paginatorPosition="bottom"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="15,25,50">
@@ -48,7 +48,7 @@
                             </p:column>
                         </f:facet>
                         <h:outputText value="#{necesidad.cantidad}" >
-                        	<f:convertNumber pattern="#,000"/>
+                        	<f:convertNumber pattern="#,##0"/>
                         </h:outputText>
                     </p:column>
                     <p:column style="width: 40%">
@@ -63,18 +63,9 @@
                     </p:column>
                     <!-- estados  -->
                     <p:column style="width: 30%" headerText="Estado">
-	                       <p:cellEditor>
-	                        <f:facet name="output">
 	                        <div id="#{necesidad.createStylePintado()}">
 	                           	<h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
 	                        </div>	
-	                        </f:facet>
-	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%" disabled="#{necesidad.estadoProduccion ne 'Controlado'}">
-				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
-				                   </h:selectOneMenu>
-				             </f:facet>
-                    	</p:cellEditor>
                     </p:column>
                      <p:column style="width: 40%">
                         <f:facet name="header">
@@ -90,13 +81,13 @@
 			                <f:setPropertyActionListener value="#{necesidad}" target="#{dtHistorial.selectedNecesidad}" />
 			            </p:commandButton>
 			        </p:column>
-                     <p:summaryRow>
+                     <p:summaryRow>t
 			            <p:column colspan="2" style="text-align:right">
 			                <h:outputText value="Total:" />
 			            </p:column>
 			            <p:column>
-			                <h:outputText value="#{dtHistorial.totalFinalizadosByProd(necesidad.producto)}">
-			                    <f:convertNumber pattern="#,000"/>
+			                <h:outputText value="#{dtHistorial.totalFinalizadosByProdLista(necesidad.producto)}">
+			                    <f:convertNumber pattern="#,##0"/>
 			                </h:outputText>
 			            </p:column>
 			        </p:summaryRow>
@@ -105,7 +96,7 @@
                 </p:dataTable>
                 
                 
-                <p:dialog header="Detalle de Necesidad" widgetVar="necesidadDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:dialog header="Detalle de Necesidad" widgetVar="necesidadDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
 		        <p:outputPanel id="necesidadDetail" style="text-align:center;">
 		            <p:panelGrid  columns="2" rendered="#{not empty dtHistorial.selectedNecesidad}" columnClasses="label,value">
 		            	<f:facet name="header">

@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +47,7 @@ public class DtHistorial extends BasePage implements Serializable {
 	public String codEstado;
 	private Necesidad necesidad;
 	private Necesidad selectedNecesidad;
+	private List<Necesidad> necesidadesFinalizadasList;
 
 	public String getCodEstado() {
 		return codEstado;
@@ -57,7 +60,16 @@ public class DtHistorial extends BasePage implements Serializable {
 	public DtHistorial() {
 		setSortColumn("producto");
 		super.nullsAreHigh = true;
+		this.setNecesidadesFinalizadasList(new ArrayList<Necesidad>());
 	}
+	
+    @PostConstruct
+    public void init(){
+    	if (this.getNecesidadesFinalizadasList() != null && this.getNecesidadesFinalizadasList().isEmpty()) {
+    		this.setNecesidadesFinalizadasList(sort(necesidadManager.getNecesidadesFinalizadas()));
+    	}
+    	//necesidades = getNecesidadesNoFinalizadas();
+    }
 
 	public void setId(String id) {
 		this.id = id;
@@ -157,6 +169,38 @@ public class DtHistorial extends BasePage implements Serializable {
     	return total;
     	
     }
+    
+    public Integer totalFinalizadosByProdLista(Producto producto) {
+    	Integer total= new Integer(0);
+    	
+    	List<Necesidad> necesidades = this.buscarProductoEnList(necesidadesFinalizadasList, producto);
+    	
+    	for(Necesidad necesidad : necesidades) {
+            total += necesidad.getCantidad()==null ? 0: necesidad.getCantidad();
+        }
+    	return total;
+    	
+    }
+    
+    public List<Necesidad> buscarProductoEnList(List<Necesidad> necesidades, Producto producto2) {
+    	List<Necesidad> necesidadesPorProductoFinalizadas = new ArrayList<Necesidad>();
+    	
+    	for (Necesidad necesidad : necesidades) {
+			if (necesidad.getProducto().equals(producto2)) {
+				necesidadesPorProductoFinalizadas.add(necesidad);
+			}
+		}
+    	return necesidadesPorProductoFinalizadas;
+    }
+
+	public List<Necesidad> getNecesidadesFinalizadasList() {
+		return necesidadesFinalizadasList;
+	}
+
+	public void setNecesidadesFinalizadasList(
+			List<Necesidad> necesidadesFinalizadasList) {
+		this.necesidadesFinalizadasList = necesidadesFinalizadasList;
+	}
     
 
 }

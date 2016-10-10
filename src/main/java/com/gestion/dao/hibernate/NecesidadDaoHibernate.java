@@ -5,6 +5,8 @@ import com.gestion.model.Chart;
 import com.gestion.model.Necesidad;
 import com.gestion.model.Producto;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -38,12 +40,14 @@ import java.util.List;
  */
 @Repository("necesidadDao")
 public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> implements NecesidadDAO {
+	protected final Log log = LogFactory.getLog(getClass());
 	
-	 public NecesidadDaoHibernate() {
+	public NecesidadDaoHibernate() {
 		 super(Necesidad.class);
 	 }
 	@Override
 	public Necesidad saveNecesidad (Necesidad necesidad) {
+		log.debug("NecesidadDAOHibernate saveNecesidad() codigo= " + necesidad.getProducto().getCodigo());
 		getSession().saveOrUpdate(necesidad);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getSession().flush();
@@ -65,6 +69,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 
 	@Override
 	public boolean deleteNecesidad(Necesidad necesidad) {
+		log.debug("NecesidadDAOHibernate deleteNecesidad() codigo= " + necesidad.getProducto().getCodigo());
 		// TODO Auto-generated method stub
 			try { 
 			    getSession().delete(necesidad);
@@ -78,6 +83,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 	}
 	
 	public List<Necesidad> getAllNoFinalizadas() {
+		log.debug("NecesidadDAOHibernate getAllNoFinalizadas() ");
 		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNull("fechaFinalizacion")).list();
 	    if (necesidades.isEmpty()) {
 	        return necesidades;
@@ -88,6 +94,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 	}
 	
 	public List<Necesidad> getAllFinalizadas() {
+		log.debug("NecesidadDAOHibernate getAllFinalizadas() ");
 		List<Necesidad> necesidades = getSession().createCriteria(Necesidad.class).add(Restrictions.isNotNull("fechaFinalizacion")).list();
 	    if (necesidades.isEmpty()) {
 	        return necesidades;
@@ -99,7 +106,7 @@ public class NecesidadDaoHibernate extends GenericDaoHibernate<Necesidad, Long> 
 
 	public 	List<Necesidad> getNecesidadesByProd(String codigo) {
 		List<Necesidad> necesidades = null;
-
+		log.debug("NecesidadDAOHibernate getNecesidadesByProd() codigo= " + codigo);
 		if (codigo != null) {
 			//productos = getSession().createSQLQuery("select prod.*	from productos prod where not exists (select * from necesidades nec where nec.producto_id = prod.id AND nec.finalizado = true)").list();
 			SQLQuery query = getSession().createSQLQuery("select nec.id, nec.cantidad, nec.estadoPintado, nec.estadoProduccion , nec.fechaCreacion, nec.fechaFinalizacion, nec.prioridad, nec.finalizado, nec.producto_id, nec.fechaControlProduccion, nec.fechaFinalProduccion, nec.fechaControlPintado, nec.fechaFinalPintado from necesidades nec inner join productos prod on prod.id = nec.producto_id where nec.finalizado = true and prod.codigo = '"+ codigo +"'")
