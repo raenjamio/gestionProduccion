@@ -66,11 +66,12 @@
         <param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
         <param-value>/*.xhtml</param-value>
     </context-param>
+    <!-- Comentar para prod
     <context-param>
-    <param-name>primefaces.UPLOADER</param-name>
-    <param-value>commons</param-value>
-  </context-param>
-  
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>commons</param-value>
+    </context-param>
+    -->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

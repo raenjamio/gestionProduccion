@@ -223,7 +223,7 @@ public class EstadoForm extends BasePage implements Serializable {
     	
     	if (request.isUserInRole("ROLE_ADMIN")) {
     		estados.put("", "");
-    		estados.put(Constants.CONTROLADO, Constants.PRODUCCION_CONTROLADO);
+    		//estados.put(Constants.CONTROLADO, Constants.PRODUCCION_CONTROLADO);
     		estados.put(Constants.FINALIZADO, Constants.PRODUCCION_FINALIZADO);
     		//estados.add("Controlado");
     	} else if (request.isUserInRole("ROLE_PRODUCCION")) {
@@ -232,10 +232,33 @@ public class EstadoForm extends BasePage implements Serializable {
     		//estados.add("Finalizado");	
     	} else if (request.isUserInRole("ROLE_CALIDAD")) {
     		estados.put("", "");
-    		estados.put(Constants.CONTROLADO, Constants.PRODUCCION_CONTROLADO);
+    		//estados.put(Constants.CONTROLADO, Constants.PRODUCCION_CONTROLADO);
     		//estados.add("Controlado");
     	} 
     	return estados;
+    }
+
+    public Map<String,String> getEstadosDisponiblesSoldadura () {
+        //List<String> estados = new ArrayList<String>();
+        HttpServletRequest request = getRequest();
+        Map<String,String> estados = new HashMap<String, String>();
+
+
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            estados.put("", "");
+            //estados.put(Constants.CONTROLADO, Constants.PRODUCCION_CONTROLADO);
+            estados.put(Constants.FINALIZADO, Constants.SOLDADO_FINALIZADO);
+            //estados.add("Controlado");
+        } else if (request.isUserInRole("ROLE_SOLDADURA")) {
+            estados.put("", "");
+            estados.put(Constants.FINALIZADO, Constants.SOLDADO_FINALIZADO);
+            //estados.add("Finalizado");
+        } else if (request.isUserInRole("ROLE_CALIDAD")) {
+            estados.put("", "");
+            //estados.put(Constants.CONTROLADO, Constants.PRODUCCION_CONTROLADO);
+            //estados.add("Controlado");
+        }
+        return estados;
     }
     
     public Map<String,String> getEstadosDisponiblesPintura () {

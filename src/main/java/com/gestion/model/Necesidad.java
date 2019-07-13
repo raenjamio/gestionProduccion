@@ -1,7 +1,5 @@
 package com.gestion.model;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,17 +25,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.annotations.GenericGenerator;  
-import org.hibernate.annotations.Parameter;  
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
-import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.RowEditEvent;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gestion.Constants;
-import com.gestion.service.EstadoManager;
 
 @Entity
 @Table(name = "necesidades")
@@ -64,6 +55,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Date fechaFinalPintado;
 	private Date fechaControlPintado;
 	private List<Actividad> actividades = new ArrayList<Actividad>();
+	private Integer cantidadPintada;
 	
 
     @Id  
@@ -182,7 +174,13 @@ public class Necesidad extends BaseObject implements Serializable {
 		this.fechaControlPintado = fechaControlPintado;
 	}
 
+	public Integer getCantidadPintada() {
+		return cantidadPintada;
+	}
 
+	public void setCantidadPintada(Integer cantidadPintada) {
+		this.cantidadPintada = cantidadPintada;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -271,7 +269,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		return codEstado;
 	}
 	
-/*	public String getEstadoSoldadura() {
+	public String getEstadoSoldadura() {
 		Iterator<Estado> estadosI = this.getEstados().iterator();
 		String codEstado = "";
 		while(estadosI.hasNext()) {
@@ -286,7 +284,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	    }
 		return codEstado;
 	}
-*/
+
 	public void setEstadoPintado(String codigo) {
 		//hay q ver que se selecciono
 		//private EstadoManager estadoManager;
@@ -300,7 +298,7 @@ public class Necesidad extends BaseObject implements Serializable {
 			this.getEstados().add(estado);
 		}
 	}
-/*	
+
 	public void setEstadoSoldadura(String codigo) {
 		//hay q ver que se selecciono
 		Estado estado = null;//= estadoManager.getEstado(codigo);
@@ -313,7 +311,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		}
 		
 	}
-	*/
+
 	public void setEstadoProduccion (String codigo) {
 		//hay q ver que se selecciono
 		Estado estado = null;//= estadoManager.getEstado(codigo);
@@ -328,7 +326,7 @@ public class Necesidad extends BaseObject implements Serializable {
 		
 	}
 	
-/*	public String createStyleSoldadura(){
+	public String createStyleSoldadura(){
 		String estado = getEstadoSoldadura();
 		
 	    switch (estado){
@@ -340,7 +338,7 @@ public class Necesidad extends BaseObject implements Serializable {
 	        return "DEFAULT";   
 	    }
 	}
-	*/
+
 	public String createStylePintado(){
 		String estado = getEstadoPintado();
 		

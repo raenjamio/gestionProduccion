@@ -5,120 +5,161 @@
 
 <ui:composition template="/layouts/default.xhtml">
     <ui:define name="title">#{text['prodList.title']}</ui:define>
-    <ui:param name="menu" value="AdminMenu"/>
+    <!--<ui:param name="menu" value="AdminMenu"/> -->
 
     <ui:define name="body">
-        <div class="col-sm-10">
+        <div class="col-sm-11">
             <h2>#{text['necesidadList.heading']}</h2>
-            
+
             <hr style="hr" size="2" color="black"/>
 
-            <h:form id="formPlanificacion">  
-            <h:panelGroup id="mygroup">
-            <p:outputPanel id="testContainer">
-           			<div id="growlImport_container">
-	             		<p:growl id="msgs" showDetail="true" sticky="true" /> 
-	             	</div>
-				
-				<p:remoteCommand name="onRowEdit" update="necesidades" />
-                <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesNoFinalizadasList}" sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
-                             paginator="true" rows="25"
-                             selection="#{dtEditPlanificacionForm.necesidad}"
-                             rowKey="#{necesidad.id}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}  {Exporters}"
-                             rowsPerPageTemplate="15,25,50">
-                             
-                    <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" oncomplete="onRowEdit();" update=":formPlanificacion:msgs" process="necesidades" />
-       				<p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
-                    <p:ajax event="cellEdit" listener="#{dtEditPlanificacionForm.onCellEdit}" update=":formPlanificacion:msgs" />
-                    
-                     <f:facet name="{Exporters}">
-			            <h:commandLink>
-			                <p:graphicImage value="#{request.contextPath}/images/excel.png" width="24"/>
-			                <p:dataExporter type="xls" target="necesidades" fileName="necesidadesPlanificadas"/>
-			            </h:commandLink>
-			 
-			        </f:facet>
-       		   
-                    <p:column style="width: 25%" headerText="#{text['necesidad.prioridad']}" sortBy="#{necesidad.prioridad}" >
-			           <p:cellEditor>
-			               <f:facet name="output"><h:outputText value="#{necesidad.prioridad}" /></f:facet>
-			               <f:facet name="input"><p:inputText id="modelInput" value="#{dtEditPlanificacionForm.prioridad}" style="width:60%"/>
-			               </f:facet>
-			           </p:cellEditor>
-			       </p:column>
-                             
-                    <p:column headerText="#{text['producto.codigo']}" style="width: 38%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains" >
+            <h:form id="formPlanificacion">
+                <h:panelGroup id="mygroup">
+                    <p:outputPanel id="testContainer">
+                        <div id="growlImport_container">
+                            <p:growl id="msgs" showDetail="true" sticky="true" />
+                        </div>
 
-                        <h:commandLink action="#{productoForm.edit}" value="#{necesidad.producto.codigo}">
-                            <f:param name="id" value="#{necesidad.producto.id}"/>
-                            <f:param name="from" value="list"/>
-                        </h:commandLink>
-                    </p:column>
-                    <p:column headerText="#{text['producto.descripcion']}" style="width: 50%" filterBy="#{necesidad.producto.descripcion}" filterMatchMode="contains">
-                        <h:outputText value="#{necesidad.producto.descripcion}"/>
-                    </p:column>  
-                      
-                    <p:column style="width: 26%" headerText="#{text['necesidad.cantidad']}">
-                        <h:outputText value="#{necesidad.cantidad}" >
-                        	<f:convertNumber pattern="#,##0"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:column style="width: 40%" headerText="#{text['necesidad.fechaCreacion']}">
-                        <h:outputText value="#{necesidad.fechaCreacion}">
-                        	<f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </p:column>
-                    <!-- estados  -->
-                     <p:column exportable="false" style="width: 38%" headerText="#{text['estado.produccion']}" filterBy="#{necesidad.estadoProduccion}" filterMatchMode="contains">
-                        <p:cellEditor>
-	                        <f:facet name="output">
-	                        <div id="#{necesidad.createStyleProduccion()}" >
-	                           	<h:outputText value="#{necesidad.estadoProduccion}" />
-	                        </div>	
-	                        </f:facet>
-	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%">
-				                       <f:selectItems value="#{estadoForm.estadosDisponiblesProduccion}"/>
-				                   </h:selectOneMenu>
-				             </f:facet>
-                    	</p:cellEditor>
-                    </p:column>
-                    <p:column style="width: 38%; display:none" headerText="#{text['estado.produccion']}" >
-                    	<h:outputText value="#{necesidad.estadoProduccion}" >
-                        </h:outputText>
-                    </p:column>
-                    <p:column exportable="false" style="width: 38%" headerText="#{text['estado.pintado']}" filterBy="#{necesidad.estadoPintado}" filterMatchMode="contains">
-                        <p:cellEditor>
-	                        <f:facet name="output">
-	                        <div id="#{necesidad.createStylePintado()}">
-	                           	<h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
-	                        </div>	
-	                        </f:facet>
-	                         <f:facet name="input">
-				                   <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%" disabled="#{necesidad.estadoProduccion ne 'Controlado'}">
-				                       <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
-				                   </h:selectOneMenu>
-				             </f:facet>
-                    	</p:cellEditor>
-                    </p:column>
-                    <p:column  style="width: 38%; display:none" headerText="#{text['estado.pintado']}" >
-                    	<h:outputText value="#{necesidad.estadoPintado}" >
-                        </h:outputText>
-                    </p:column>
-                    
-                   <p:column exportable="false"  style="width:32px">
-			       		<p:rowEditor/>
-			       </p:column>
-                   
-                </p:dataTable>
-                
-    			</p:outputPanel>   
-                  </h:panelGroup>
+                        <p:remoteCommand name="onRowEdit" update="necesidades" />
+                        <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesNoFinalizadasList}"
+                                     sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
+                                     paginator="true" rows="25"
+                                     selection="#{dtEditPlanificacionForm.selectedNecesidades}"
+                                     rowKey="#{necesidad.id}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}  {Exporters}"
+                                     rowsPerPageTemplate="15,25,50">
+
+                            <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" oncomplete="onRowEdit();" update=":formPlanificacion:msgs" process="necesidades" />
+                            <p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
+                            <p:ajax event="cellEdit" listener="#{dtEditPlanificacionForm.onCellEdit}" update=":formPlanificacion:msgs" />
+
+                            <f:facet name="{Exporters}">
+                                <h:commandLink>
+                                    <p:graphicImage value="#{request.contextPath}/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="necesidades" fileName="necesidadesPlanificadas"/>
+                                </h:commandLink>
+
+                            </f:facet>
+
+                            <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                            <p:column style="width: 25%" headerText="#{text['necesidad.prioridad']}" sortBy="#{necesidad.prioridad}" >
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{necesidad.prioridad}" /></f:facet>
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{dtEditPlanificacionForm.prioridad}" style="width:60%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="#{text['producto.codigo']}" style="width: 38%" filterBy="#{necesidad.producto.codigo}" filterMatchMode="contains" >
+
+                                <h:commandLink action="#{productoForm.edit}" value="#{necesidad.producto.codigo}">
+                                    <f:param name="id" value="#{necesidad.producto.id}"/>
+                                    <f:param name="from" value="list"/>
+                                </h:commandLink>
+                            </p:column>
+                            <p:column headerText="#{text['producto.descripcion']}" style="width: 50%" filterBy="#{necesidad.producto.descripcion}" filterMatchMode="contains">
+                                <h:outputText value="#{necesidad.producto.descripcion}"/>
+                            </p:column>
+
+                            <p:column style="width: 26%" headerText="#{text['necesidad.cantidad']}">
+                                <h:outputText value="#{necesidad.cantidad}" >
+                                    <f:convertNumber pattern="#,##0"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="width: 40%" headerText="#{text['necesidad.fechaCreacion']}">
+                                <h:outputText value="#{necesidad.fechaCreacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <!-- estados  -->
+                            <p:column exportable="false" style="width: 55%" headerText="#{text['estado.produccion']}" filterBy="#{necesidad.estadoProduccion}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <div id="#{necesidad.createStyleProduccion()}" >
+                                            <h:outputText value="#{necesidad.estadoProduccion}" />
+                                        </div>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%">
+                                            <f:selectItems value="#{estadoForm.estadosDisponiblesProduccion}"/>
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <!-- estados -->
+                            <p:column exportable="false" style="width: 55%" headerText="#{text['estado.soldado']}"
+                                      filterBy="#{necesidad.estadoSoldadura}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <div id="#{necesidad.createStyleSoldadura()}" >
+                                            <h:outputText value="#{necesidad.estadoSoldadura}" />
+                                        </div>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%">
+                                            <f:selectItems value="#{estadoForm.estadosDisponiblesSoldadura}"/>
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column exportable="false" style="width: 55%" headerText="#{text['estado.pintado']}"
+                                      filterBy="#{necesidad.estadoPintado}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <div id="#{necesidad.createStylePintado()}">
+                                            <h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
+                                        </div>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%"
+                                                         disabled="#{necesidad.estadoSoldadura ne 'Finalizado'}">
+                                            <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column  style="width: 38%; display:none" headerText="#{text['estado.pintado']}" >
+                                <h:outputText value="#{necesidad.estadoPintado}" >
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width: 26%" headerText="#{text['necesidad.cantidad.pintada']}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{necesidad.cantidadPintada}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText disabled="#{necesidad.cantidadPintada ne null and  necesidad.estadoPintado ne null }" id="modelInputCantidadPintada"
+                                                     value="#{necesidad.cantidadPintada}" style="width:60%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column exportable="false"  style="width:32px">
+                                <p:rowEditor/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <!-- update=":formPlanificacion:multiCarDetail" oncomplete="PF('multiCarDialog').show()"-->
+                                <p:commandButton disabled="#{not request.isUserInRole('ROLE_ADMIN')}"  process="necesidades"  action="#{dtEditPlanificacionForm.controlarNecesidades}" icon="pi pi-search"
+                                                 value="Controlar Necesidades"  oncomplete="onRowEdit();"/>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                    </p:outputPanel>
+                </h:panelGroup>
+                <p:dialog header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                    <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                        <ui:repeat value="#{dtEditPlanificacionForm.selectedNecesidades}" var="necesidad">
+                            <h:outputText value="#{necesidad.id} - #{necesidad.cantidad}" style="display:block"/>
+                        </ui:repeat>
+                    </p:outputPanel>
+                </p:dialog>
             </h:form>
-            
-        </div>          
-          
+
+        </div>
+
     </ui:define>
 </ui:composition>
 </html>

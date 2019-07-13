@@ -1,10 +1,12 @@
 package com.gestion.service.impl;
 
+import com.gestion.Constants;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.aspectj.apache.bcel.classfile.Constant;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -204,7 +206,9 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 							//producto.getNecesidades().setCantidad(faltante);
 							while (iNecesidades.hasNext()) {
 								Necesidad _necesidad = (Necesidad) iNecesidades.next();
-								if (!_necesidad.getFinalizado()) {
+								if (!(_necesidad.getEstadoProduccion().equals(Constants.FINALIZADO) ||
+										_necesidad.getEstadoSoldadura().equals(Constants.FINALIZADO) ||
+										_necesidad.getEstadoPintado().equals(Constants.FINALIZADO))) {
 									necesidad = _necesidad; //si existe una necesidad sin terminar la actualizo
 								}
 							}
@@ -217,12 +221,15 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 								necesidad.setProducto(producto);
 								
 								producto.getNecesidades().add(necesidad);
+								cantInsertados++;
+							} else {
+								cantActualizados++;
 							}
 								
 							necesidad.setCantidad(faltante);
 							prodDao.updateProduto(producto);
 							
-							cantActualizados++;
+
 						}
 					}
 				} //if codigocell is not null

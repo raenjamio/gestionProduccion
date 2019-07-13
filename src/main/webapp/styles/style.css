@@ -452,3 +452,26 @@ span.pagelinks {
     border: 1px solid #CD0A0A;
     color: #FFFFFF;
 }
+
+
+//.ui-state-default .ui-icon {
+//    background-color: white;
+//}
+
+//Disable highlightcolor
+//.non-highlight.ui-datatable .ui-datatable-even.ui-state-highlight {
+//    background: white;
+//        background-color: yellow;
+//}
+
+//.non-highlight.ui-datatable .ui-datatable-odd.ui-state-highlight {
+//        background-color: yellow;
+//}
+
+.ui-chkbox-icon .ui-icon .ui-c .ui-icon-check {
+    background-color: yellow;
+}
+
+.ui-state-highlight .ui-icon {
+    background-color: blue;
+}

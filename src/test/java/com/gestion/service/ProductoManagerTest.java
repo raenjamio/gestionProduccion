@@ -24,7 +24,7 @@ import com.gestion.dao.ProductoDAO;
 import com.gestion.model.Producto;
 
 import static org.junit.Assert.*;
-
+/*
 public class ProductoManagerTest extends BaseManagerTestCase {
     private ProductoManager bean;
     private UploadedFile uploadedFile;
@@ -74,14 +74,14 @@ public class ProductoManagerTest extends BaseManagerTestCase {
         bean = null;
     }
 
-    @Test
+    //@Test
     public void testGetProductosExcel() throws Exception {
         bean = new ProductoManagerImpl(prodDAO);
         assertTrue(bean.getProductosExcel(uploadedFile).size() > 0);
 
     }
     
-    @Test
+    //@Test
     public void testGetProductosExcelUpdate() throws Exception {
         bean = new ProductoManagerImpl(prodDAOUpdate);
         bean.getProductosExcel(uploadedFile);
@@ -89,5 +89,5 @@ public class ProductoManagerTest extends BaseManagerTestCase {
 
     }
     
-
 }
+*/

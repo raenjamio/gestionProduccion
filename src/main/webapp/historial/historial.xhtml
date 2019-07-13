@@ -51,6 +51,16 @@
                         	<f:convertNumber pattern="#,##0"/>
                         </h:outputText>
                     </p:column>
+                    <p:column style="width: 26%">
+                        <f:facet name="header">
+                            <p:column sortBy="#{text['necesidad.cantidad.pintada']}">
+                                <h:outputText value="#{text['necesidad.cantidad.pintada']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{necesidad.cantidadPintada}" >
+                            <f:convertNumber pattern="#,##0"/>
+                        </h:outputText>
+                    </p:column>
                     <p:column style="width: 40%">
                         <f:facet name="header">
                             <p:column sortBy="#{necesidad.fechaCreacion}">
