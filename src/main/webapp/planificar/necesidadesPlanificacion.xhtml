@@ -87,6 +87,10 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+                            <p:column  style="width: 38%; display:none" headerText="#{text['estado.produccion']}" >
+                                <h:outputText value="#{necesidad.estadoProduccion}" >
+                                </h:outputText>
+                            </p:column>
                             <!-- estados -->
                             <p:column exportable="false" style="width: 55%" headerText="#{text['estado.soldado']}"
                                       filterBy="#{necesidad.estadoSoldadura}" filterMatchMode="contains">
@@ -102,6 +106,10 @@
                                         </h:selectOneMenu>
                                     </f:facet>
                                 </p:cellEditor>
+                            </p:column>
+                            <p:column  style="width: 38%; display:none" headerText="#{text['estado.soldado']}" >
+                                <h:outputText value="#{necesidad.estadoSoldadura}" >
+                                </h:outputText>
                             </p:column>
 
                             <p:column exportable="false" style="width: 55%" headerText="#{text['estado.pintado']}"
