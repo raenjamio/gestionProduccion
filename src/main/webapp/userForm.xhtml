@@ -73,12 +73,12 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
-                        <h:inputText styleClass="form-control" id="firstName" value="#{userForm.user.firstName}" maxlength="50" required="true"/>
+                        <h:inputText styleClass="form-control" id="firstName" value="#{userForm.user.firstName}" maxlength="50" />
                         <p:message for="firstName"/>
                     </div>
                     <div class="col-sm-6 form-group">
                         <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
-                        <h:inputText styleClass="form-control" value="#{userForm.user.lastName}" id="lastName" maxlength="50" required="true"/>
+                        <h:inputText styleClass="form-control" value="#{userForm.user.lastName}" id="lastName" maxlength="50"/>
                         <p:message for="lastName"/>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
-                        <h:inputText styleClass="form-control" value="#{userForm.user.email}" id="email" required="true">
+                        <h:inputText styleClass="form-control" value="#{userForm.user.email}" id="email" >
                             <!-- Ref.: http://stackoverflow.com/questions/7875108/email-validation-using-regular-expression-in-jsf-2-primefaces -->
                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                             <!--f:validator validatorId="org.apache.myfaces.validator.Email"/-->
@@ -104,7 +104,7 @@
 
                 <div class="form-group">
                     <h:outputLabel styleClass="control-label" for="website" value="#{text['user.website']}"/>
-                    <h:inputText styleClass="form-control" value="#{userForm.user.website}" id="website" required="true"/>
+                    <h:inputText styleClass="form-control" value="#{userForm.user.website}" id="website"/>
                     <p:message for="website"/>
                 </div>
 

@@ -20,7 +20,21 @@
                             <p:growl id="msgs" showDetail="true" sticky="true" />
                         </div>
 
-                        <p:remoteCommand name="onRowEdit" update="necesidades" />
+                        <p:ajaxStatus onstart="PF('statusDialog').show();"
+                                      oncomplete="PF('statusDialog').hide();"
+                                      onerror="alert('Error procesando. Intente nuevamente por favor!');" />
+
+                        <p:dialog widgetVar="statusDialog" modal="true">
+                            <h:form prependId="false">
+                                <p:outputLabel value="Cargando..." style="display: block; margin: 10px;" />
+                                <p:graphicImage library="images/icones" name="glow-ring.gif" />
+                                <p:outputLabel value="Espere por favor!" style="display: block; margin: 10px;" />
+                            </h:form>
+                        </p:dialog>
+
+                        <p:remoteCommand name="onRowEdit" update="necesidades"  process="@this" immediate="true"
+                                         onstart="PF('statusDialog').show();"
+                                         oncomplete="PF('statusDialog').hide();"/>
                         <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesNoFinalizadasList}"
                                      sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
                                      paginator="true" rows="25"
@@ -170,4 +184,5 @@
 
     </ui:define>
 </ui:composition>
+
 </html>

@@ -12,6 +12,7 @@ import com.gestion.service.NecesidadManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.mail.MailException;
@@ -66,6 +67,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     private Actividad actividad = new Actividad();
     private boolean changePrioridad = false;
     private List<Necesidad> selectedNecesidades;
+    private List<Necesidad> necesidadesCreadasPorCantidadPintada = new ArrayList<>();
 
     public String getPrioridad() {
         return prioridad;
@@ -228,6 +230,8 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
                 necesidadDiferencia.setFechaControlProduccion(necesidad.getFechaControlProduccion());
                 necesidadDiferencia.setFechaCreacion(new Date());
                 necesidadDiferencia.setProducto(necesidad.getProducto());
+                List<Estado> estados = new ArrayList<>(necesidad.getEstados());
+                necesidadDiferencia.setEstados(estados);
             }
             this.necesidad.setCantidadPintada(necesidad.getCantidadPintada());
         }
@@ -289,14 +293,17 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
 
         //guardamos el cambio
         necesidadManager.saveNecesidad(necesidad);
-        if (necesidadDiferencia != null) {
-            necesidadManager.saveNecesidad(necesidadDiferencia);
+        if (necesidadDiferencia != null && !necesidadesCreadasPorCantidadPintada.contains(necesidadDiferencia)) {
+            necesidadDiferencia = necesidadManager.saveNecesidad(necesidadDiferencia);
+            this.getNecesidadesNoFinalizadasList().add(necesidadDiferencia);
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
+
+
         this.buscarNecesidadLista(this.getNecesidadesNoFinalizadasList(), this.getNecesidad());
 
-        if (isChangePrioridad()) {
+        if (isChangePrioridad() || necesidadDiferencia != null) {
             //si se cambio la prioridad reordenamos
             this.setNecesidadesNoFinalizadasList(sort(this.getNecesidadesNoFinalizadasList()));
         }
@@ -390,14 +397,12 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     public String controlarNecesidades() {
         Estado estado = estadoManager.getEstadoByCodigo(Constants.PINTURA_CONTROLADO);
         for (Necesidad necesidad : selectedNecesidades) {
-            if (Constants.FINALIZADO.equals(necesidad.getEstadoPintado())) {
                 necesidad.setFinalizado(true);
                 necesidad.setFechaFinalizacion(new Date());
                 necesidad.setFechaControlPintado(new Date());
                 necesidad.setEstadoPintado(Constants.PINTURA_CONTROLADO);
                 necesidad.getEstados().add(estado);
                 necesidadManager.saveNecesidad(necesidad);
-            }
         }
         this.setNecesidadesNoFinalizadasList(sort(necesidadManager.getNecesidadesNoFinalizadas()));
         return "success";
