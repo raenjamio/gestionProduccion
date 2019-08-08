@@ -27,14 +27,30 @@
                         <p:dialog widgetVar="statusDialog" modal="true">
                             <h:form prependId="false">
                                 <p:outputLabel value="Cargando..." style="display: block; margin: 10px;" />
-                                <p:graphicImage library="images/icones" name="glow-ring.gif" />
+                                <h:graphicImage url="/images/icones/30.gif" />
                                 <p:outputLabel value="Espere por favor!" style="display: block; margin: 10px;" />
                             </h:form>
                         </p:dialog>
 
-                        <p:remoteCommand name="onRowEdit" update="necesidades"  process="@this" immediate="true"
+                        <p:remoteCommand name="onRowEdit"
+                                         update=":formPlanificacion:necesidades:estadoSoldaduraOutput
+                                         :formPlanificacion:necesidades:estadoPintadoOutput
+                                         :formPlanificacion:necesidades:estadoProduccionOutput
+                                         :formPlanificacion:necesidades:prioridadOutput
+                                         :formPlanificacion:necesidades:cantidadPintadaOutput
+                                         necesidades"
+                                         process="@this" immediate="true"
                                          onstart="PF('statusDialog').show();"
-                                         oncomplete="PF('statusDialog').hide();"/>
+                                         oncomplete="PF('statusDialog').hide();" />
+
+                        <p:remoteCommand name="onRowCancel"
+                                         update=":formPlanificacion:necesidades:estadoSoldaduraOutput
+                                         :formPlanificacion:necesidades:estadoPintadoOutput
+                                         :formPlanificacion:necesidades:estadoProduccionOutput
+                                         :formPlanificacion:necesidades:prioridadOutput
+                                         :formPlanificacion:necesidades:cantidadPintadaOutput
+                                         necesidades" process="@this" immediate="true"/>
+
                         <p:dataTable id="necesidades" var="necesidad" value="#{dtEditPlanificacionForm.necesidadesNoFinalizadasList}"
                                      sortBy="#{dtEditPlanificacionForm.sortColumn}" paginatorPosition="bottom"  editable="true" style="margin-bottom:20px"
                                      paginator="true" rows="25"
@@ -44,7 +60,7 @@
                                      rowsPerPageTemplate="15,25,50">
 
                             <p:ajax event="rowEdit" listener="#{dtEditPlanificacionForm.onRowEdit}" oncomplete="onRowEdit();" update=":formPlanificacion:msgs" process="necesidades" />
-                            <p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{dtEditPlanificacionForm.onRowCancel}" update=":formPlanificacion:msgs" oncomplete="onRowCancel()"/>
                             <p:ajax event="cellEdit" listener="#{dtEditPlanificacionForm.onCellEdit}" update=":formPlanificacion:msgs" />
 
                             <f:facet name="{Exporters}">
@@ -59,7 +75,7 @@
 
                             <p:column style="width: 25%" headerText="#{text['necesidad.prioridad']}" sortBy="#{necesidad.prioridad}" >
                                 <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{necesidad.prioridad}" /></f:facet>
+                                    <f:facet name="output"><h:outputText id="prioridadOutput"  value="#{necesidad.prioridad}" /></f:facet>
                                     <f:facet name="input"><p:inputText id="modelInput" value="#{dtEditPlanificacionForm.prioridad}" style="width:60%"/>
                                     </f:facet>
                                 </p:cellEditor>
@@ -91,7 +107,7 @@
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <div id="#{necesidad.createStyleProduccion()}" >
-                                            <h:outputText value="#{necesidad.estadoProduccion}" />
+                                            <h:outputText id="estadoProduccionOutput"  value="#{necesidad.estadoProduccion}" />
                                         </div>
                                     </f:facet>
                                     <f:facet name="input">
@@ -105,13 +121,13 @@
                                 <h:outputText value="#{necesidad.estadoProduccion}" >
                                 </h:outputText>
                             </p:column>
-                            <!-- estados -->
-                            <p:column exportable="false" style="width: 55%" headerText="#{text['estado.soldado']}"
+                            <!-- estados-->
+                            <p:column id="estadoSoldadura" exportable="false" style="width: 55%" headerText="#{text['estado.soldado']}"
                                       filterBy="#{necesidad.estadoSoldadura}" filterMatchMode="contains">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <div id="#{necesidad.createStyleSoldadura()}" >
-                                            <h:outputText value="#{necesidad.estadoSoldadura}" />
+                                            <h:outputText id="estadoSoldaduraOutput" value="#{necesidad.estadoSoldadura}" />
                                         </div>
                                     </f:facet>
                                     <f:facet name="input">
@@ -121,22 +137,24 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+
+                            <!--
                             <p:column  style="width: 38%; display:none" headerText="#{text['estado.soldado']}" >
                                 <h:outputText value="#{necesidad.estadoSoldadura}" >
                                 </h:outputText>
                             </p:column>
-
+                              -->
                             <p:column exportable="false" style="width: 55%" headerText="#{text['estado.pintado']}"
                                       filterBy="#{necesidad.estadoPintado}" filterMatchMode="contains">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <div id="#{necesidad.createStylePintado()}">
-                                            <h:outputText value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
+                                            <h:outputText id="estadoPintadoOutput" value="#{necesidad.estadoPintado}" styleClass="#{necesidad.createStylePintado()}"/>
                                         </div>
                                     </f:facet>
                                     <f:facet name="input">
                                         <h:selectOneMenu value="#{dtEditPlanificacionForm.codEstado}" style="width:100%"
-                                                         disabled="#{necesidad.estadoSoldadura ne 'Finalizado'}">
+                                                         >
                                             <f:selectItems value="#{estadoForm.estadosDisponiblesPintura}"/>
                                         </h:selectOneMenu>
                                     </f:facet>
@@ -149,7 +167,7 @@
 
                             <p:column style="width: 26%" headerText="#{text['necesidad.cantidad.pintada']}">
                                 <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{necesidad.cantidadPintada}" /></f:facet>
+                                    <f:facet name="output"><h:outputText id="cantidadPintadaOutput" value="#{necesidad.cantidadPintada}" /></f:facet>
                                     <f:facet name="input">
                                         <p:inputText disabled="#{necesidad.cantidadPintada ne null and  necesidad.estadoPintado ne null }" id="modelInputCantidadPintada"
                                                      value="#{necesidad.cantidadPintada}" style="width:60%"/>
@@ -158,7 +176,7 @@
                             </p:column>
 
                             <p:column exportable="false"  style="width:32px">
-                                <p:rowEditor/>
+                                <p:rowEditor />
                             </p:column>
 
                             <f:facet name="footer">

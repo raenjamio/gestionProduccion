@@ -13,6 +13,7 @@ import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
 
 import org.apache.commons.lang.SerializationUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.mail.MailException;
@@ -243,6 +244,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
             if (isNumeric(prioridad)) {
                 actividad.setDescripcion("Se modifico prioridad: " + necesidad.getPrioridad() + " por : " + this.prioridad);
                 this.necesidad.setPrioridad(new Long(this.prioridad));
+                necesidad.setPrioridad(new Long(this.prioridad));
                 actividad.setRolUser(getRequest().getRemoteUser());
                 actividad.setNecesidad(necesidad);
                 actividad.setFechaCreacion(new Date());
@@ -307,7 +309,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
             //si se cambio la prioridad reordenamos
             this.setNecesidadesNoFinalizadasList(sort(this.getNecesidadesNoFinalizadasList()));
         }
-
+        setCodEstado("");
         //necesidades = getNecesidadesNoFinalizadas();
         context.addMessage(null, new FacesMessage("Producto editado", "Se cambio de estado y/o prioridad"));
     }
@@ -406,5 +408,9 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
         }
         this.setNecesidadesNoFinalizadasList(sort(necesidadManager.getNecesidadesNoFinalizadas()));
         return "success";
+    }
+
+    public void updateEstados() {
+        RequestContext.getCurrentInstance().update(":formPlanificacion:necesidades:estadoSoldaduraOutput");
     }
 }
