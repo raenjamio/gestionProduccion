@@ -1,6 +1,7 @@
 package com.gestion.service.impl;
 
 import com.gestion.Constants;
+import org.apache.logging.log4j.util.Strings;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -206,10 +207,13 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 							//producto.getNecesidades().setCantidad(faltante);
 							while (iNecesidades.hasNext()) {
 								Necesidad _necesidad = (Necesidad) iNecesidades.next();
-								if (!(_necesidad.getEstadoProduccion().equals(Constants.FINALIZADO) ||
-										_necesidad.getEstadoSoldadura().equals(Constants.FINALIZADO) ||
-										_necesidad.getEstadoPintado().equals(Constants.FINALIZADO))) {
+								if (!_necesidad.getFinalizado()) {
 									necesidad = _necesidad; //si existe una necesidad sin terminar la actualizo
+									necesidad.setEstadoProduccion(Strings.EMPTY);
+									necesidad.setEstadoSoldadura(Strings.EMPTY);
+									necesidad.setEstadoPintado(Strings.EMPTY);
+									necesidad.setCantidadPintada(null);
+									break;
 								}
 							}
 							//si no existe ninguna necesidad sin terminar la creo

@@ -56,6 +56,9 @@ public class Necesidad extends BaseObject implements Serializable {
 	private Date fechaControlPintado;
 	private List<Actividad> actividades = new ArrayList<Actividad>();
 	private Integer cantidadPintada;
+	private String estadoProduccion;
+	private String estadoSoldadura;
+	private String estadoPintado;
 	
 
     @Id  
@@ -236,98 +239,128 @@ public class Necesidad extends BaseObject implements Serializable {
 	}*/
 
 	public String getEstadoProduccion() {
-		Iterator<Estado> estadosI = this.getEstados().iterator();
-		String codEstado = "";
-		
-		while(estadosI.hasNext()) {
-	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PRODUCCION_CONTROLADO)){
-	        	 return Constants.CONTROLADO;
-	         } 
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PRODUCCION_FINALIZADO)){
-	        	 codEstado = Constants.FINALIZADO;
-	         }
-	         
-	    }
-		return codEstado;
+		return estadoProduccion;
 	}
-	
-	public String getEstadoPintado() {
-		Iterator<Estado> estadosI = this.getEstados().iterator();
-		String codEstado = "";
-		
-		while(estadosI.hasNext()) {
-	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)){
-	        	 return Constants.CONTROLADO;
-	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
-	        	 codEstado = Constants.FINALIZADO;
-	         }
-	         
-	    }
-		return codEstado;
+
+	public void setEstadoProduccion(String estadoProduccion) {
+		this.estadoProduccion = estadoProduccion;
 	}
-	
+
 	public String getEstadoSoldadura() {
-		Iterator<Estado> estadosI = this.getEstados().iterator();
-		String codEstado = "";
-		while(estadosI.hasNext()) {
-	         Estado estado = estadosI.next();
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)){
-	        	 return Constants.CONTROLADO;
-	         }
-	         if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)){
-	        	 codEstado = Constants.FINALIZADO;
-	         }
-	        
-	    }
-		return codEstado;
+		return estadoSoldadura;
 	}
 
-	public void setEstadoPintado(String codigo) {
-		//hay q ver que se selecciono
-		//private EstadoManager estadoManager;
-		Estado estado = null;// = estadoManager.getEstado(codigo);
-		if (estado != null) {
-			if (estado.getCodigo().contains("FIN")) {
-				this.setFinalizado(true);
-				this.setFechaFinalizacion(new Date());
-			}
-
-			this.getEstados().add(estado);
-		}
+	public void setEstadoSoldadura(String estadoSoldadura) {
+		this.estadoSoldadura = estadoSoldadura;
 	}
 
-	public void setEstadoSoldadura(String codigo) {
-		//hay q ver que se selecciono
-		Estado estado = null;//= estadoManager.getEstado(codigo);
-		if (estado != null) {
-			if (estado.getCodigo().contains("FIN")) {
-				this.setFinalizado(true);
-				this.setFechaFinalizacion(new Date());
-			}
-			this.getEstados().add(estado);
-		}
-		
+	public String getEstadoPintado() {
+		return estadoPintado;
 	}
 
-	public void setEstadoProduccion (String codigo) {
-		//hay q ver que se selecciono
-		Estado estado = null;//= estadoManager.getEstado(codigo);
-		if (estado != null) {
-			//si el codigo incluye FIN es que es un estado de finalizado
-			if (estado.getCodigo().contains("FIN")) {
-				this.setFinalizado(true);
-				this.setFechaFinalizacion(new Date());
-			}
-			this.getEstados().add(estado);
-		}
-		
+	public void setEstadoPintado(String estadoPintado) {
+		this.estadoPintado = estadoPintado;
 	}
-	
+
+	/*
+        public String getEstadoProduccion() {
+            Iterator<Estado> estadosI = this.getEstados().iterator();
+            String codEstado = "";
+
+            while(estadosI.hasNext()) {
+                 Estado estado = estadosI.next();
+                 if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PRODUCCION_CONTROLADO)){
+                     return Constants.CONTROLADO;
+                 }
+                 if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PRODUCCION_FINALIZADO)){
+                     codEstado = Constants.FINALIZADO;
+                 }
+
+            }
+            return codEstado;
+        }
+
+        public String getEstadoPintado() {
+            Iterator<Estado> estadosI = this.getEstados().iterator();
+            String codEstado = "";
+
+            while(estadosI.hasNext()) {
+                 Estado estado = estadosI.next();
+                 if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_CONTROLADO)){
+                     return Constants.CONTROLADO;
+                 }
+                 if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.PINTURA_FINALIZADO)){
+                     codEstado = Constants.FINALIZADO;
+                 }
+
+            }
+            return codEstado;
+        }
+
+        public String getEstadoSoldadura() {
+            Iterator<Estado> estadosI = this.getEstados().iterator();
+            String codEstado = "";
+            while(estadosI.hasNext()) {
+                 Estado estado = estadosI.next();
+                 if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_CONTROLADO)){
+                     return Constants.CONTROLADO;
+                 }
+                 if (estado.getCodigo() != null && estado.getCodigo().equals(Constants.SOLDADO_FINALIZADO)){
+                     codEstado = Constants.FINALIZADO;
+                 }
+
+            }
+            return codEstado;
+        }
+
+        public void setEstadoPintado(String codigo) {
+            //hay q ver que se selecciono
+            //private EstadoManager estadoManager;
+            Estado estado = null;// = estadoManager.getEstado(codigo);
+            if (estado != null) {
+                if (estado.getCodigo().contains("FIN")) {
+                    this.setFinalizado(true);
+                    this.setFechaFinalizacion(new Date());
+                }
+
+                this.getEstados().add(estado);
+            }
+        }
+
+        public void setEstadoSoldadura(String codigo) {
+            //hay q ver que se selecciono
+            Estado estado = null;//= estadoManager.getEstado(codigo);
+            if (estado != null) {
+                if (estado.getCodigo().contains("FIN")) {
+                    this.setFinalizado(true);
+                    this.setFechaFinalizacion(new Date());
+                }
+                this.getEstados().add(estado);
+            }
+
+        }
+
+        public void setEstadoProduccion (String codigo) {
+            //hay q ver que se selecciono
+            Estado estado = null;//= estadoManager.getEstado(codigo);
+            if (estado != null) {
+                //si el codigo incluye FIN es que es un estado de finalizado
+                if (estado.getCodigo().contains("FIN")) {
+                    this.setFinalizado(true);
+                    this.setFechaFinalizacion(new Date());
+                }
+                this.getEstados().add(estado);
+            }
+
+        }
+        */
 	public String createStyleSoldadura(){
 		String estado = getEstadoSoldadura();
+
+
+		if (estado == null) {
+			return "DEFAULT";
+		}
 		
 	    switch (estado){
 	    case Constants.FINALIZADO:
@@ -341,6 +374,11 @@ public class Necesidad extends BaseObject implements Serializable {
 
 	public String createStylePintado(){
 		String estado = getEstadoPintado();
+
+
+		if (estado == null) {
+			return "DEFAULT";
+		}
 		
 	    switch (estado){
 	    case Constants.FINALIZADO:
@@ -354,7 +392,11 @@ public class Necesidad extends BaseObject implements Serializable {
 	
 	public String createStyleProduccion(){
 		String estado = getEstadoProduccion();
-		
+
+		if (estado == null) {
+			return "DEFAULT";
+		}
+
 	    switch (estado){
 	    case Constants.FINALIZADO:
 	        return "outputEstadoAzul";

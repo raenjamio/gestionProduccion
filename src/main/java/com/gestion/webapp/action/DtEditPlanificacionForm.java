@@ -12,6 +12,10 @@ import com.gestion.service.NecesidadManager;
 import com.gestion.util.ConvertUtil;
 import com.gestion.webapp.util.RequestUtil;
 
+import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Ordering;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.SerializationUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
@@ -33,11 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.faces.component.UIData;
 
@@ -69,6 +69,24 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     private boolean changePrioridad = false;
     private List<Necesidad> selectedNecesidades;
     private List<Necesidad> necesidadesCreadasPorCantidadPintada = new ArrayList<>();
+    private String estadoProduccion;
+    private String cantidadPintada;
+
+    public String getCantidadPintada() {
+        return cantidadPintada;
+    }
+
+    public void setCantidadPintada(String cantidadPintada) {
+        this.cantidadPintada = cantidadPintada;
+    }
+
+    public String getEstadoProduccion() {
+        return estadoProduccion;
+    }
+
+    public void setEstadoProduccion(String estadoProduccion) {
+        this.estadoProduccion = estadoProduccion;
+    }
 
     public String getPrioridad() {
         return prioridad;
@@ -83,7 +101,10 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
     }
 
     public void setCodEstado(String codEstado) {
-        if (codEstado != null) {
+        if (codEstado != null && !codEstado.equals("") && (this.codEstado != null && !this.codEstado.equals("") || this.codEstado == null)) {
+            this.codEstado = codEstado;
+        }
+        else if (codEstado == null) {
             this.codEstado = codEstado;
         }
     }
@@ -217,7 +238,11 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
         Necesidad necesidad = (Necesidad) event.getObject();
         this.necesidad = necesidadManager.getNecesidad(necesidad.getId().toString());
 
-        if (necesidad.getCantidadPintada() != null) {
+        if (this.cantidadPintada != null && isNumeric(cantidadPintada)  && !"".equals(this.cantidadPintada)){
+            necesidad.setCantidadPintada(new Integer(this.cantidadPintada));
+        }
+
+        if (necesidad.getCantidadPintada() != null && necesidad.getCantidadPintada() > 0) {
             if (necesidad.getCantidadPintada() > necesidad.getCantidad()) {
                 necesidad.setCantidadPintada(necesidad.getCantidad());
             }
@@ -293,9 +318,15 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
             }
         }
 
+        if (Constants.CONTROLADO.equals(necesidad.getEstadoPintado())) {
+            necesidad.setFinalizado(true);
+            necesidad.setFechaFinalizacion(new Date());
+            necesidad.setFechaControlPintado(new Date());
+        }
+
         //guardamos el cambio
         necesidadManager.saveNecesidad(necesidad);
-        if (necesidadDiferencia != null && !necesidadesCreadasPorCantidadPintada.contains(necesidadDiferencia)) {
+        if (necesidadDiferencia != null && !existeNecesidadEn(this.getNecesidadesNoFinalizadasList(), necesidadDiferencia)) {
             necesidadDiferencia = necesidadManager.saveNecesidad(necesidadDiferencia);
             this.getNecesidadesNoFinalizadasList().add(necesidadDiferencia);
         }
@@ -303,29 +334,55 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
 
-        this.buscarNecesidadLista(this.getNecesidadesNoFinalizadasList(), this.getNecesidad());
+        this.buscarNecesidadLista(this.getNecesidadesNoFinalizadasList(), necesidad);
 
-        if (isChangePrioridad() || necesidadDiferencia != null) {
+        if (necesidad.getPrioridad() != null || necesidadDiferencia != null) {
             //si se cambio la prioridad reordenamos
-            this.setNecesidadesNoFinalizadasList(sort(this.getNecesidadesNoFinalizadasList()));
+            //this.setNecesidadesNoFinalizadasList(sort(this.getNecesidadesNoFinalizadasList()));
+            Collections.sort(getNecesidadesNoFinalizadasList(), new Comparator<Necesidad>() {
+                @Override
+                public int compare(Necesidad p1, Necesidad p2) {
+                    return ComparisonChain.start()
+                       .compare(p1.getPrioridad(), p2.getPrioridad(), Ordering.natural().nullsLast())
+                       .compare(p1.getProducto().getCodigo(), p2.getProducto().getCodigo(), Ordering.natural().nullsLast())
+                       .result();
+                }
+            });
         }
-        setCodEstado("");
+        setCodEstado(null);
+        setPrioridad(null);
+        setCantidadPintada(null);
         //necesidades = getNecesidadesNoFinalizadas();
         context.addMessage(null, new FacesMessage("Producto editado", "Se cambio de estado y/o prioridad"));
+    }
+
+    private boolean existeNecesidadEn(List<Necesidad> necesidadesNoFinalizadasList, Necesidad necesidadDiferencia) {
+        boolean exist = false;
+        for (Necesidad necesidad: necesidadesNoFinalizadasList) {
+            if (necesidad.getProducto().getCodigo() != null && necesidadDiferencia.getProducto().getCodigo() != null &&
+            necesidad.getProducto().getCodigo().equals(necesidadDiferencia.getProducto().getCodigo())) {
+                if (necesidad.getCantidad() != null && necesidadDiferencia.getCantidad() != null
+                        && necesidad.getCantidad().compareTo(necesidadDiferencia.getCantidad()) == 0){
+                    exist = true;
+                }
+            }
+        }
+        return exist;
     }
 
     //busco la necesidad de la tabla para actualizarla y no tener que cargar toda la tabla
     private void buscarNecesidadLista(List<Necesidad> necesidadesNoFinalizadasList2, Necesidad necesidad2) {
         for (Necesidad necesidad : necesidadesNoFinalizadasList2) {
-            if (necesidad.equals(necesidad2)) {
+            if   (necesidad.equals(necesidad2)) {
                 if (necesidad2.getFinalizado()) {
                     //si esta finalizado lo eliminamos de la coleccion sino se sigue viendo en pantalla
                     necesidadesNoFinalizadasList2.remove(necesidad2);
                     break;
                 }
                 necesidad.setPrioridad(necesidad2.getPrioridad());
-                necesidad.setEstadoProduccion(necesidad2.getEstadoProduccion());
+                necesidad.setEstadoProduccion(necesidad2.   getEstadoProduccion());
                 necesidad.setEstadoPintado(necesidad2.getEstadoPintado());
+                necesidad.setEstadoSoldadura(necesidad2.getEstadoSoldadura());
                 necesidad.setEstados(necesidad2.getEstados());
                 break;
             }
@@ -402,7 +459,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
                 necesidad.setFinalizado(true);
                 necesidad.setFechaFinalizacion(new Date());
                 necesidad.setFechaControlPintado(new Date());
-                necesidad.setEstadoPintado(Constants.PINTURA_CONTROLADO);
+                necesidad.setEstadoPintado(Constants.CONTROLADO);
                 necesidad.getEstados().add(estado);
                 necesidadManager.saveNecesidad(necesidad);
         }

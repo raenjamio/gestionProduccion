@@ -1503,6 +1503,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: regexp:regexp:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:jcl-over-slf4j:1.7.7" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" name="Maven: org.appfuse:appfuse-service:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.1" level="project" />

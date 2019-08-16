@@ -30,17 +30,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ValidationException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * JSF Page class to handle editing a user with a form.
@@ -107,8 +103,11 @@ public class FileNecesidadesForm extends BasePage implements Serializable {
 		this.fileUploadHead = fileUploadHead;
 	}
 
-	public String importar(){
+	public String importar() throws ValidationException {
 		fileUploadHead.setFechaImpo(new Date());
+		if ( file == null) {
+			throw new ValidationException("No se pudo leer el archivo ");
+		}
 		fileUploadHead.setNombreArchivo(file.getFileName());
 		fileUploadHead.setUsuario(getRequest().getRemoteUser()); 
 		FacesContext context = FacesContext.getCurrentInstance();
