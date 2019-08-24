@@ -350,7 +350,7 @@ public class DtEditPlanificacionForm extends BasePage implements Serializable {
             });
         }
         setCodEstado(null);
-        setPrioridad(null);
+        //setPrioridad(null);
         setCantidadPintada(null);
         //necesidades = getNecesidadesNoFinalizadas();
         context.addMessage(null, new FacesMessage("Producto editado", "Se cambio de estado y/o prioridad"));
