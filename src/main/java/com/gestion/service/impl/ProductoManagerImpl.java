@@ -181,11 +181,20 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 								
 								HSSFCell faltanteCell = hssfRow.getCell(2);
 								Integer faltante = (int) faltanteCell.getNumericCellValue();
+
+								HSSFCell prioridadCell = hssfRow.getCell(3);
+								Long prioridad = null;
+								if (prioridadCell != null) {
+									prioridad = (long) prioridadCell.getNumericCellValue();
+								}
 								
 								necesidad.setCantidad(faltante);
 								necesidad.setFechaCreacion(new Date());
 								necesidad.setFinalizado(false);
 								necesidad.setProducto(producto);
+								if (prioridad != null) {
+									necesidad.setPrioridad(prioridad);
+								}
 								//producto.setNecesidad(necesidad);
 								necesidades.add(necesidad);
 								producto.setNecesidades(necesidades);
@@ -202,6 +211,12 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 							//actualizamos cantidad
 							HSSFCell faltanteCell = hssfRow.getCell(2);
 							Integer faltante = (int) faltanteCell.getNumericCellValue();
+
+							HSSFCell prioridadCell = hssfRow.getCell(3);
+							Long prioridad = null;
+							if (prioridadCell != null) {
+								prioridad = (long) prioridadCell.getNumericCellValue();
+							}
 							
 							Iterator iNecesidades = producto.getNecesidades().iterator();
 							//producto.getNecesidades().setCantidad(faltante);
@@ -213,6 +228,9 @@ public class ProductoManagerImpl extends GenericManagerImpl<Producto, Long> impl
 									necesidad.setEstadoSoldadura(Strings.EMPTY);
 									necesidad.setEstadoPintado(Strings.EMPTY);
 									necesidad.setCantidadPintada(null);
+									if (prioridad != null) {
+										necesidad.setPrioridad(prioridad);
+									}
 									break;
 								}
 							}
